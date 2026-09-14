@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
 export class ChallengeCompleted {
 
   xp = 50;
-  difficulty = 'Fácil';
+  difficulty = 'Easy';
 
   nextChallenge(): void {
-    console.log('Indo para o próximo desafio...');
+    console.log('Getting the next challenge...');
   }
 
   back(): void {

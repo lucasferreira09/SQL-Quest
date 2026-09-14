@@ -9,8 +9,13 @@ import { Component } from '@angular/core';
 
 export class HomeScreen {
 
+  playButton = 'Play';
+  optionsButton = 'Options'
+  exitButton = 'Exit'
+
+
    play(): void {
-    console.log('Jogar');
+    console.log('Play');
   }
 
   options(): void {

@@ -25,6 +25,64 @@ export class ChallengesCopy {
 
     {
       id: '1',
+      title: 'First request',
+      difficulty: 'Easy',
+      description: 'Learn how to do your first request using SELECT',
+      glowColor: 'rgba(94, 255, 0, 0.85)',
+      glowColorStrong: 'rgba(94, 255, 0, 0.70)'
+    },
+
+    {
+      id: '2',
+      title: 'Selecting data',
+      difficulty: 'Easy',
+      description: 'Practice how to select differents table fields.',
+      glowColor: 'rgba(99, 49, 2, 0.85)',
+      glowColorStrong: 'rgba(99, 49, 2, 0.70)'
+    },
+
+    {
+      id: '3',
+      title: 'Filtering results',
+      difficulty: 'Easy',
+      description: 'Use WHERE to find specific data',
+      glowColor: 'rgba(31, 237, 252, 0.85)',
+      glowColorStrong: 'rgba(31, 237, 252, 0.70)'
+    },
+
+    {
+      id: '4',
+      title: 'Ordering results',
+      difficulty: 'Medium',
+      description: 'Learn how to organize data results using ORDER BY',
+      glowColor: 'rgb(0, 80, 49)',
+      glowColorStrong: 'rgb(0, 80, 49)'
+    },
+
+    {
+      id: '5',
+      title: 'Grouping data',
+      difficulty: 'Medium',
+      description: 'Use GROUP BY to group table informations',
+      glowColor: '#389bf8',
+      glowColorStrong: '#389bf8'
+    },
+
+    {
+      id: '6',
+      title: 'Table relations',
+      difficulty: 'Medium',
+      description: 'Use JOIN to combine information of different tables',
+      glowColor: '#fc7608',
+      glowColorStrong: '#fc7608'
+    },
+
+  ];
+
+  challengesPT: Challenge[] = [
+
+    {
+      id: '1',
       title: 'Primeira consulta',
       difficulty: 'Fácil',
       description: 'Aprenda a realizar sua primeira consulta utilizando SELECT.',

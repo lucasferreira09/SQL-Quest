@@ -18,14 +18,13 @@
     <main class="failure">
 
       <div class="fail-icon">
-        <img src="/assets/challenge_failed.png" alt="Desafio não concluído">
+        <img src="/assets/challenge_failed.png" alt="Challenge failed">
       </div>
 
-      <h1>Ops! Algo deu errado</h1>
+      <h1>Ops! Something went wrong</h1>
 
 
-      <p class="message">
-        Sua consulta não retornou o resultado esperado.
+      <p class="message">{{messageFailed}}
       </p>
 
 
@@ -52,7 +51,7 @@
           (click)="tryAgain()">
 
           <span class="retry-icon">↻</span>
-          <span>Tentar novamente</span>
+          <span>Try again</span>
         </button>
 
         <button class="tips-button"
@@ -60,7 +59,7 @@
           (click)="showTips()">
           
           <span class="tips-icon"></span>
-          <span>Ver dicas</span>
+          <span>See Tips</span>
         </button>
 
       </div>
