@@ -1,0 +1,97 @@
+<div class="challenges-container">
+
+  <div class="background"></div>
+
+  <div class="challenges-content">
+
+    <div class="top-bar">
+
+      <button class="back-button"
+        type="button"
+        (click)="back()">
+
+        <img
+          src="/assets/back22.png"
+          alt="Voltar">
+
+        <span>Back</span>
+
+      </button>
+
+      <div class="progress">
+
+        <span>
+          {{ progress }} Done
+        </span>
+
+        <img src="/assets/progress.png" alt="Progresso">
+
+      </div>
+
+    </div>
+
+
+    <div class="challenge-grid">
+
+      <button
+        *ngFor="let challenge of challenges"
+        class="challenge"
+        type="button"
+        [class.selected]="selectedChallenge.id === challenge.id"
+        [style.filter]="getChallengeFilter(challenge)"
+
+        (mouseenter)="hoveredChallenge = challenge"
+        (mouseleave)="hoveredChallenge = null"
+        (click)="selectChallenge(challenge)">
+
+        <img
+          [src]="'/assets/challenges/challenge' + challenge.id + '.png'"
+          [alt]="'Desafio ' + challenge.id"
+        >
+      </button>
+
+    </div>
+
+
+    <div class="challenge-panel">
+
+      <img
+        class="panel-background"
+        src="/assets/aaaaaa.png"
+        alt="">
+
+
+      <div class="panel-content">
+
+        <div class="challenge-description">
+
+          <h2>
+            {{ selectedChallenge.title }}
+          </h2>
+        
+          <p>
+            {{ selectedChallenge.description }}
+          </p>
+
+        </div>
+
+
+        <div class="start-session">
+          <h3>
+            {{ selectedChallenge.difficulty }}
+          </h3>
+
+          <button class="start-button"
+              type="button"
+              (click)="startChallenge()">Começar
+          </button>
+
+        </div>
+       
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

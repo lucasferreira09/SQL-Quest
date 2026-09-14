@@ -1,0 +1,379 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.failed-container {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-image: url('/assets/challenge_c.png');
+
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(3px);
+
+  transform: scale(1.02);
+
+  z-index: 0;
+}
+
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 5, 30, 0.48);
+
+  z-index: 1;
+}
+
+.failed-content {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+}
+
+.back-button {
+  position: relative;
+  left: 0;
+  top: 0;
+
+
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #ffffff;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.70))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.back-button img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.back-button:hover {
+  transform: translateX(-4px);
+}
+
+.failure {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  gap: 4px;
+
+  transform: translate(-50%, -50%);
+
+  width: min(600px, 90%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.fail-icon {
+  width: 250px;
+  height: 250px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 5px;
+}
+
+.fail-icon img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 50, 90, 0.85))
+    drop-shadow(0 0 20px rgba(255, 30, 70, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+
+.failure h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 40px;
+  font-weight: 800;
+  font-family: 'Godofwar', sans-serif;
+
+  text-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.6);
+}
+
+
+.message {
+  margin: 5px 0 25px;
+
+  color: #ffffff;
+
+  font-size: 25px;
+  font-weight: 500;
+  font-family: 'Godofwar', sans-serif;
+
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+.tip-panel {
+  width: 100%;
+
+  min-height: 100px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 18px 22px;
+
+  border-radius: 15px;
+
+  font-family: 'Godofwar', sans-serif;
+
+  background: rgba(5, 35, 90, 0.78);
+
+  border: 2px solid rgba(255, 30, 70, 0.55);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.30),
+    inset 0 0 15px rgba(30, 100, 200, 0.15);
+
+  backdrop-filter: blur(5px);
+
+  text-align: left;
+}
+
+
+.tip-icon {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-icon img {
+  width: 60px;
+  height: 60px;
+
+  object-fit: contain;
+}
+
+
+.tip-content {
+  flex: 1;
+
+  font-size: 20px;
+  margin-left: 12px;
+}
+
+.tip-content h2 {
+  margin: 0 0 3px;
+
+  color: #ffffff;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.tip-content p {
+  margin: 0;
+
+  color: #d9e7ff;
+
+  font-family: 'Godofwar', sans-serif;
+  line-height: 1.35;
+}
+
+.actions {
+  width: 100%;
+
+  display: flex;
+
+  gap: 18px;
+
+  
+  margin-top: 25px;
+}
+
+.retry-button,
+.tips-button {
+  flex: 1;
+
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border-radius: 14px;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.tips-button img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.retry-button {
+  border: 2px solid rgba(255, 30, 70, 0.55);
+  background: rgba(3, 25, 70, 0.75);
+
+  
+  color: #ffffff;
+}
+
+.retry-button:hover {
+  background: rgba(255, 30, 70, 0.55);
+  border: 2px solid black;
+  transform: translateY(-2px);
+  
+  filter:
+    drop-shadow(0 0 8px rgba(255, 50, 90, 0.85))
+    drop-shadow(0 0 20px rgba(255, 30, 70, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.tips-button {
+  border: none;
+
+  background: rgba(255, 30, 70, 0.80);
+
+  color: #ffffff;
+}
+
+.tips-button:hover {
+  background: rgba(255, 30, 70, 0.80);
+
+  transform: translateY(-2px);
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 50, 90, 0.85))
+    drop-shadow(0 0 20px rgba(255, 30, 70, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.retry-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.tips-icon {
+  font-size: 25px;
+  line-height: 1;
+}
+
+
+@media (max-width: 700px) {
+
+  .back-button {
+    top: 20px;
+    left: 20px;
+
+    font-size: 20px;
+  }
+
+  .failure {
+    width: 90%;
+  }
+
+  .fail-icon {
+    width: 115px;
+    height: 115px;
+  }
+
+  .failure h1 {
+    font-size: 30px;
+  }
+
+  .message {
+    font-size: 16px;
+  }
+
+  .tip-panel {
+    padding: 15px;
+  }
+
+  .tip-content p {
+    font-size: 13px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .retry-button,
+  .tips-button {
+    width: 100%;
+  }
+}

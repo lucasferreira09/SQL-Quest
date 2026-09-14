@@ -1,0 +1,61 @@
+<div class="home-container">
+
+  <div class="background"></div>
+
+  <div class="home-content">
+
+    <div class="top-actions">
+
+      <div class="action">
+        <img src="/assets/n_about.png"
+          class="action-icon info-icon"
+          alt="About"/>
+      </div>
+
+      <div class="action">
+        <img src="/assets/help_button.png"
+          class="action-icon help-icon"
+          alt="Help"/>
+      </div>
+
+    </div>
+
+    <div class="menu-panel">
+
+      <div class="logo">
+        <img src="/assets/new_logo22.png" alt="SQL Quest"> 
+      </div>
+
+      <nav class="main-menu">
+
+        <button class="menu-item selected"
+          type="button"
+          (click)="play()">
+
+          <span class="indicator"></span>
+          <span class="menu-text">JOGAR</span>
+        </button>
+
+        <button class="menu-item"
+          type="button"
+          (click)="options()">
+
+          <span class="indicator"></span>
+          <span class="menu-text">OPÇÕES</span>
+        </button>
+
+        <button class="menu-item"
+          type="button"
+          (click)="exit()">
+          
+          <span class="indicator"></span>
+          <span class="menu-text">SAIR</span>
+        </button>
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</div>

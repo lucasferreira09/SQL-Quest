@@ -1,0 +1,528 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.challenges-container {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+
+  font-family: 'Godofwar', sans-serif;
+  color: #ffffff;
+}
+
+
+.background {
+  position: absolute;
+
+  inset: -10px;
+
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+
+  background-image: url('/assets/background_desafio.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(8px);
+
+  transform: scale(1.01);
+
+  z-index: 0;
+}
+
+.challenges-content {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  padding: 25px 2% 0;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 1;
+
+  box-sizing: border-box;
+}
+
+.top-bar {
+  position: relative;
+
+  width: 100%;
+  height: 70px;
+
+  flex-shrink: 0;
+}
+
+
+.back-button {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  transition: transform 0.2s ease;
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.70))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.back-button img {
+  width: 70px;
+  height: 70px;
+
+  object-fit: contain;
+}
+
+.back-button:hover {
+  transform: translateX(-4px);
+}
+
+
+.progress {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ffffff;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.70))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.progress img {
+  width: 45px;
+  height: 45px;
+
+  object-fit: contain;
+}
+
+
+.challenge-grid {
+  width: min(650px, 90%);
+  margin: 5px auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  column-gap: clamp(15px, 3vw, 60px);
+  row-gap: clamp(10px, 4vh, 55px);
+
+  flex: 1;
+  min-height: 0;
+
+  align-content: center;
+  justify-items: center;
+}
+
+
+
+.challenge {
+  width: clamp(10px, 10vw, 160px);
+  height: clamp(10px, 10vw, 160px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.85))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+
+.challenge img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.challenge:hover {
+  transform: scale(1.15);
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 50, 90, 0.85))
+    drop-shadow(0 0 20px rgba(255, 30, 70, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.challenge.selected {
+  filter:
+    drop-shadow(0 0 8px rgba(255, 50, 90, 0.85))
+    drop-shadow(0 0 20px rgba(255, 30, 70, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.challenge-panel {
+  position: relative;
+  
+  width: min(850px, 65%);
+  aspect-ratio: 850 / 220;
+
+  margin: auto auto 0;
+
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.panel-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+}
+
+.panel-content {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+.level {
+  width: 80px;
+  height: 80px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.level img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+
+.challenge-description {
+  position: absolute;
+
+  left: 14%;
+  top: 36%; // antes 24%
+
+  width: 55%;
+
+  padding: 0;
+  margin: 0;
+}
+
+.challenge-description h2 {
+
+  margin: 0 0 5px;
+
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 700;
+
+  text-shadow:
+    2px 2px 3px rgba(0, 0, 0, 0.95);
+}
+
+.challenge-description h3 {
+  margin: 2px 0 5px;
+
+  color: #ffd36a;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+
+  text-shadow:
+    2px 2px 3px rgba(0, 0, 0, 0.95);
+}
+
+.challenge-description p {
+  margin: 0;
+
+  color: #ffffff;
+  font-family: 'Godofwar', sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+
+  text-shadow:
+    2px 2px 3px rgba(0, 0, 0, 0.95);
+}
+
+.start-session {
+  margin-top: 3px;
+  position: absolute;
+
+  right: 13%;
+  top: 35%; // antes 25%
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-session h3 {
+  margin: 0;
+
+  color: #ffd36a;
+  font-size: 25px;
+
+  text-shadow:
+    2px 2px 3px rgba(0, 0, 0, 0.95);
+}
+
+
+.start-button {
+  width: 110px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    180deg,
+    #ff0000 0%,
+    #d8063a 100%
+  );
+
+  color: #ffffff;
+
+  font-family: 'Godofwar', sans-serif;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 0 #000000,
+    0 6px 12px rgba(0, 0, 0, 0.45);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.start-button:hover {
+  transform: scale(1.03);
+  
+  box-shadow:
+    0 4px 0 #000000,
+    0 0 15px rgba(0, 0, 0, 0.8),
+    0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.start-button:active {
+  transform: scale(0.98);
+
+  box-shadow:
+    0 2px 0 #050000,
+    0 3px 7px rgba(250, 3, 3, 0.986);
+}
+
+
+
+
+@media (max-width: 1100px) {
+
+  .challenges-content {
+    padding: 20px 5%;
+  }
+
+
+  .back-button {
+    font-family: 'Godofwar', sans-serif;
+    font-size: 26px;
+  }
+
+  .back-button img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .progress {
+    font-family: 'Godofwar', sans-serif;
+    font-size: 26px;
+  }
+
+  .progress img {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  .challenge-grid {
+    width: 650px;
+
+    column-gap: 55px;
+    row-gap: 30px;
+  }
+
+  .challenge {
+    width: 165px;
+    height: 135px;
+  }
+
+
+  /* PAINEL */
+
+  .challenge-panel {
+    width: 88%;
+    bottom: 15px;
+  }
+
+  .panel-content {
+    left: 11%;
+    right: 11%;
+
+    top: 27%;
+    bottom: 22%;
+
+    gap: 15px;
+  }
+
+
+  .level {
+    width: 70px;
+    height: 70px;
+  }
+
+
+  .challenge-description h2 {
+    font-family: 'Godofwar', sans-serif;
+    font-size: 23px;
+  }
+
+  .challenge-description h3 {
+    font-family: 'Godofwar', sans-serif;
+    font-size: 19px;
+  }
+
+  .challenge-description p {
+    font-family: 'Godofwar', sans-serif;
+    font-size: 17px;
+  }
+
+
+  .start-button {
+    width: 140px;
+    height: 52px;
+
+    font-family: 'Godofwar', sans-serif;
+    font-size: 23px;
+  }
+}
+
+
+
+@media (max-width: 700px) {
+
+  .challenge-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+
+  .challenge {
+    width: 120px;
+    height: 120px;
+  }
+
+}
+
+@media (max-width: 450px) {
+
+  .challenge-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+
+  .challenge {
+    width: 100px;
+    height: 100px;
+  }
+
+  .challenge-panel {
+    width: 95%;
+  }
+
+  .panel-content {
+    padding: 15px 30px;
+  }
+
+}

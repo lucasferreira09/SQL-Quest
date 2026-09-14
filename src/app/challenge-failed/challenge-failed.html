@@ -1,0 +1,72 @@
+<div class="failed-container">
+
+  <div class="background"></div>
+
+  <div class="overlay"></div>
+
+  <div class="failed-content">
+
+    <button class="back-button"
+      type="button"
+      (click)="back()">
+
+      <img src="/assets/back22.png" alt="Voltar">
+
+      <span>Back</span>
+    </button>
+
+    <main class="failure">
+
+      <div class="fail-icon">
+        <img src="/assets/challenge_failed.png" alt="Desafio não concluído">
+      </div>
+
+      <h1>Ops! Algo deu errado</h1>
+
+
+      <p class="message">
+        Sua consulta não retornou o resultado esperado.
+      </p>
+
+
+      <div class="tip-panel">
+
+        <div class="tip-icon">
+          <img src="/assets/tip_icon.png" alt="">
+        </div>
+
+        <div class="tip-content">
+
+          <h2>Dica</h2>
+
+          <p>{{ tip }}</p>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="retry-button"
+          type="button"
+          (click)="tryAgain()">
+
+          <span class="retry-icon">↻</span>
+          <span>Tentar novamente</span>
+        </button>
+
+        <button class="tips-button"
+          type="button"
+          (click)="showTips()">
+          
+          <span class="tips-icon"></span>
+          <span>Ver dicas</span>
+        </button>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

@@ -1,0 +1,340 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.home-container {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+
+.top-actions {
+  position: absolute;
+
+  top: 35px;
+  right: 55px;
+
+  display: flex;
+
+  align-items: flex-start;
+}
+
+.action {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+
+  cursor: pointer;
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #000000;
+}
+
+.action-icon {
+  width: 110px;
+  height: 110px;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: transform 0.2s ease;
+  
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.85))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+
+.info-icon {
+  transition: transform 0.2s ease;
+}
+
+
+.help-icon {
+  transition: transform 0.2s ease;
+}
+
+
+.action:hover .action-icon {
+  transform: scale(1.05);
+}
+
+
+.background {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-image: url('/assets/propo.png');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: 0;
+}
+
+.home-content {
+  position: relative;
+
+  
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+}
+
+.menu-panel {
+  position: absolute;
+
+  
+  left: 8%;
+
+  width: 330px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-left: 40px;
+
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 8px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    inset 0 0 30px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(3px);
+}
+
+.logo {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.85))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.main-menu {
+  position: absolute;
+
+  left: 55px;
+  top: 60%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 8px;
+}
+
+
+.menu-item {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 250px;
+  height: 65px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-family: 'Godofwar', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.menu-text {
+  transition:
+    transform 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+
+.indicator {
+  width: 0;
+  height: 0;
+
+  margin-right: 0;
+
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid #EB9635;
+
+  opacity: 0;
+
+  transform: translateX(-10px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    margin-right 0.2s ease;
+}
+
+
+.menu-item:hover {
+  color: #ffffff;
+
+  transform: translateX(10px);
+}
+
+.menu-item:hover .indicator {
+  opacity: 1;
+
+  transform: translateX(0);
+
+  margin-right: 12px;
+}
+
+.menu-item:hover .menu-text {
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+.menu-item.selected {
+  color: #ffffff;
+
+  transform: translateX(10px);
+}
+
+.menu-item.selected .indicator {
+  opacity: 1;
+
+  transform: translateX(0);
+
+  margin-right: 12px;
+}
+
+.menu-item.selected .menu-text {
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+.menu-item:active {
+  transform: translateX(10px) scale(0.97);
+}
+
+
+
+@media (max-width: 900px) {
+
+  .logo {
+    top: 25px;
+    left: 25px;
+
+    width: 100px;
+    height: 100px;
+  }
+
+  .main-menu {
+    left: 35px;
+    bottom: 15%;
+  }
+
+  .menu-item {
+    width: 230px;
+    height: 55px;
+
+    font-size: 30px;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .logo {
+    top: 20px;
+    left: 20px;
+
+    width: 80px;
+    height: 80px;
+  }
+
+  .main-menu {
+    left: 25px;
+    bottom: 12%;
+
+    gap: 3px;
+  }
+
+  .menu-item {
+    width: 200px;
+    height: 50px;
+
+    font-size: 25px;
+  }
+
+  .indicator {
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 9px;
+  }
+}

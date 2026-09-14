@@ -1,0 +1,54 @@
+<div class="completed-container">
+
+  <div class="background"></div>
+
+  <div class="overlay"></div>
+
+  <div class="completed-content">
+
+        <button class="back-button"
+        type="button"
+        (click)="back()">
+        <img src="/assets/back22.png" alt="Voltar">
+        <span>Back</span>
+      </button>
+
+    <main class="completion">
+      <div class="check-icon">
+        <img src="/assets/challenge_check.png" alt="Desafio concluído">
+      </div>
+
+      <h1>PARABÉNS!</h1>
+
+      <p class="message">
+        Você resolveu o desafio com sucesso!
+      </p>
+
+      <div class="result-panel">
+
+        <div class="result-item">
+          <span class="result-label">XP recebido</span>
+          <span class="result-value">⭐ {{ xp }} XP</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="result-item">
+          <span class="result-label">Dificuldade</span>
+          <span class="difficulty">{{ difficulty }}</span>
+        </div>
+
+      </div>
+
+      <button class="next-button"
+        type="button"
+        (click)="nextChallenge()">
+        <span>Próximo desafio</span>
+        <span class="arrow">→</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</div>

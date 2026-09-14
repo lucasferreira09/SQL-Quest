@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body,
+app-root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+@font-face {
+  font-family: 'MedievalSharpBold';
+  src: url('/assets/fonts/medieval_sharp_bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MedievalSharpBO';
+  src: url('/assets/fonts/MedievalSharp-BoldOblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Godofwar';
+  src: url('/assets/fonts/GODOFWAR_accented.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'VampireWars';
+  src: url('/assets/fonts/Vampirewars.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
