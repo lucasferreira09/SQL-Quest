@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
 })
 export class ChallengeFailed {
   
-  messageFailed = 'Your request does not return the value expected';
-  messageFailedPT = 'Sua consulta não retornou o resultado esperado'
+  //messageFailed = 'Your request does not return the value expected';
+  messageFailed = 'Sua consulta não retornou o resultado esperado'
 
-  tip ='Verify if the table name is correct or if the filter of the WHERE is working as expected.'
-  tipPT = 'Verifique se o nome da tabela está correto e se o filtro do WHERE está funcionando como esperado.';
+  //tip ='Verify if the table name is correct or if the filter of the WHERE is working as expected.'
+  tip = 'Verifique se o nome da tabela está correto e se o filtro do WHERE está funcionando como esperado.';
 
   tryAgain(): void {
     console.log('Trying the challenge again...');

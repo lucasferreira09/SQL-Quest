@@ -21,7 +21,7 @@ export class ChallengesCopy {
   
   progress = 94;
 
-  challenges: Challenge[] = [
+  challengesEN: Challenge[] = [
 
     {
       id: '1',
@@ -79,7 +79,7 @@ export class ChallengesCopy {
 
   ];
 
-  challengesPT: Challenge[] = [
+  challenges: Challenge[] = [
 
     {
       id: '1',
