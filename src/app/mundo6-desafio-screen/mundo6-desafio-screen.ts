@@ -22,6 +22,7 @@ import { AudioService } from '../services/audio';
 import { Recompensas } from '../recompensa-screen/recompensa-screen';
 import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
+import { JogadorService } from '../service/jogador.service';
 
 
 @Component({
@@ -90,6 +91,7 @@ export class Mundo6DesafioScreen implements OnInit {
     private route: ActivatedRoute,
     private desafioService: DesafioService,
     public audioService: AudioService,
+    private jogadorService: JogadorService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -225,12 +227,21 @@ export class Mundo6DesafioScreen implements OnInit {
 
     const sql = this.sqlQuery.trim();
 
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
+
     console.log('SQL enviada:', sql);
 
     this.carregando = true;
 
     this.desafioService
-      .executarSql(this.desafio.id, sql)
+      .executarSql(this.desafio.id, sql, jogadorId)
       .subscribe({
 
         next: (resposta) => {

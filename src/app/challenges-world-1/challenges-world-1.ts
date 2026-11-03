@@ -26,6 +26,7 @@ import { Recompensas } from '../recompensa-screen/recompensa-screen';
 import { DicaService } from '../service/dica.service';
 import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
+import { JogadorService } from '../service/jogador.service';
 
 @Component({
   imports: [CommonModule, DragDropModule, Recompensas, CompraDicas, ErroConsulta],
@@ -102,6 +103,7 @@ export class ChallengesWorld1 implements OnInit {
     private route: ActivatedRoute,
     private desafioService: DesafioService,
     public audioService: AudioService,
+    private jogadorService: JogadorService,
     private cdr: ChangeDetectorRef,
     private dicaService: DicaService
   ) {}
@@ -219,9 +221,16 @@ export class ChallengesWorld1 implements OnInit {
     const sql = this.montarQuery();
 
     console.log('SQL enviada:', sql);
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
 
     this.desafioService
-      .executarSql(this.desafio.id, sql)
+      .executarSql(this.desafio.id, sql, jogadorId)
       .subscribe({
 
         next: (resposta) => {

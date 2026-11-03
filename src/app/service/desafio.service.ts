@@ -94,9 +94,9 @@ export class DesafioService {
 
   constructor(private http: HttpClient) {}
 
-  executarSql(desafioId: number, sql: string): Observable<ExecutarSqlResponse> {
+  executarSql(desafioId: number, sql: string, jogadorId: number): Observable<ExecutarSqlResponse> {
 
-    return this.http.post<ExecutarSqlResponse>(`${this.apiUrl}/desafios/${desafioId}/executar`, { sql });
+    return this.http.post<ExecutarSqlResponse>(`${this.apiUrl}/desafios/${desafioId}/executar`, { sql, jogadorId });
   }
 
   listarCapitulos(): Observable<Capitulo[]> {

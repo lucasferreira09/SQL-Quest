@@ -58,6 +58,53 @@
 
   </div>
 
+  
+<!-- MODAL DE IDENTIFICAÇÃO DO JOGADOR -->
+<div class="login-overlay" *ngIf="mostrarLogin">
+
+  <div class="login-modal">
+
+    <h2>Bem-vindo, aventureiro!</h2>
+
+    <p>Como devemos chamá-lo nesta jornada?</p>
+
+    <input
+      type="text"
+      placeholder="Nome do jogador"
+      maxlength="150"
+      [value]="nomeJogador"
+      (input)="nomeJogador = $any($event.target).value"
+      (keydown.enter)="entrarNoJogo()"
+      [disabled]="carregandoLogin"
+      autocomplete="off"
+    />
+
+    <p class="login-error" *ngIf="erroLogin">
+      {{ erroLogin }}
+    </p>
+
+    <button
+      type="button"
+      (click)="entrarNoJogo()"
+      [disabled]="carregandoLogin"
+    >
+      {{ carregandoLogin ? 'ENTRANDO...' : 'COMEÇAR AVENTURA' }}
+    </button>
+
+    <button
+      type="button"
+      class="login-cancelar"
+      (click)="fecharLogin()"
+      [disabled]="carregandoLogin"
+    >
+      VOLTAR
+    </button>
+
+  </div>
+
+</div>
+
+
   <!-- ================================================= -->
 <!-- MODAL DE INFORMAÇÕES -->
 <!-- ================================================= -->

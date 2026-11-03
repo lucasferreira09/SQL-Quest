@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Desafio, DesafioService} from '../service/desafio.service';
 import { NgClass } from '@angular/common';
 import { AudioService } from '../services/audio';
+import { JogadorService } from '../service/jogador.service';
 
 
 @Component({
@@ -24,8 +25,6 @@ export class MundoDesafios implements OnInit {
 
   progress = 0;
   desafiosConcluidos: number[] = [];
-
-  jogadorId = 1;
 
   mundoId!: number;
   imagensMundos: Record<number, string> = {
@@ -64,9 +63,9 @@ imagemFundo = this.imagensMundos[1];
     public audioService: AudioService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private jogadorService: JogadorService
   ) {}
-
 
   ngOnInit(): void {
     
@@ -172,14 +171,28 @@ imagemFundo = this.imagensMundos[1];
 
 
 
+  
   carregarProgresso(): void {
 
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
     this.desafioService
-      .buscarDesafiosConcluidos(this.jogadorId)
+      .buscarDesafiosConcluidos(jogadorId)
       .subscribe({
         next: (desafiosConcluidos) => {
 
           this.desafiosConcluidos = desafiosConcluidos;
+
+          console.log(
+            'Jogador atual:',
+            jogadorId
+          );
 
           console.log(
             'Desafios concluídos:',
@@ -190,7 +203,6 @@ imagemFundo = this.imagensMundos[1];
         },
 
         error: (erro) => {
-
           console.error(
             'Erro ao carregar progresso:',
             erro
@@ -198,6 +210,7 @@ imagemFundo = this.imagensMundos[1];
         }
       });
   }
+
 
   toggleMusic(): void {
     if (this.audioService.isPlaying()) {

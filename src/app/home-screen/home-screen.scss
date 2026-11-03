@@ -555,6 +555,88 @@
 
 
 
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.login-modal {
+  width: 360px;
+  max-width: 90%;
+  padding: 35px 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  background: #ead5a7;
+  border: 5px solid #76502d;
+  border-radius: 12px;
+
+  color: #533719;
+  text-align: center;
+}
+
+.login-modal h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+}
+
+.login-modal p {
+  margin: 0;
+}
+
+.login-modal input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+
+  border: 2px solid #76502d;
+  border-radius: 5px;
+
+  background: #fff8e8;
+  color: #533719;
+  font-size: 16px;
+}
+
+.login-modal button {
+  width: 100%;
+  padding: 12px;
+
+  border: 2px solid #533719;
+  border-radius: 5px;
+
+  background: #80552c;
+  color: white;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-modal button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-modal .login-cancelar {
+  background: transparent;
+  color: #533719;
+}
+
+.login-modal .login-error {
+  color: #a32626;
+  font-size: 13px;
+}
+
+
 
 @media (max-width: 900px) {
 

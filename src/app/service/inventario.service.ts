@@ -18,7 +18,7 @@ export class InventarioService {
 
   constructor(private http: HttpClient) {}
 
-  listar(jogadorId: number = 1): Observable<ItemInventario[]> {
+  listar(jogadorId: number): Observable<ItemInventario[]> {
 
     const params = new HttpParams()
       .set('jogadorId', jogadorId);
@@ -26,7 +26,7 @@ export class InventarioService {
     return this.http.get<ItemInventario[]>(this.apiUrl, { params });
   }
 
-  listarConquistas(jogadorId: number = 1): Observable<ConquistaInventario[]> {
+  listarConquistas(jogadorId: number): Observable<ConquistaInventario[]> {
 
     const params = new HttpParams()
       .set('jogadorId', jogadorId);
@@ -38,7 +38,7 @@ export class InventarioService {
   }
 
 
-  listarDicas(jogadorId: number = 1): Observable<DicasCompradas[]> { // ADDED BY ME
+  listarDicas(jogadorId: number): Observable<DicasCompradas[]> { // ADDED BY ME
 
     const params = new HttpParams()
       .set('jogadorId', jogadorId);

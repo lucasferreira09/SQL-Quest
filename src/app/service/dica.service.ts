@@ -1,6 +1,8 @@
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { JogadorService } from './jogador.service';
 
 export interface Dica {
   id: number;
@@ -18,13 +20,31 @@ export class DicaService {
 
   private apiUrl = 'http://localhost:8080/api/dicas';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private jogadorService: JogadorService
+  ) {}
+
+  // Obter ID do jogador atual
+  private obterJogadorId(): number {
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      throw new Error('Nenhum jogador identificado.');
+    }
+
+    return jogadorId;
+  }
 
   // Buscar dicas de um desafio
   listarDicas(desafioId: number): Observable<Dica[]> {
 
+    const params = new HttpParams()
+      .set('jogadorId', this.obterJogadorId());
+
     return this.http.get<any[]>(
-      `${this.apiUrl}/desafio/${desafioId}`
+      `${this.apiUrl}/desafio/${desafioId}`,
+      { params }
     ).pipe(
       map(dicas => dicas.map(dica => ({
         id: dica.ID ?? dica.id,
@@ -39,17 +59,24 @@ export class DicaService {
 
   // Consultar saldo de ouro
   buscarSaldoJogador(): Observable<{ ouro: number }> {
+
+    const params = new HttpParams()
+      .set('jogadorId', this.obterJogadorId());
+
     return this.http.get<{ ouro: number }>(
-      `${this.apiUrl}/ouro`
+      `${this.apiUrl}/ouro`,
+      { params }
     );
   }
 
   // Comprar uma dica
   comprarDica(dicaId: number): Observable<any> {
 
+    const jogadorId = this.obterJogadorId();
+
     return this.http.post<any>(
       `${this.apiUrl}/comprar`,
-      { dicaId }
+      { dicaId, jogadorId }
     );
   }
 }

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InventarioService } from '../service/inventario.service';
 import { Timestamp } from 'rxjs';
+import { AudioService } from '../services/audio';
+import { JogadorService } from '../service/jogador.service';
+import { Router } from '@angular/router';
 
 export interface Categoria {
   id: string;
@@ -66,11 +69,11 @@ export class InventarioComponent implements OnInit {
   carregando = false;
   erro = '';
 
-  // ID temporário usado nos testes
-  private readonly jogadorId = 1;
-
   constructor(
     private inventarioService: InventarioService,
+    private audioService: AudioService,
+    private jogadorService: JogadorService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -108,9 +111,18 @@ export class InventarioComponent implements OnInit {
 
     this.cdr.detectChanges();
 
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
     if (categoria === 'itens') {
 
-      this.inventarioService.listar(this.jogadorId).subscribe({
+
+      this.inventarioService.listar(jogadorId).subscribe({
 
         next: (dados) => {
 
@@ -140,7 +152,7 @@ export class InventarioComponent implements OnInit {
     } else if (categoria === 'conquistas') {
 
       this.inventarioService
-        .listarConquistas(this.jogadorId)
+        .listarConquistas(jogadorId)
         .subscribe({
 
           next: (dados) => {
@@ -171,7 +183,7 @@ export class InventarioComponent implements OnInit {
     } else if (categoria === 'dicas'){
 
       this.inventarioService
-        .listarDicas(this.jogadorId)
+        .listarDicas(jogadorId)
         .subscribe({
 
           next: (dados) => {
