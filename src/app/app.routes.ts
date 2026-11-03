@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeScreen } from './home-screen/home-screen';
-import { ChallengeCompleted } from './challenge-completed/challenge-completed';
-import { ChallengeFailed } from './challenge-failed/challenge-failed';
 import { ChallengesWorld1 } from './challenges-world-1/challenges-world-1';
 import { Mundo } from './mundo/mundo';
 import { MundoDesafios } from './mundo-desafios/mundo-desafios';
