@@ -1,0 +1,298 @@
+
+<main class="inventario-screen">
+
+  <div class="top-actions">
+    <div class="action">
+      <img
+        src="/assets/new_back.png"
+        class="action-icon info-icon"
+        alt="Back"
+      />
+    </div>
+  </div>
+
+  <!-- Cabeçalho -->
+  <header class="titulo-painel">
+    <h1>Inventário</h1>
+    <p>Seus itens conquistados na jornada</p>
+  </header>
+
+  <!-- Menu lateral -->
+  <nav class="menu-categorias" aria-label="Categorias do inventário">
+
+    <button
+      *ngFor="let categoria of categorias"
+      type="button"
+      class="categoria"
+      [class.ativa]="categoriaSelecionada === categoria.id"
+      [attr.aria-pressed]="categoriaSelecionada === categoria.id"
+      (click)="selecionarCategoria(categoria.id)"
+    >
+      {{ categoria.nome }}
+    </button>
+
+  </nav>
+
+  <!-- Grade central -->
+  <section class="grade-painel" aria-label="Conteúdo do inventário">
+
+    <div *ngIf="carregando" class="mensagem">
+      Carregando...
+    </div>
+
+    <div *ngIf="erro && !carregando" class="mensagem">
+      {{ erro }}
+    </div>
+
+    <div class="mensagem"
+         *ngIf="!carregando && !erro &&
+         categoriaSelecionada === 'itens' && itens.length === 0">
+      Você ainda não possui itens.
+    </div>
+
+    <div class="mensagem"
+         *ngIf="!carregando && !erro &&
+         categoriaSelecionada === 'conquistas' && conquistas.length === 0">
+      Você ainda não desbloqueou conquistas.
+    </div>
+
+    <!-- GRADE DE ITENS -->
+    <div
+      class="grade-itens"
+      *ngIf="!carregando && !erro && categoriaSelecionada === 'itens'"
+    >
+
+      <button
+        *ngFor="let item of itens"
+        type="button"
+        class="slot-item"
+        [class.selecionado]="itemSelecionado?.id === item.id"
+        (click)="selecionarItem(item)"
+      >
+
+        <img
+          *ngIf="item.imagemUrl"
+          [src]="item.imagemUrl"
+          [alt]="item.nome"
+          class="imagem-item"
+        />
+
+        <span *ngIf="item.quantidade > 1">
+          x{{ item.quantidade }}
+        </span>
+
+      </button>
+
+    </div>
+
+    <!-- GRADE DE CONQUISTAS -->
+    <div
+      class="grade-itens"
+      *ngIf="!carregando && !erro && categoriaSelecionada === 'conquistas'"
+    >
+
+      <button
+        *ngFor="let conquista of conquistas"
+        type="button"
+        class="slot-item"
+        [class.selecionado]="conquistaSelecionada?.id === conquista.id"
+        (click)="selecionarConquista(conquista)"
+      >
+
+        <img
+          *ngIf="conquista.imagemUrl"
+          [src]="conquista.imagemUrl"
+          [alt]="conquista.nome"
+          class="imagem-item"
+        />
+
+      </button>
+
+    </div>
+
+    <!-- GRADE DE DICAS -->
+    <div
+      class="grade-itens"
+      *ngIf="!carregando && !erro && categoriaSelecionada === 'dicas'"
+    >
+
+      <button
+        *ngFor="let dica of dicasPagina"
+        type="button"
+        class="slot-item"
+        [class.selecionado]="dicaSelecionada?.dicaId === dica.dicaId"
+        (click)="selecionarDica(dica)"
+      >
+        <img
+          src="assets/recompensas/itens/adaga-estrategia.png"
+          [alt]="dica.texto"
+          class="imagem-item"
+        />
+
+      </button>
+
+    </div>
+
+  </section>
+
+  <div
+    class="paginador"
+    *ngIf="!carregando && !erro && categoriaSelecionada === 'dicas' && totalPaginasDicas > 1"
+    >
+    <button type="button" (click)="paginaAnteriorDicas()" [disabled]="paginaDicas === 0" aria-label="Página anterior">‹</button>
+    <span>{{ paginaDicas + 1 }} / {{ totalPaginasDicas }}</span>
+    <button type="button" (click)="proximaPaginaDicas()" [disabled]="paginaDicas === totalPaginasDicas - 1" aria-label="Próxima página">›</button>
+  </div>
+  
+  <!-- Pergaminho de informações -->
+  <aside class="painel-detalhes">
+
+    <!-- DETALHES DO ITEM -->
+    <ng-container *ngIf="categoriaSelecionada === 'itens'">
+
+      <ng-container *ngIf="itemSelecionado; else semSelecaoItem">
+
+        <img
+          class="imagem-item"
+          [src]="itemSelecionado.imagemUrl"
+          [alt]="itemSelecionado.nome"
+        />
+
+        <h2>{{ itemSelecionado.nome }}</h2>
+
+        <p class="descricao">
+          {{ itemSelecionado.descricao }}
+        </p>
+
+        <div class="divisor"></div>
+
+        <div class="detalhe">
+          <span>Categoria</span>
+          <strong>{{ itemSelecionado.tipo }}</strong>
+        </div>
+
+        <div class="detalhe">
+          <span>Quantidade</span>
+          <strong>{{ itemSelecionado.quantidade }}</strong>
+        </div>
+
+      </ng-container>
+
+      <ng-template #semSelecaoItem>
+        <p class="orientacao">
+          Selecione um item para descobrir seus detalhes.
+        </p>
+      </ng-template>
+
+    </ng-container>
+
+    <!-- DETALHES DA CONQUISTA -->
+    <ng-container *ngIf="categoriaSelecionada === 'conquistas'">
+
+      <ng-container *ngIf="conquistaSelecionada; else semSelecaoConquista">
+
+        <img
+          class="imagem-item"
+          [src]="conquistaSelecionada.imagemUrl"
+          [alt]="conquistaSelecionada.nome"
+        />
+
+        <h2>{{ conquistaSelecionada.nome }}</h2>
+
+        <p class="descricao">
+          {{ conquistaSelecionada.descricao }}
+        </p>
+
+        <div class="divisor"></div>
+
+        <div class="detalhe">
+          <span>Tipo</span>
+          <strong>Conquista</strong>
+        </div>
+
+        <div class="detalhe">
+          <span>Desbloqueada em</span>
+          <strong>
+            {{ conquistaSelecionada.desbloqueadaEm
+              ? (conquistaSelecionada.desbloqueadaEm | date:'dd/MM/yyyy')
+              : 'Data indisponível' }}
+          </strong>
+        </div>
+
+      </ng-container>
+
+      <ng-template #semSelecaoConquista>
+        <p class="orientacao">
+          Selecione uma conquista para descobrir seus detalhes.
+        </p>
+      </ng-template>
+
+    </ng-container>
+
+    <!-- DETALHES DA DICA -->
+    <ng-container *ngIf="categoriaSelecionada === 'dicas'">
+
+      <ng-container *ngIf="dicaSelecionada; else semSelecaoDica">
+
+        <img
+          class="imagem-item"
+          src="assets/recompensas/itens/adaga-estrategia.png"
+          [alt]="dicaSelecionada.texto"
+        />
+
+        <h2>Desafio {{ dicaSelecionada.desafioId }}</h2>
+
+        <p class="descricao">
+          Dica: {{ dicaSelecionada.texto }}
+        </p>
+
+        <div class="divisor"></div>
+
+        <div class="detalhe">
+          <span>Tipo</span>
+          <strong>Dica</strong>
+        </div>
+
+        <div class="detalhe">
+          <span>Comprada em</span>
+          <strong>
+            {{ dicaSelecionada.compradoEm
+              ? (dicaSelecionada.compradoEm | date:'dd/MM/yyyy')
+              : 'Data indisponível' }}
+          </strong>
+        </div>
+
+      </ng-container>
+
+      <ng-template #semSelecaoDica>
+        <p class="orientacao">
+          Selecione uma dica para descobrir seus detalhes.
+        </p>
+      </ng-template>
+
+    </ng-container>
+
+    <!-- OUTRAS CATEGORIAS -->
+    <ng-container
+      *ngIf="categoriaSelecionada !== 'itens' &&
+             categoriaSelecionada !== 'conquistas' &&
+             categoriaSelecionada !== 'dicas'
+             "
+    >
+      <p class="orientacao">
+        Esta categoria ainda não possui conteúdo disponível.
+      </p>
+    </ng-container>
+
+  </aside>
+
+  <!-- Botão de voltar -->
+  <button
+    class="botao-voltar"
+    type="button"
+    aria-label="Voltar"
+    (click)="voltar()"
+  >
+  </button>
+
+</main>

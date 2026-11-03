@@ -1,0 +1,170 @@
+<!-- TELA DE COMPRA DE DICAS -->
+<app-compra-dicas
+  *ngIf="mostrarCompraDicas"
+  [desafioId]="desafioId"
+  (fechar)="fecharCompraDicas()">
+</app-compra-dicas>
+
+<app-recompensas
+  *ngIf="mostrarModalRecompensas"
+  [recompensas]="recompensasGanhos"
+  [conquistas]="conquistasGanhos"
+  [ouroGanho]="ouroGanho"
+  [xpGanho]="xpGanho"
+  (fechar)="mostrarModalRecompensas = false"
+>
+</app-recompensas>
+
+<app-erro-consulta
+  *ngIf="mostrarErroConsulta"
+  [consulta]="consultaComErro"
+  (tentarNovamente)="tentarNovamente()"
+  (voltarMapa)="voltarAoMapa()">
+</app-erro-consulta>
+
+<div class="challenge-screen">
+
+  <div class="game-area">
+
+    <img
+      class="map-background"
+      src="assets/mundos_background/tela_desafio/mundo6_tela_desafio.png"
+    >
+
+     <!-- SOM -->
+    <div class="som" [ngClass]="'world-' + mundoId">
+      <button
+        class="som-button"
+        type="button"
+        (click)="toggleMusic()"
+      >
+        <img
+          [src]="iconSom"
+          [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+        >
+      </button>
+    </div>
+
+    <div class="ui-layer">
+
+      <!-- INFORMAÇÕES DO DESAFIO -->
+      <section class="challenge-info">
+
+        <div class="challenge-info-content">
+          <h1>{{ desafio?.titulo }}</h1>
+          <p>{{ desafio?.objetivo }}</p>
+        </div>
+
+      </section>
+
+      <!-- RECOMPENSAS -->
+      <section class="rewards">
+
+        <div class="reward gold-reward">
+          <span class="reward-value">
+            {{ desafio?.ouro }}
+          </span>
+        </div>
+
+        <div class="reward xp-reward">
+          <span class="reward-value">
+            {{ desafio?.xp }}
+          </span>
+        </div>
+
+      </section>
+
+      <!-- TERMINAL SQL -->
+      <section class="terminal-panel">
+
+        <div class="terminal-title">
+          TERMINAL
+        </div>
+
+        <textarea
+          class="sql-editor"
+          [(ngModel)]="sqlQuery"
+          placeholder="Digite sua consulta SQL aqui..."
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off"
+        ></textarea>
+
+        <div class="terminal-actions">
+
+           <button
+            class="dica-button"
+            (click)="abrirDica()">
+            <img
+              src="/assets/recompensas/outros/dica-simbol.png"
+              alt="Dica"
+              class="dica-icon"
+            />
+            Dica
+          </button>
+
+
+          
+          <button
+            class="execute-button"
+            (click)="executeQuery()"
+          >
+            Executar
+          </button>
+
+        </div>
+
+      </section>
+
+      
+      <!-- RESULTADO -->
+      <section class="result-panel">
+
+        <div
+          class="result-title"
+          [class.erro]="mostrarErroResultado"
+        >
+          RESULTADO
+        </div>
+
+        <div
+          class="result-content"
+          [class.erro]="mostrarErroResultado"
+        >
+
+          <table *ngIf="resultRows.length > 0">
+
+            <thead>
+              <tr>
+                <th *ngFor="let column of resultColumns">
+                  {{ column }}
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let row of resultRows">
+                <td *ngFor="let value of row">
+                  {{ value }}
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+
+          <div
+            class="empty-result"
+            *ngIf="resultRows.length === 0"
+          >
+            Nenhum resultado.
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</div>

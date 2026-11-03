@@ -1,0 +1,97 @@
+<div class="intro-overlay">
+  
+  <div class="tela-recompensas">
+
+    <div class="conteudo-pergaminho">
+
+      <!-- Carrossel de recompensas -->
+      <div class="secao-recompensas">
+
+        <h2>Recompensas conquistadas</h2>
+
+        <div class="lista-recompensas">
+
+          <!-- Itens -->
+          <div
+            class="item-recompensa"
+            *ngFor="let recompensa of recompensas"
+            [class.selecionada]="recompensaSelecionada?.id === recompensa.id && tipoSelecionado === 'item'"
+            (click)="selecionarRecompensa(recompensa)"
+          >
+            <img
+              [src]="recompensa.imagem"
+              [alt]="recompensa.nome"
+            />
+
+            <span *ngIf="recompensa.quantidade > 1">
+              x{{ recompensa.quantidade }}
+            </span>
+          </div>
+
+          <button
+            *ngIf="modoTeste"
+            class="botao-teste"
+            (click)="ativarModoTeste()"
+          >
+            Carregar recompensas de demonstração
+          </button>
+          <!-- Conquistas -->
+          <div
+            class="item-recompensa"
+            *ngFor="let conquista of conquistas"
+            [class.selecionada]="conquistaSelecionada?.id === conquista.id && tipoSelecionado === 'conquista'"
+            (click)="selecionarConquista(conquista)"
+          >
+            <img
+              [src]="conquista.imagem"
+              [alt]="conquista.nome"
+            />
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Informações do item selecionado -->
+      <div
+        class="descricao-recompensa"
+        *ngIf="tipoSelecionado === 'item' && recompensaSelecionada"
+      >
+        <h2>{{ recompensaSelecionada.nome }}</h2>
+        <p>{{ recompensaSelecionada.descricao }}</p>
+      </div>
+
+      <!-- Informações da conquista selecionada -->
+      <div
+        class="descricao-recompensa"
+        *ngIf="tipoSelecionado === 'conquista' && conquistaSelecionada"
+      >
+        <h2>{{ conquistaSelecionada.nome }}</h2>
+        <p>{{ conquistaSelecionada.descricao }}</p>
+      </div>
+
+      <!-- Ouro e XP -->
+      <div class="recompensas-progresso">
+
+        <div class="recompensa-moeda">
+          <img src="assets/recompensas/outros/gold-coins.png" alt="Ouro" />
+          <span>{{ ouroGanho }} ouro</span>
+        </div>
+
+        <div class="recompensa-xp">
+          <img src="assets/recompensas/outros/xp.png" alt="XP" />
+          <span>{{ xpGanho }} XP</span>
+        </div>
+
+      </div>
+
+      <!-- Continuar -->
+      <button class="botao-fechar" (click)="fecharModal()">
+        Continuar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

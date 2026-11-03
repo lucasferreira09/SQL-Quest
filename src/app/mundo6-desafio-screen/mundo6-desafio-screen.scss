@@ -1,0 +1,691 @@
+
+/* =====================================================
+   TELA PRINCIPAL
+===================================================== */
+
+.challenge-screen {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+  background: #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+// =====================================================
+// ÁREA DO JOGO
+// =====================================================
+
+.game-area {
+  position: relative;
+
+  // Proporção original da imagem
+  aspect-ratio: 1672 / 941;
+
+  width: min(
+    100vw,
+    calc(100dvh * (1672 / 941))
+  );
+
+  max-height: 100%;
+  flex-shrink: 0;
+
+  overflow: hidden;
+}
+
+
+// =====================================================
+// IMAGEM DE FUNDO
+// =====================================================
+
+.map-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: fill;
+}
+
+
+.som {
+  position: absolute;   // .challenge-screen já é position: relative e ocupa 100vw x 100vh
+  left: 16px;
+  bottom: 16px;
+  z-index: 100;         // fica acima da imagem e da ui-layer
+}
+
+.som-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+  }
+
+  img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+
+  }
+}
+
+
+.som-button { 
+  
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #FD3906)
+    drop-shadow(0 0 6px #FD3906)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+
+// =====================================================
+// CAMADA DOS ELEMENTOS
+// =====================================================
+
+.ui-layer {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+
+// =====================================================
+// INFORMAÇÕES DO DESAFIO
+// Pergaminho superior esquerdo
+// =====================================================
+
+.challenge-info {
+  position: absolute;
+
+  pointer-events: none;
+
+  left: 1%;
+  top: 7%;
+
+  width: 41%;
+  height: 16%;
+}
+
+
+.challenge-info-content {
+  position: absolute;
+
+  // Espaço reservado para o Mestre Query
+  left: 28.5%;
+  right: 4%;
+
+  top: 15%;
+  bottom: 12%;
+
+  overflow: hidden;
+  //background-color: #d7191996;
+}
+
+
+.challenge-info h1 {
+  margin: 0 0 6px;
+
+  color: #2b2118;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    16px,
+    1.35vw,
+    28px
+  );
+
+  font-weight: bold;
+
+  line-height: 1.1;
+
+  text-shadow:
+    1px 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+
+.challenge-info p {
+  margin: 0;
+  margin-top: 1%;
+
+  color: #403329;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    16px,
+    0.8vw,
+    17px
+  );
+
+  line-height: 1.35;
+}
+
+
+// =====================================================
+// RECOMPENSAS
+// Painel superior direito
+// =====================================================
+.rewards {
+  position: absolute;
+
+  left: 71%;
+  top: 6.2%;
+
+  width: 27%;
+  height: 16%;
+
+  pointer-events: none;
+  //background-color: #04d14898;
+}
+
+.reward {
+  position: absolute;
+
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gold-reward {
+  left: 13%;
+  top: 42%;
+
+  width: 38%;
+}
+
+.xp-reward {
+  right: 3%;
+  top: 42%;
+
+  width: 38%;
+}
+
+.reward-value {
+  color: #f3d27a;
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    14px,
+    1.25vw,
+    26px
+  );
+
+  font-weight: bold;
+
+  text-shadow:
+    2px 2px 2px #3b210b,
+    -1px -1px 0 #6f4618;
+}
+
+
+// =====================================================
+// PAINEL TERMINAL
+// Pergaminho grande central
+// =====================================================
+
+.terminal-panel {
+  position: absolute;
+
+  pointer-events: auto;
+
+  left: 3%;
+  top: 25.5%;
+
+  width: 55%;
+  height: 41%;
+}
+
+.terminal-content {
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+// =====================================================
+// TÍTULO TERMINAL
+// Placa superior
+// =====================================================
+
+.terminal-title {
+  position: absolute;
+
+  left: 24.5%;
+  top: 0;
+
+  width: 32%;
+  height: 15.5%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    12px,
+    1vw,
+    20px
+  );
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  color: #ead9b3;
+
+  text-shadow:
+    2px 2px 2px #000;
+}
+
+
+// =====================================================
+// EDITOR SQL
+// Área escura do terminal
+// =====================================================
+
+.sql-editor {
+  position: absolute;
+
+  width: 75%;
+  height: 68%;
+  top: 12%;
+  left: 4%;
+  box-sizing: border-box;
+
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 14px;
+
+  resize: none;
+
+  outline: none;
+  border: none;
+
+  background: transparent;
+  color: #e4e4e4;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    20px,
+    0.85vw,
+    17px
+  );
+
+  line-height: 1.6;
+
+  caret-color: #ffb347;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(180, 130, 70, 0.7)
+    transparent;
+
+    resize: none;
+}
+
+
+// =====================================================
+// PLACEHOLDER DO EDITOR
+// =====================================================
+
+.sql-editor::placeholder {
+  color: rgba(220, 220, 220, 0.35);
+
+  font-style: italic;
+}
+
+
+// =====================================================
+// SELEÇÃO DE TEXTO
+// =====================================================
+
+.sql-editor::selection {
+  background: rgba(255, 150, 40, 0.35);
+}
+
+
+// =====================================================
+// SCROLLBAR DO EDITOR
+// =====================================================
+
+.sql-editor::-webkit-scrollbar {
+  width: 7px;
+}
+
+.sql-editor::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sql-editor::-webkit-scrollbar-thumb {
+  background: rgba(180, 130, 70, 0.7);
+
+  border-radius: 5px;
+}
+
+
+// =====================================================
+// AÇÕES DO TERMINAL
+// =====================================================
+
+.terminal-actions {
+  position: absolute;
+
+  left: 1%;
+  right: 22%;
+
+  bottom: 9%;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  //background-color: #08baf09f;
+}
+
+
+// =====================================================
+// BOTÕES DO TERMINAL
+// =====================================================
+
+.terminal-actions button {
+  padding: 4px 12px;
+
+  border: 2px solid #4a351d;
+  border-radius: 7px;
+
+  color: #fff;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    16px,
+    0.8vw,
+    17px
+  );
+
+  cursor: pointer;
+
+  box-shadow:
+    2px 3px 4px rgba(0, 0, 0, 0.5);
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+
+.terminal-actions button:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.12);
+}
+
+// BOTÃO DICA
+.dica-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 8px 18px;
+
+  background: linear-gradient(
+    to bottom,
+    #d6a443,
+    #94601d
+  );
+
+  border: 2px solid #70451c;
+  border-radius: 8px;
+
+  color: #fff3cf;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 15px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 0 #573514,
+    inset 0 1px 2px #ffe5a1;
+
+  transition: transform 0.15s, filter 0.15s;
+
+  &:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.dica-icon {
+  width: 30px;
+  height: 25px;
+  object-fit: contain;
+}
+
+
+// =====================================================
+// BOTÃO EXECUTAR
+// =====================================================
+
+.execute-button {
+  background: linear-gradient(
+    to bottom,
+    #fa430c,
+    #fa5305d3
+  );
+}
+
+
+// =====================================================
+// PAINEL DE RESULTADO
+// Pergaminho vertical direito
+// =====================================================
+
+.result-panel {
+  position: absolute;
+
+  pointer-events: auto;
+
+  left: 74.5%;
+  top: 27%;
+
+  width: 21.5%;
+  height: 60%;
+}
+
+
+// =====================================================
+// TÍTULO RESULTADO
+// =====================================================
+
+.result-title {
+  position: absolute;
+
+  top: 8%;
+
+  left: 10%;
+  right: 10%;
+
+  text-align: center;
+
+  color: #332419;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    15px,
+    1.25vw,
+    26px
+  );
+
+  font-weight: bold;
+
+  transition: color 0.2s ease;
+}
+
+
+.result-title.erro {
+  color: #d71919;
+
+  animation: overlay-appear 0.45s ease-out;
+}
+
+
+// =====================================================
+// CONTEÚDO DO RESULTADO
+// =====================================================
+
+.result-content {
+  position: absolute;
+
+  left: 4%;
+  right: 10%;
+
+  width: 94%;
+
+  top: 17%;
+  bottom: 6%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    12.3px,
+    0.7vw,
+    15px
+  );
+
+  color: #30251c;
+
+  transition: color 0.2s ease;
+}
+
+
+.result-content.erro {
+  color: #d71919;
+
+  animation: overlay-appear 0.45s ease-out;
+}
+
+
+// =====================================================
+// TABELA DE RESULTADOS
+// =====================================================
+
+.result-content table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+.result-content th {
+  padding: 5px 10px;
+
+  text-align: left;
+
+  border-bottom:
+    2px solid rgba(70, 45, 20, 0.5);
+
+  font-weight: bold;
+
+  white-space: nowrap;
+}
+
+
+.result-content td {
+  padding: 5px 10px;
+
+  border-bottom:
+    1px solid rgba(70, 45, 20, 0.25);
+
+  white-space: nowrap;
+}
+
+
+// =====================================================
+// SCROLLBAR DO RESULTADO
+// =====================================================
+
+.result-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.result-content::-webkit-scrollbar-track {
+  background: rgba(70, 45, 20, 0.12);
+}
+
+.result-content::-webkit-scrollbar-thumb {
+  background: rgba(70, 45, 20, 0.55);
+
+  border-radius: 5px;
+}
+
+
+// =====================================================
+// ANIMAÇÃO DE ERRO
+// =====================================================
+
+@keyframes overlay-appear {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}

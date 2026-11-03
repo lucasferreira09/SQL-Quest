@@ -1,0 +1,132 @@
+<div
+  class="challenge-screen"
+  [ngClass]="'world-' + mundoId"
+>
+
+  <div class="game-area">
+
+    <!-- MAPA -->
+    <img
+      class="map-background"
+      [src]="imagemFundo"
+      [alt]="'Mapa do Mundo ' + mundoId"
+    />
+
+     <!-- SOM -->
+    <div class="som" [ngClass]="'world-' + mundoId">
+      <button
+        class="som-button"
+        type="button"
+        (click)="toggleMusic()"
+      >
+        <img
+          [src]="iconSom"
+          [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+        >
+      </button>
+    </div>
+
+    <!-- INTERFACE -->
+    <div class="ui-layer">
+
+      <!-- ========================================= -->
+      <!-- TÍTULOS DOS DESAFIOS -->
+      <!-- ========================================= -->
+
+      <div class="challenge-list">
+
+        <button
+            class="challenge-button"
+            *ngFor="let desafio of desafios"
+            [class.selected]="desafioSelecionado?.id === desafio.id"
+            [class.locked]="!desafioDisponivel(desafio)"
+            [class.completed]="desafioConcluido(desafio)"
+            [disabled]="!desafioDisponivel(desafio)"
+            (click)="selecionarDesafio(desafio)"
+            >
+            <span class="challenge-title">
+                {{ desafio.titulo }}
+            </span>
+        </button>
+
+      </div>
+
+
+      <!-- ========================================= -->
+      <!-- BOTÃO COMEÇAR -->
+      <!-- ========================================= -->
+
+      <button
+        class="start-button"
+        [ngClass]="'world-' + mundoId"
+        *ngIf="desafioSelecionado"
+        (click)="iniciarDesafio()"
+      >
+        COMEÇAR
+      </button>
+
+
+      <!-- ========================================= -->
+      <!-- PERGAMINHO -->
+      <!-- ========================================= -->
+
+      <div
+        class="challenge-info"
+        *ngIf="desafioSelecionado"
+        [ngClass]="'world-' + mundoId"
+      >
+
+        <div class="parchment-content" [ngClass]="'world-' + mundoId">
+
+          <h1>
+            {{ desafioSelecionado.titulo }}
+          </h1>
+
+          <div class="separator"></div>
+
+          <p class="description">
+            {{ desafioSelecionado.descricao }}
+          </p>
+
+          <h3>
+            OBJETIVO
+          </h3>
+
+          <p class="objective">
+            {{ desafioSelecionado.objetivo }}
+          </p>
+
+          <div class="challenge-details">
+
+            <div>
+              <span>DIFICULDADE</span>
+              <strong>
+                {{ desafioSelecionado.dificuldade }}
+              </strong>
+            </div>
+            
+            <div>
+              <span>XP</span>
+              <strong>
+                {{ desafioSelecionado.xp }}
+              </strong>
+            </div>
+
+            <div>
+              <span>OURO</span>
+              <strong>
+                {{ desafioSelecionado.ouro }}
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

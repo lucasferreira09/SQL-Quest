@@ -1,0 +1,96 @@
+<div class="intro-overlay">
+
+  <div class="tela-erro">
+
+    <div class="conteudo-pergaminho">
+
+      <!-- Título -->
+      <header class="erro-titulo">
+        <h1>Ops! Consulta Incorreta!</h1>
+
+        <p>
+          Sua jornada ainda não terminou.
+          Revise sua consulta e tente novamente!
+        </p>
+      </header>
+
+      <!-- Scroll central -->
+      <div class="scroll-conteudo">
+
+        <!-- Consulta SQL -->
+        <section class="secao-erro">
+
+          <h2>Sua Consulta</h2>
+
+          <div class="codigo-sql">
+            <pre><code>{{ consulta || 'Nenhuma consulta disponível.' }}</code></pre>
+          </div>
+
+        </section>
+
+        <!-- Feedback -->
+        <section class="secao-erro">
+
+          <!-- <h2>Feedback do Sistema</h2> -->
+
+          <div class="feedback-conteudo">
+
+            <img
+              src="assets/elementos/erro/erro-consulta-simbol.png"
+              alt="Alerta"
+              class="feedback-icone"
+            />
+          
+            <p>{{ feedback }}</p>
+
+          </div>
+
+        </section>
+
+        <!-- Dicas -->
+        <section class="secao-erro secao-dicas">
+
+          <h2>Dicas para Resolver</h2>
+
+          <ul>
+            <li *ngFor="let dica of dicas">
+              {{ dica }}
+            </li>
+          </ul>
+
+        </section>
+
+      </div>
+
+      <!-- Ações -->
+      <footer class="erro-acoes">
+
+        <button
+          type="button"
+          class="tentar-button"
+          (click)="tentar()"
+        >
+          <img
+            src="assets/elementos/erro/tentar-novamente.png"
+            alt="Tentar novamente"
+          />
+        </button>
+
+        <!-- 
+        <button
+          type="button"
+          class="voltar-button"
+          (click)="voltar()"
+        >
+          <span class="icone-casa">⌂</span>
+          Voltar ao Mapa
+        </button>
+         -->
+
+      </footer>
+
+    </div>
+
+  </div>
+
+</div>

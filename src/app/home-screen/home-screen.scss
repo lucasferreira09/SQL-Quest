@@ -283,6 +283,278 @@
 }
 
 
+/* ================================================= */
+/* MODAL DE INFORMAÇÕES */
+/* ================================================= */
+
+.info-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  /*
+   * Escurece a Home atrás do pergaminho.
+   */
+  background: rgba(0, 0, 0, 0.72);
+
+  /*
+   * Leve desfoque no fundo.
+   */
+  backdrop-filter: blur(3px);
+
+  /*
+   * Espaçamento mínimo nas bordas.
+   */
+  padding: 2vh 2vw;
+
+  box-sizing: border-box;
+  animation: overlay-appear 0.35s ease-out;
+}
+
+@keyframes overlay-appear {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ================================================= */
+/* PERGAMINHO */
+/* ================================================= */
+
+.info-modal {
+
+  position: relative;
+
+  /*
+   * A imagem original possui proporção
+   * aproximadamente 2048 / 1365.
+   *
+   * O modal nunca ultrapassa:
+   *
+   * 92% da largura
+   * OU
+   * 88% da altura
+   */
+  width: min(
+    92vw,
+    calc(88vh * (2048 / 1365))
+  );
+
+  aspect-ratio: 2048 / 1365;
+
+  flex-shrink: 0;
+  animation: parchment-appear 0.55s ease-out;
+}
+
+@keyframes parchment-appear {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.85)
+      translateY(2%);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
+
+
+/* ================================================= */
+/* IMAGEM */
+/* ================================================= */
+
+.info-parchment {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
+/* ================================================= */
+/* TEXTO */
+/* ================================================= */
+
+.info-text {
+
+  position: absolute;
+
+  /*
+   * A logo ocupa a parte superior.
+   * O texto começa abaixo dela.
+   */
+  top: 33%;
+
+  left: 17%;
+
+  width: 65%;
+
+  height: 48%;
+
+  box-sizing: border-box;
+
+  padding: 1% 4% 4%;
+
+  overflow-y: auto;
+
+  color: #4a2e19;
+
+  font-family: "Godofwar", sans-serif;
+
+  text-align: center;
+
+  font-size: clamp(
+    17px,
+    1.05vw,
+    22px
+  );
+
+  line-height: 1.5;
+
+  /*
+   * Scrollbar no Firefox.
+   */
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(90, 53, 25, 0.65)
+    transparent;
+}
+
+.info-text::-webkit-scrollbar {
+
+  width: 0.45em;
+}
+
+
+.info-text::-webkit-scrollbar-track {
+
+  background: transparent;
+}
+
+
+.info-text::-webkit-scrollbar-thumb {
+
+  background: rgba(90, 53, 25, 0.6);
+
+  border-radius: 10px;
+}
+
+
+.info-text::-webkit-scrollbar-thumb:hover {
+
+  background: rgba(70, 40, 20, 0.8);
+}
+
+.info-text p {
+
+  margin:
+
+    0 auto
+
+    clamp(12px, 1.5vh, 25px)
+
+    auto;
+
+  max-width: 95%;
+}
+
+/* ================================================= */
+/* BOTÃO FECHAR */
+/* ================================================= */
+
+.info-close {
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 8.5%;
+
+  transform: translateX(-50%);
+
+  width: 20%;
+
+  height: 6%;
+
+  border: none;
+
+  background: transparent;
+
+  color: #090909;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    16px,
+    1vw,
+    24px
+  );
+
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    1px 1px 2px rgba(230, 118, 6, 0.35);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    filter 0.2s ease;
+}
+
+
+.info-close:hover {
+
+  transform:
+    translateX(-50%)
+    scale(1.08);
+
+  color: #080808;
+
+    filter:
+    drop-shadow(0 0 8px rgba(248, 117, 2, 0.85))
+    drop-shadow(0 0 20px rgba(3, 3, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+
+}
+
+
+
 
 @media (max-width: 900px) {
 

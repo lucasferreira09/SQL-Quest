@@ -1,0 +1,1202 @@
+.challenge-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+// =====================================================
+// ÁREA DO JOGO
+// =====================================================
+
+.game-area {
+  position: relative;
+
+  // Proporção REAL da imagem
+  aspect-ratio: 1672 / 941;
+
+  width: min(
+    100%,
+    calc(100vh * (1672 / 941))
+  );
+
+  max-height: 100%;
+  flex-shrink: 0;
+}
+
+
+// =====================================================
+// IMAGEM DE FUNDO
+// =====================================================
+
+.map-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: fill;
+}
+
+
+// =====================================================
+// CAMADA DOS ELEMENTOS
+// =====================================================
+
+.ui-layer {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+
+// =====================================================
+// INFORMAÇÕES DO DESAFIO
+// Pergaminho superior esquerdo
+// =====================================================
+
+.challenge-screen.world-1 .challenge-info { 
+  position: absolute;
+  pointer-events: none; 
+  left: 2.5%;
+  top: 6%;
+
+  width: 41.5%;
+  height: 16%;
+}
+.challenge-screen.world-2 .challenge-info {
+  position: absolute;
+  pointer-events: none; 
+  left: 3%;
+  top: 5%;
+
+  width: 41%;
+  height: 18%;
+}
+.challenge-screen.world-3 .challenge-info {
+  position: absolute;
+  pointer-events: none; 
+  left: 2.5%;
+  top: 4.5%;
+
+  width: 42.5%;
+  height: 18%;
+}
+.challenge-screen.world-4 .challenge-info {
+  position: absolute;
+  pointer-events: none; 
+  left: 1.2%;
+  top: 4.5%;
+  width: 42.5%;
+  height: 18%;
+}
+.challenge-screen.world-5 .challenge-info {
+  position: absolute;
+  pointer-events: none; 
+  left: 2.5%;
+  top: 7%;
+  width: 41%;
+  height: 16%;
+  
+  //background-color: #18df2cc9;
+}
+
+
+.challenge-info-content {
+  position: absolute;
+
+  
+  // Espaço reservado para o Mestre Query
+  // que já está desenhado na imagem.
+  left: 27%;
+  right: 4%;
+
+  top: 15%;
+  bottom: 12%;
+
+  overflow: hidden;
+}
+
+.challenge-info h1 {
+  margin: 0 0 6px;
+
+  color: #2b2118;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    16px,
+    1.35vw,
+    28px
+  );
+
+  font-weight: bold;
+
+  line-height: 1.1;
+
+  text-shadow:
+    1px 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.challenge-screen.world-4 .challenge-info h1 {
+
+  color: #FDDC7A;
+  font-weight: normal;
+
+}
+
+.challenge-info p {
+  margin: 0;
+
+  color: #403329;
+
+  margin-top: 1%;
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(
+    18px,
+    0.8vw,
+    17px
+  );
+
+  line-height: 1.35;
+}
+
+.challenge-screen.world-4 .challenge-info p {
+
+  color: #FDDC7A;
+
+  font-size: clamp(
+    16px,
+    0.8vw,
+    17px
+  );
+}
+
+// =====================================================
+// RECOMPENSAS
+// Painel superior direito
+// =====================================================
+
+.rewards {
+  position: absolute;
+
+  left: 71%;
+  top: 6.2%;
+
+  width: 27%;
+  height: 16%;
+
+  pointer-events: none;
+}
+
+.reward {
+  position: absolute;
+
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gold-reward {
+  left: 13%;
+  top: 42%;
+
+  width: 38%;
+}
+
+.challenge-screen.world-1 .gold-reward {
+  left: 15.5%;
+  top: 42%;
+
+  width: 38%;
+}
+.challenge-screen.world-2 .gold-reward {
+  left: 12%;
+  top: 42%;
+
+  width: 38%;
+}
+
+.challenge-screen.world-3 .gold-reward {
+  left: 13%;
+  top: 38%;
+
+  width: 38%;
+}
+.xp-reward {
+  right: 3%;
+  top: 42%;
+
+  width: 38%;
+}
+
+.challenge-screen.world-3 .xp-reward {
+  right: 5%;
+  top: 38%;
+
+  width: 38%;
+}
+.challenge-screen.world-4 .xp-reward {
+  width: 38%;
+  top: 42%;
+}
+
+.reward-value {
+  color: #f3d27a;
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    14px,
+    1.25vw,
+    26px
+  );
+
+  font-weight: bold;
+
+  text-shadow:
+    2px 2px 2px #3b210b,
+    -1px -1px 0 #6f4618;
+}
+
+
+// =====================================================
+// PAINEL SQL
+// Pergaminho grande central
+// =====================================================
+
+.challenge-screen.world-1 .sql-panel {  
+  position: absolute;
+
+  pointer-events: auto;
+  //background-color: #8d00c0a9;
+  left: 3%;
+  top: 25.5%;
+
+  width: 55.5%;
+  height: 43%;
+
+}
+.challenge-screen.world-2 .sql-panel {
+
+  position: absolute;
+
+  pointer-events: auto;
+  //background-color: #8d00c0a9;
+  left: 3%;
+  top: 25.5%;
+
+  width: 55%;
+  height: 41%;
+
+}
+
+.challenge-screen.world-3 .sql-panel {
+
+  position: absolute;
+
+  pointer-events: auto;
+  //background-color: #8d00c0a9;
+  left: 3%;
+  top: 25.5%;
+
+  width: 55%;
+  height: 44%;
+
+}
+
+.challenge-screen.world-4 .sql-panel {
+
+  position: absolute;
+
+  pointer-events: auto;
+  //background-color: #8d00c0a9;
+  left: 3%;
+  top: 25.5%;
+
+  width: 55%;
+  height: 41%;
+  
+}
+.challenge-screen.world-5 .sql-panel {
+
+  position: absolute;
+
+  pointer-events: auto;
+  //background-color: #8d00c0a9;
+  left: 3%;
+  top: 25.5%;
+
+  width: 55%;
+  height: 41%;
+  
+}
+
+// =====================================================
+// TÍTULO CONSULTA SQL
+// Pequena placa escura no topo do pergaminho
+// =====================================================
+
+.sql-title {
+  position: absolute;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    12px,
+    1vw,
+    20px
+  );
+
+  font-weight: bold;
+
+  text-shadow:
+    2px 2px 2px #000;
+}
+.challenge-screen.world-1 .sql-title {
+
+  left: 41%;
+  top: 1%;
+
+  width: 32%;
+  height: 13%;
+
+  color: #ead9b3;
+}
+.challenge-screen.world-2 .sql-title {
+
+  left: 35%;
+
+  width: 32%;
+  height: 12%;
+
+  color: #ead9b3;
+
+}
+.challenge-screen.world-3 .sql-title {
+
+  left: 32.3%;
+
+  width: 32%;
+  height: 12%;
+  letter-spacing: 2px;
+  color: #ead9b3;
+}
+.challenge-screen.world-4 .sql-title {
+
+  left: 33.3%;
+
+  width: 32%;
+  height: 15.5%;
+  letter-spacing: 2px;
+  color: #ead9b3;
+}.challenge-screen.world-5 .sql-title {
+
+  left: 34.5%;
+
+  width: 32%;
+  height: 15.5%;
+  letter-spacing: 2px;
+  color: #ead9b3;
+}
+
+
+// =====================================================
+// ÁREA DA CONSULTA
+// =====================================================
+
+.query-area {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 13%;
+  bottom: 18%;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  align-content: flex-start;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  padding: 12px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.query-area .query-block {
+  flex-shrink: 0;
+}
+
+.query-area.cdk-drop-list-dragging .query-block {
+  transition:
+    transform 180ms ease;
+}
+
+.query-area::-webkit-scrollbar {
+  height: 7px;
+}
+
+.query-area::-webkit-scrollbar-track {
+  background: rgba(70, 45, 20, 0.12);
+}
+
+.query-area::-webkit-scrollbar-thumb {
+  background: rgba(70, 45, 20, 0.55);
+  border-radius: 5px;
+}
+
+// =====================================================
+// BLOCOS SQL
+// =====================================================
+
+.query-block {
+  position: relative;
+
+  padding: 7px 14px;
+
+  border: 2px solid #5d4526;
+  border-radius: 7px;
+
+  background: linear-gradient(
+    to bottom,
+    #f1d79b,
+    #c99d59
+  );
+
+  color: #2e2115;
+
+  font-family: Georgia, serif;
+
+  font-size: clamp(
+    11px,
+    0.85vw,
+    18px
+  );
+
+  font-weight: bold;
+
+  box-shadow:
+    2px 3px 4px rgba(0, 0, 0, 0.45);
+
+  cursor: grab;
+
+  user-select: none;
+}
+
+.query-block:active {
+  cursor: grabbing;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+
+  padding: 7px 14px;
+
+  border: 2px solid #5d4526;
+  border-radius: 7px;
+
+  background: linear-gradient(
+    to bottom,
+    #f1d79b,
+    #c99d59
+  );
+
+  color: #2e2115;
+
+  font-family: Georgia, serif;
+  font-size: clamp(11px, 0.85vw, 18px);
+  font-weight: bold;
+
+  box-shadow:
+    4px 6px 10px rgba(0, 0, 0, 0.55);
+
+  pointer-events: none;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.35;
+
+  border: 2px dashed #6b4b25;
+
+  background: rgba(201, 157, 89, 0.25);
+
+  box-shadow: none;
+}
+
+
+// =====================================================
+// BOTÕES DO SQL
+// =====================================================
+
+.sql-actions {
+  position: absolute;
+
+  left: 6%;
+  right: 6%;
+
+  bottom: 2%;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+}
+
+.sql-actions button {
+  padding: 4px 12px;
+
+  border: 2px solid #4a351d;
+  border-radius: 7px;
+
+  color: #fff;
+
+  font-family: "Godofwar", sans-serif;
+
+
+  font-size: clamp(
+    16px,
+    0.8vw,
+    17px
+  );
+
+  cursor: pointer;
+
+  box-shadow:
+    2px 3px 4px rgba(0, 0, 0, 0.5);
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.sql-actions button:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.12);
+}
+
+
+// =====================================================
+// BOTÃO LIMPAR
+// =====================================================
+
+// BOTÃO DICA
+.dica-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 8px 18px;
+
+  background: linear-gradient(
+    to bottom,
+    #d6a443,
+    #94601d
+  );
+
+  border: 2px solid #70451c;
+  border-radius: 8px;
+
+  color: #fff3cf;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 15px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 0 #573514,
+    inset 0 1px 2px #ffe5a1;
+
+  transition: transform 0.15s, filter 0.15s;
+
+  &:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.dica-icon {
+  width: 30px;
+  height: 25px;
+  object-fit: contain;
+}
+
+// =====================================================
+// BOTÃO LIMPAR
+// =====================================================
+
+.clear-button {
+  background: linear-gradient(
+    to bottom,
+    #a84949,
+    #632525
+  );
+}
+
+
+// =====================================================
+// BOTÃO EXECUTAR
+// =====================================================
+
+.execute-button {
+  background: linear-gradient(
+    to bottom,
+    #4c9c51,
+    #28642e
+  );
+}
+
+
+// =====================================================
+// PAINEL DE RESULTADO
+// Pergaminho vertical direito
+// =====================================================
+
+.challenge-screen.world-1 .result-panel {
+
+  position: absolute;
+  pointer-events: auto;
+
+  left: 71%;
+  top: 25%;
+
+  width: 25%;
+  height: 64%;
+
+}
+
+.challenge-screen.world-2 .result-panel {
+
+  position: absolute;
+  pointer-events: auto;
+
+  left: 69%;
+  top: 25%;
+
+  width: 28%;
+  height: 67%;
+
+}
+
+.challenge-screen.world-3 .result-panel {
+
+  position: absolute;
+  pointer-events: auto;
+
+  left: 71.5%;
+  top: 25%;
+
+  width: 25%;
+  height: 68%;
+}
+.challenge-screen.world-4 .result-panel {
+
+  position: absolute;
+  pointer-events: auto;
+
+  left: 74.5%;
+  top: 25%;
+
+  width: 21.5%;
+  height: 68%;
+
+  
+  //background-color: #0f05cea4;
+}
+.challenge-screen.world-5 .result-panel {
+
+  position: absolute;
+  pointer-events: auto;
+
+  left: 74.5%;
+  top: 27%;
+
+  width: 21.5%;
+  height: 60%;
+
+  
+  //background-color: #0f05cea4;
+}
+
+
+// =====================================================
+// TÍTULO RESULTADO
+// =====================================================
+
+.result-title {
+  position: absolute;
+
+  
+  top: 8%;
+
+  left: 10%;
+  right: 10%;
+
+  text-align: center;
+
+  color: #332419;
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    15px,
+    1.25vw,
+    26px
+  );
+
+  font-weight: bold;
+  
+  transition: color 0.2s ease;
+}
+.result-title.erro {
+  color: #d71919;
+  animation: overlay-appear 0.45s ease-out;
+}
+
+// =====================================================
+// CONTEÚDO DO RESULTADO
+// =====================================================
+
+.result-content {
+
+  font-family: "Godofwar", sans-serif;
+
+  font-size: clamp(
+    12.3px,
+    0.7vw,
+    15px
+  );
+  
+  color: #30251c;
+  transition: color 0.2s ease;
+  
+}
+.result-content.erro {
+  color: #d71919;
+  animation: overlay-appear 0.45s ease-out;
+}
+
+@keyframes overlay-appear {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.challenge-screen.world-1 .result-content {
+  position: absolute;
+
+  left: 1%;
+  right: 6%;
+
+  top: 17%;
+  bottom: 7%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  padding: 10px;
+}
+
+.challenge-screen.world-2 .result-content {
+  position: absolute;
+
+  left: 1%;
+  right: 8%;
+
+  width: 94%;
+  top: 17%;
+  bottom: 8%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  padding: 10px;
+
+  //background-color: #0ea1eaa2;
+}
+
+.challenge-screen.world-3 .result-content {
+  position: absolute;
+
+  left: 1%;
+  right: 8%;
+
+  width: 94%;
+  top: 17%;
+  bottom: 6%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  //background-color: #0ea1eaa2;
+}
+.challenge-screen.world-4 .result-content {
+  position: absolute;
+
+  left: 4%;
+  right: 10%;
+
+  width: 94%;
+  top: 17%;
+  bottom: 6%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  //background-color: #0ea1eaa2;
+}
+.challenge-screen.world-5 .result-content {
+  position: absolute;
+
+  left: 4%;
+  right: 10%;
+
+  width: 94%;
+  top: 17%;
+  bottom: 6%;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  //background-color: #0ea1eaa2;
+}
+
+// =====================================================
+// TABELA
+// =====================================================
+
+.result-content table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.result-content th {
+  padding: 5px 10px;
+
+  text-align: left;
+
+  border-bottom:
+    2px solid rgba(70, 45, 20, 0.5);
+
+  font-weight: bold;
+
+  white-space: nowrap;
+}
+
+.result-content td {
+  padding: 5px 10px;
+
+  border-bottom:
+    1px solid rgba(70, 45, 20, 0.25);
+
+  white-space: nowrap;
+}
+
+
+// =====================================================
+// SCROLLBAR RESULTADO
+// =====================================================
+
+
+.result-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.result-content::-webkit-scrollbar-track {
+  background: rgba(70, 45, 20, 0.12);
+}
+
+.result-content::-webkit-scrollbar-thumb {
+  background: rgba(70, 45, 20, 0.55);
+
+  border-radius: 5px;
+}
+
+
+// =====================================================
+// BAÚ
+// =====================================================
+
+.challenge-screen.world-1 .query-chest {
+  position: absolute;
+
+  left: 8.5%;
+  bottom: 0;
+
+  width: 50%;
+  height: 21.5%;
+  
+  pointer-events: auto;
+  //background-color: #02f4f4c9;
+}
+.challenge-screen.world-2 .query-chest {
+  position: absolute;
+
+  left: 8.5%;
+  bottom: 0;
+
+  width: 45%;
+  height: 22.5%;
+  
+  pointer-events: auto;
+}
+.challenge-screen.world-3 .query-chest {
+  position: absolute;
+
+  left: 3%;
+  bottom: 0;
+
+  width: 52%;
+  height: 19.5%;
+  
+  pointer-events: auto;
+  //background-color: #02f4f4c9;
+}
+.challenge-screen.world-4 .query-chest {
+  position: absolute;
+
+  left: 5.5%;
+  bottom: 0;
+
+  width: 50%;
+  height: 20.5%;
+  
+  pointer-events: auto;
+  //background-color: #02f4f4c9;
+}
+.challenge-screen.world-5 .query-chest {
+  position: absolute;
+
+  left: 5.5%;
+  bottom: 0;
+
+  width: 50%;
+  height: 20.5%;
+  
+  pointer-events: auto;
+  //background-color: #02f4f4c9;
+}
+
+// =====================================================
+// BLOCOS DISPONÍVEIS
+// =====================================================
+
+.available-blocks {
+  position: absolute;
+  left: 10%;
+  right: 5%;
+  top: 5%;
+  bottom: 34%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  overflow-y: auto;
+  //background-color: #31ce01ae;
+}
+
+.challenge-screen.world-5 .available-blocks {
+  left: 9%;
+  right: 5%;
+  top: 5%;
+  bottom: 28%;
+  //background-color: #31ce01ae;
+}
+
+// =====================================================
+// BOTÃO DE SOM
+// Canto inferior esquerdo da tela
+// =====================================================
+
+.som {
+  position: absolute;   // .challenge-screen já é position: relative e ocupa 100vw x 100vh
+  left: 16px;
+  bottom: 16px;
+  z-index: 100;         // fica acima da imagem e da ui-layer
+}
+
+.som-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  filter:
+    drop-shadow(0 0 20px rgba(12, 0, 2, 0.85))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+
+  &:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+  }
+
+  img {
+    display: block;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+  }
+}
+.som.world-1 .som-button { 
+  
+  //border: 1px solid #F19C68;          // dourado, combina com as recompensas
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #67842E)
+    drop-shadow(0 0 6px #67842E)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+.som.world-2 .som-button { 
+  
+  img {
+    width: 60px;
+    height: 60px;
+  }
+
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #FF9A16)
+    drop-shadow(0 0 6px #F19C68)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+.som.world-3 .som-button { 
+
+   img {
+    width: 65px;
+    height: 65px;
+  }
+
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #1E2C40
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #ffffff)
+    //drop-shadow(0 0 6px #F19C68)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+.som.world-4 .som-button { 
+  
+  //border: 1px solid #F19C68;          // dourado, combina com as recompensas
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #AE3BFD)
+    //drop-shadow(0 0 6px #F19C68)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+.som.world-5 .som-button { 
+  
+  //border: 1px solid #F19C68;          // dourado, combina com as recompensas
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
+  filter:
+    drop-shadow(0 0 2px #00C7FD)
+    drop-shadow(0 0 6px #00C7FD)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+}
+
+// =====================================================
+// BLOCOS DO BAÚ
+// =====================================================
+
+.available-blocks .query-block {
+  cursor: grab;
+
+  user-select: none;
+}
+
+.available-blocks .query-block:active {
+  cursor: grabbing;
+}
+
+.available-blocks.cdk-drop-list-receiving {
+  filter: brightness(1.08);
+}
+
+.query-area.cdk-drop-list-receiving {
+  filter: brightness(1.03);
+}
+
+// =====================================================
+// SCROLLBAR DO BAÚ
+// =====================================================
+
+.available-blocks::-webkit-scrollbar {
+  width: 6px;
+}
+
+.available-blocks::-webkit-scrollbar-track {
+  background: rgba(40, 25, 10, 0.15);
+}
+
+.available-blocks::-webkit-scrollbar-thumb {
+  background: rgba(40, 25, 10, 0.45);
+
+  border-radius: 5px;
+}

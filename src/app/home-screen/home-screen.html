@@ -6,7 +6,7 @@
 
     <div class="top-actions">
 
-      <div class="action">
+      <div class="action" (click)="abrirInfo()">
         <img src="/assets/n_about.png"
           class="action-icon info-icon"
           alt="About"/>
@@ -38,7 +38,7 @@
 
         <button class="menu-item"
           type="button"
-          (click)="options()">
+          (click)="toggleMusic()">
 
           <span class="indicator"></span>
           <span class="menu-text">{{optionsButton}}</span>
@@ -57,5 +57,70 @@
     </div>
 
   </div>
+
+  <!-- ================================================= -->
+<!-- MODAL DE INFORMAÇÕES -->
+<!-- ================================================= -->
+
+<div
+  class="info-overlay"
+  *ngIf="mostrarInfo"
+>
+
+  <div class="info-modal">
+
+    <!-- Pergaminho -->
+    <img
+      class="info-parchment"
+      src="assets/info_pergaminho3.png"
+      alt="Informações sobre o SQL Quest"
+    >
+
+
+    <!-- Área do texto -->
+    <div class="info-text">
+
+      <p>
+        Embarque em uma jornada épica para se tornar
+        um mestre do SQL!
+      </p>
+
+      <p>
+        O <strong>SQL Quest</strong> é uma aventura onde você aprenderá
+        SQL enquanto explora o reino de Aethel.
+      </p>
+
+      <p>
+        Resolva desafios, supere obstáculos e avance
+        por mundos incríveis utilizando seu conhecimento
+        em consultas e manipulação de dados.
+      </p>
+
+      <p>
+        Durante sua jornada, você aprenderá desde os
+        conceitos fundamentais, como <strong>SELECT, FROM, WHERE,</strong> 
+        e até recursos mais avançados como <strong>JOIN, GROUP BY e subconsultas.</strong>
+      </p>
+
+      <p>
+        Prepare-se para enfrentar desafios, recuperar
+        os fragmentos do Grande Registro e se tornar
+        um verdadeiro Guardião dos dados!
+      </p>
+
+    </div>
+
+
+    <!-- Botão fechar -->
+    <button
+      class="info-close"
+      (click)="fecharInfo()"
+    >
+      FECHAR
+    </button>
+
+  </div>
+
+</div>
 
 </div>

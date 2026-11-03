@@ -1,0 +1,363 @@
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+
+  animation: overlay-appear 0.45s ease-out;
+}
+
+@keyframes overlay-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Tela principal: tem a mesma proporção da imagem do pergaminho */
+
+.tela-erro {
+  position: relative;
+
+  /* proporção da imagem (largura / altura) */
+  aspect-ratio: 805 / 874;
+
+  /* cabe na tela sem cortar, mantendo a proporção */
+  width: min(96vw, calc(96vh * 805 / 874));
+  height: auto;
+
+  background-image: url('/assets/telas/erro-consulta.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  animation: intro-appear 0.55s ease-out;
+}
+
+
+/* Área útil do papel (entre o brasão e o rolo de baixo) */
+
+.conteudo-pergaminho {
+  position: absolute;
+
+  top: 21%;      /* abaixo do brasão e da faixa vermelha */
+  bottom: 15%;   /* acima do rolo inferior */
+  left: 10%;
+  right: 10%;
+
+  box-sizing: border-box;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 2%;
+}
+
+
+/* Título */
+
+.erro-titulo {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  flex-shrink: 0;
+
+  h1 {
+    margin: 0;
+
+    color: #8e1c0d;
+
+    font-family: "Godofwar", Georgia, serif;
+    font-size: clamp(16px, 2.2vw, 29px);
+
+    font-weight: bold;
+  }
+
+  p {
+    margin: 6px 0 0;
+
+    max-width: 95%;
+
+    font-size: clamp(11px, 1.25vw, 16px);
+    font-weight: bold;
+    line-height: 1.35;
+  }
+}
+
+
+/* Scroll central */
+
+.scroll-conteudo {
+  width: 100%;
+
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 4px 6px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #8b5429 transparent;
+}
+
+
+/* Seções */
+
+.secao-erro {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 18px 12px 13px;
+
+  box-sizing: border-box;
+
+  border: 2px solid rgba(119, 65, 22, 0.55);
+  border-radius: 12px;
+
+  background: rgba(255, 221, 158, 0.25);
+
+  flex-shrink: 0;
+
+  h2 {
+    margin: 0;
+
+    padding: 5px 16px;
+
+    border: 2px solid #d99a38;
+    border-radius: 9px;
+
+    background: linear-gradient(
+      180deg,
+      #79400f,
+      #482006
+    );
+
+    color: #fff0ce;
+
+    font-family: "Godofwar", Georgia, serif;
+    font-size: clamp(12px, 1.4vw, 18px);
+
+    text-align: center;
+    white-space: nowrap;
+
+    box-shadow: 0 2px 4px rgba(65, 30, 5, 0.5);
+  }
+}
+
+
+/* Consulta SQL */
+
+.codigo-sql {
+  width: 100%;
+  max-height: 150px;
+
+  overflow: auto;
+
+  background: #251f1a;
+
+  border: 2px solid #75431f;
+  border-radius: 10px;
+
+  box-sizing: border-box;
+  padding: 12px;
+
+  pre {
+    margin: 0;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  code {
+    color: #f5dcae;
+
+    font-family: "Godofwar", sans-serif;
+    font-size: clamp(11px, 1.1vw, 15px);
+  }
+}
+
+
+/* Feedback */
+
+.feedback-conteudo {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  p {
+    margin: 0;
+
+    font-size: clamp(12px, 1.25vw, 16px);
+    font-weight: bold;
+    line-height: 1.45;
+  }
+}
+
+.feedback-icone {
+  width: clamp(42px, 6vw, 65px);
+  height: auto;
+
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+/* Dicas */
+
+.secao-dicas {
+  ul {
+    width: 100%;
+
+    margin: 0;
+    padding-left: 22px;
+
+    box-sizing: border-box;
+  }
+
+  li {
+    margin: 5px 0;
+
+    font-size: clamp(11px, 1.15vw, 15px);
+    font-weight: bold;
+    line-height: 1.4;
+  }
+}
+
+
+/* Botões */
+.erro-acoes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  -webkit-transform-origin-y: 50%;
+  bottom: -25%;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tentar-button {
+  width: 40%;
+  padding: 0;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+
+  &:active img {
+    transform: scale(0.97);
+}
+
+/*
+.voltar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 9px 11px;
+
+  background: linear-gradient(#70401f, #42210e);
+
+  border: 2px solid #c58a3a;
+  border-radius: 9px;
+
+  color: #fff0d4;
+
+  font-family: "Godofwar", Georgia, serif;
+  font-size: clamp(9px, 1vw, 13px);
+  font-weight: bold;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}*/
+}
+
+.icone-casa {
+  font-size: 20px;
+}
+
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+  .conteudo-pergaminho {
+    left: 11%;
+    right: 11%;
+    gap: 1.5%;
+  }
+
+  .scroll-conteudo {
+    gap: 8px;
+  }
+
+  .erro-acoes {
+    gap: 6px;
+  }
+
+  .voltar-button {
+    padding: 6px;
+  }
+}

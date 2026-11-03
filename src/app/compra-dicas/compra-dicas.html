@@ -1,0 +1,117 @@
+
+<div class="intro-overlay">
+    
+    <div class="compra-dicas-screen">
+
+    <div class="compra-dicas-container">
+
+        <!-- Pergaminho principal -->
+        <img
+        src="assets/dicas/dica-pergaminho2.png"
+        class="dica-parchment"
+        alt="Pergaminho de compra de dicas"
+        />
+
+        <!-- Título -->
+        <header class="titulo-painel">
+        <h1>Compra de Dicas</h1>
+        </header>
+
+        <!-- Saldo de ouro -->
+        <div class="saldo-ouro">
+        <span>{{ ouroJogador }}</span>
+        </div>
+
+        <!-- Lista de dicas -->
+        <div class="lista-dicas">
+
+        <div
+            class="dica-item"
+            *ngFor="let dica of dicas"
+        >
+
+            <!-- Imagem do nível -->
+            <div class="nivel-container">
+            <img
+                [src]="getImagemNivel(dica.nivel)"
+                [alt]="'Nível ' + dica.nivel"
+                class="nivel-imagem"
+            />
+            </div>
+
+            <!-- Descrição -->
+            <div
+                class="dica-descricao"
+                [class.dica-bloqueada]="!dica.comprada"
+                >
+                <span *ngIf="dica.comprada">
+                    {{ dica.texto }}
+                </span>
+
+                <span *ngIf="!dica.comprada" class="texto-secreto">
+                    Conhecimento oculto...
+                </span>
+            </div>
+
+            <!-- Custo -->
+            <div class="dica-custo">
+
+            <img
+                src="assets/recompensas/outros/gold-coins.png"
+                alt="Ouro"
+            />
+
+            <span>{{ dica.custoOuro }}</span>
+
+            </div>
+
+            <!-- Comprar -->
+            <button
+            class="comprar-button"
+            [disabled]="dica.comprada || ouroJogador < dica.custoOuro"
+            (click)="comprarDica(dica)"
+            >
+            {{ dica.comprada ? 'Adquirida' : 'Comprar' }}
+            </button>
+
+        </div>
+
+        <!-- Carregamento -->
+        <div class="estado-lista" *ngIf="carregando">
+            Carregando dicas...
+        </div>
+
+        <!-- Lista vazia -->
+        <div
+            class="estado-lista"
+            *ngIf="!carregando && dicas.length === 0"
+        >
+            Nenhuma dica disponível.
+        </div>
+
+        </div>
+
+        <!-- Mensagem de erro -->
+        <div class="mensagem-erro" *ngIf="mensagemErro">
+        {{ mensagemErro }}
+        </div>
+
+        <!-- Botão fechar -->
+        <button
+        class="fechar-button"
+        (click)="fecharTela()"
+        aria-label="Fechar compra de dicas"
+        >
+        <img
+            src="assets/dicas/fechar-dica-button.png"
+            alt=""
+        />
+        </button>
+
+    </div>
+
+    </div>
+
+
+</div>
+

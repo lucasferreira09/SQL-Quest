@@ -1,0 +1,158 @@
+<app-intro-modal
+  *ngIf="mostrarIntroducao"
+  (fechar)="fecharIntroducao()"
+></app-intro-modal>
+
+<div class="challenges-container">
+
+  <!-- FUNDO -->
+  <div class="background"></div>
+
+
+  <!-- CONTEÚDO -->
+  <div class="challenges-content">
+
+    <!-- =====================================================
+         BARRA SUPERIOR
+         ===================================================== -->
+
+    <div class="top-bar">
+
+      <!-- BOTÃO VOLTAR -->
+      <button
+        class="back-button"
+        type="button"
+        (click)="back()"
+      >
+        <img src="/assets/new_back.png" alt="Voltar">
+      </button>
+
+      <!-- AÇÕES DO LADO DIREITO -->
+      <div class="top-actions">
+
+        <!-- SOM -->
+        <div class="som">
+          <button
+            class="som-button"
+            type="button"
+            (click)="toggleMusic()"
+          >
+            <img
+              [src]="audioService.isPlaying()
+                ? '/assets/elementos/outros/sound-on.png'
+                : '/assets/elementos/outros/sound-off.png'"
+              [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+            >
+          </button>
+        </div>
+
+        <!-- INVENTÁRIO -->
+        <div class="inventario">
+          <button
+            class="inventario-button"
+            type="button"
+            (click)="openInventario()"
+          >
+            <img
+              src="/assets/inventario_icon.png"
+              alt="Inventário"
+            >
+          </button>
+        </div>
+
+  </div>
+
+</div>
+
+
+    <!-- =====================================================
+         MUNDOS
+         ===================================================== -->
+
+    <div class="challenge-grid">
+
+      <button
+        *ngFor="let capitulo of capitulos"
+
+        class="challenge"
+
+        type="button"
+
+        [class.selected]="
+          capituloSelecionado?.id === capitulo.id
+        "
+
+        [style.filter]="
+          getCapituloFilter(capitulo)
+        "
+
+        (mouseenter)="capituloHover = capitulo"
+
+        (mouseleave)="capituloHover = null"
+
+        (click)="selecionarCapitulo(capitulo)"
+      >
+
+        <img
+          [src]="
+            '/assets/challenges/challenge'
+            + capitulo.numero
+            + '.png'
+          "
+
+          [alt]="
+            'Mundo ' + capitulo.numero
+          "
+        >
+
+      </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAINEL
+         ===================================================== -->
+
+    <div
+      class="challenge-panel"
+      *ngIf="capituloSelecionado"
+    >
+
+      <img
+        class="panel-background"
+        src="/assets/aaaaaa.png"
+        alt=""
+      >
+
+
+      <div class="panel-content">
+
+        <div class="challenge-description">
+
+          <h2>
+            {{ capituloSelecionado.nome }}
+          </h2>
+
+        </div>
+
+
+        <div class="start-session">
+
+          <button
+            class="start-button"
+            type="button"
+            (click)="entrarNoCapitulo()"
+          >
+            Começar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
