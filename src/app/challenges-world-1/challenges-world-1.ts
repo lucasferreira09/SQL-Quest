@@ -42,7 +42,8 @@ export class ChallengesWorld1 implements OnInit {
   desafioId!: number;
 
   desafio: Desafio | null = null;
-  
+
+  carregandoMundo = true;
   conquistasGanhos: any[] = [];
   queryBlocks: BlocoDesafio[] = [];
   availableBlocks: BlocoDesafio[] = [];
@@ -69,7 +70,7 @@ export class ChallengesWorld1 implements OnInit {
 
   mundoId!: number;
   imagensDesafioMundos: Record<number, string> = {
-    1: 'assets/world_1_challenge_screen2.png',
+    1: 'assets/telas/desafios/mundo1_tela_desafio.webp',
     2: 'assets/world_new.png',
     3: 'assets/world3_new_v3.png',
     4: 'assets/mundos_background/tela_desafio/mundo4_desafio_screen2.png',
@@ -107,33 +108,40 @@ export class ChallengesWorld1 implements OnInit {
     private cdr: ChangeDetectorRef,
     private dicaService: DicaService
   ) {}
-  // component.ts
+  
+  
   ngOnInit(): void {
-    this.desafioId = Number(this.route.snapshot.paramMap.get('id'));
+  this.desafioId = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.getMundoIdByDesafio(this.desafioId).subscribe({
-      next: (mundoId) => {
-        if (mundoId == 6) {
+  this.getMundoIdByDesafio(this.desafioId).subscribe({
+    next: (mundoId) => {
 
-          this.router.navigate(
-            ['/capitulo/6', this.desafioId],
-            { replaceUrl: true }
-          );
-
-          return;
-        }
-
-        this.mundoId = mundoId;
-        this.imagemDesafioFundo = this.imagensDesafioMundos[this.mundoId] ?? this.imagensDesafioMundos[1];
-        console.log("MundoID: " + this.mundoId);
-        
-        this.carregarDesafio();
-      },
-      error: (erro) => {
-        console.error('Erro ao carregar mundoId:', erro);
+      if (mundoId === 6) {
+        this.router.navigate(
+          ['/capitulo/6', this.desafioId],
+          { replaceUrl: true }
+        );
+        return;
       }
-    });
-  }
+
+      this.mundoId = mundoId;
+
+      this.imagemDesafioFundo =
+        this.imagensDesafioMundos[this.mundoId] ??
+        this.imagensDesafioMundos[1];
+
+      this.carregarDesafio();
+
+      this.carregandoMundo = false;
+      this.cdr.detectChanges();
+    },
+
+    error: (erro) => {
+      console.error('Erro ao carregar mundoId:', erro);
+      this.carregandoMundo = false;
+    }
+  });
+}
 
   carregarDesafio(): void {
 
@@ -205,6 +213,9 @@ export class ChallengesWorld1 implements OnInit {
 
   executeQuery(): void {
 
+     console.log('TESTE: executeQuery foi chamado!');
+
+
     if (!this.desafio) {
       return;
     }
@@ -235,8 +246,6 @@ export class ChallengesWorld1 implements OnInit {
 
         next: (resposta) => {
 
-          console.log('Resposta do servidor:', resposta);
-
           if (resposta.resultado) {
             if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
               this.animarErroResultado();
@@ -256,6 +265,7 @@ export class ChallengesWorld1 implements OnInit {
 
           if (!resposta.desafioConcluido) {
             this.animarErroResultado();
+            this.erroConsultaSound();
             this.abrirErroConsulta(sql);
           }
 
@@ -357,14 +367,19 @@ export class ChallengesWorld1 implements OnInit {
 
   abrirModalRecompensas(resposta: any): void {
 
+    console.log('TESTE: abrirModalRecompensas foi chamado!');
+    
     const itens = resposta.itensRecebidos ?? [];
     const conquistas = resposta.conquistasDesbloqueadas ?? [];
+
+    console.log('Itens recebidos do backend:', itens);
+    console.log('Conquistas recebidas do backend:', conquistas);
 
     this.recompensasGanhos = itens.map((item: any) => ({
       id: item.ITEM_ID ?? item.itemId,
       nome: item.NOME ?? item.nome,
       descricao: item.DESCRICAO ?? item.descricao,
-      imagem: this.normalizarImagem(item.IMAGEM ?? item.imagem),
+      image: this.normalizarImagem(item.IMAGEM ?? item.imagem),
       quantidade: item.QUANTIDADE ?? item.quantidade ?? 1
     }));
 
@@ -372,7 +387,7 @@ export class ChallengesWorld1 implements OnInit {
       id: conquista.CONQUISTA_ID ?? conquista.conquistaId,
       nome: conquista.NOME ?? conquista.nome,
       descricao: conquista.DESCRICAO ?? conquista.descricao,
-      imagem: this.normalizarImagem(conquista.IMAGEM ?? conquista.imagem)
+      image: this.normalizarImagem(conquista.IMAGEM ?? conquista.imagem)
     }));
 
     this.ouroGanho = resposta.ouroGanho ?? 0;
@@ -397,9 +412,16 @@ export class ChallengesWorld1 implements OnInit {
     );
   }
 
+  erroConsultaSound(): void {
+    this.audioService.playSfx(
+      'assets/audio/erro-consulta-sound.mp3'
+    );
+  }
+
   abrirErroConsulta(sql: string): void {
     console.error("ABrindo erro consulta");
     this.consultaComErro = sql;
+    this.erroConsultaSound();
     this.mostrarErroConsulta = true;
   }
 

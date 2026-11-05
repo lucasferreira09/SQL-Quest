@@ -1,4 +1,3 @@
-<!-- TELA DE COMPRA DE DICAS -->
 <app-compra-dicas
   *ngIf="mostrarCompraDicas"
   [desafioId]="desafioId"
@@ -23,6 +22,7 @@
 </app-erro-consulta>
 
 <div
+  *ngIf="!carregandoMundo"
   class="challenge-screen"
   [ngClass]="'world-' + mundoId"
 >

@@ -133,7 +133,7 @@
   }
 }
 
-/* Categorias alinhadas às molduras da imagem */
+
 .menu-categorias {
   position: absolute;
   left: 4%;
@@ -232,7 +232,7 @@
   }
 }
 
-/* Cada slot ocupa integralmente sua célula */
+
 .slot-item {
   position: relative;
   min-width: 0;
@@ -257,8 +257,7 @@
     filter 0.2s ease;
 }
 
-/* Imagem centralizada e alinhada dentro do slot */
-.imagem-item {
+.image-item {
   display: block;
   width: 78%;
   height: 78%;
@@ -272,7 +271,7 @@
 }
 
 /* Brilho do item selecionado */
-.slot-item.selecionado .imagem-item {
+.slot-item.selecionado .image-item {
   transform: scale(1.08);
   filter:
     drop-shadow(0 0 5px rgba(56, 160, 255, 0.9))
@@ -280,12 +279,12 @@
 }
 
 /* Efeito ao passar o mouse */
-.slot-item:hover .imagem-item {
+.slot-item:hover .image-item {
   transform: scale(1.04);
 }
 
 /* Mantém o destaque da seleção */
-.slot-item.selecionado:hover .imagem-item {
+.slot-item.selecionado:hover .image-item {
   transform: scale(1.08);
 }
 
@@ -372,7 +371,7 @@
   font-weight: bold;
 }
 
-.painel-detalhes .imagem-item {
+.painel-detalhes .image-item {
 
   width: 65%;
   height: auto;

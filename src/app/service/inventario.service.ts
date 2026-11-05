@@ -14,7 +14,8 @@ import {
 })
 export class InventarioService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/inventario';
+  //private readonly apiUrl = 'http://localhost:8080/api/inventario';
+  private apiUrl = 'https://sql-quest-backend.onrender.com/api/inventario'
 
   constructor(private http: HttpClient) {}
 

@@ -18,7 +18,8 @@ export interface Dica {
 })
 export class DicaService {
 
-  private apiUrl = 'http://localhost:8080/api/dicas';
+  //private apiUrl = 'http://localhost:8080/api/dicas';
+  private apiUrl = 'https://sql-quest-backend.onrender.com'
 
   constructor(
     private http: HttpClient,
@@ -43,15 +44,15 @@ export class DicaService {
       .set('jogadorId', this.obterJogadorId());
 
     return this.http.get<any[]>(
-      `${this.apiUrl}/desafio/${desafioId}`,
+      `${this.apiUrl}/api/dicas/desafio/${desafioId}`,
       { params }
     ).pipe(
       map(dicas => dicas.map(dica => ({
         id: dica.ID ?? dica.id,
-        desafioId: dica.DESAFIO_ID ?? dica.desafioId,
+        desafioId: dica.DESAFIO_ID ?? dica.desafio_id ?? dica.desafioId,
         nivel: dica.NIVEL ?? dica.nivel,
         texto: dica.TEXTO ?? dica.texto,
-        custoOuro: dica.CUSTO_OURO ?? dica.custoOuro,
+        custoOuro: dica.CUSTO_OURO ?? dica.custo_ouro ?? dica.custoOuro,
         comprada: dica.COMPRADA ?? dica.comprada
       })))
     );
@@ -64,7 +65,7 @@ export class DicaService {
       .set('jogadorId', this.obterJogadorId());
 
     return this.http.get<{ ouro: number }>(
-      `${this.apiUrl}/ouro`,
+      `${this.apiUrl}/api/dicas/ouro`,
       { params }
     );
   }
@@ -75,7 +76,7 @@ export class DicaService {
     const jogadorId = this.obterJogadorId();
 
     return this.http.post<any>(
-      `${this.apiUrl}/comprar`,
+      `${this.apiUrl}/api/dicas/comprar`,
       { dicaId, jogadorId }
     );
   }

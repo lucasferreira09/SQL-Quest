@@ -14,7 +14,7 @@ export interface Recompensa {
   id: number;
   nome: string;
   descricao: string;
-  imagem: string;
+  image: string;
   quantidade: number;
 }
 
@@ -22,7 +22,7 @@ export interface Conquista {
   id: number;
   nome: string;
   descricao: string;
-  imagem: string;
+  image: string;
 }
 
 @Component({
@@ -42,28 +42,28 @@ export class Recompensas implements OnChanges {
       id: 1,
       nome: 'Lupa do Investigador',
       descricao: 'Uma lupa encantada que permite encontrar exatamente os registros desejados.',
-      imagem: '/assets/recompensas/itens/lupa-investigador.png',
+      image: '/assets/recompensas/itens/lupa-investigador.png',
       quantidade: 1
     },
     {
       id: 2,
       nome: 'Pergaminho Antigo',
       descricao: 'Um pergaminho contendo conhecimentos esquecidos sobre o reino de Aethel.',
-      imagem: '/assets/recompensas/itens/armadura-dados.png',
+      image: '/assets/recompensas/itens/armadura-dados.png',
       quantidade: 2
     },
     {
       id: 3,
       nome: 'Chave Dourada',
       descricao: 'Uma chave misteriosa capaz de abrir baús escondidos.',
-      imagem: '/assets/recompensas/itens/cajado-consultas.png',
+      image: '/assets/recompensas/itens/cajado-consultas.png',
       quantidade: 1
     },
     {
       id: 4,
       nome: 'Cristal Mágico',
       descricao: 'Um cristal que concentra uma poderosa energia mágica.',
-      imagem: '/assets/recompensas/itens/adaga-estrategia.png',
+      image: '/assets/recompensas/itens/adaga-estrategia.png',
       quantidade: 3
     }
   ];
@@ -73,13 +73,13 @@ export class Recompensas implements OnChanges {
       id: 1,
       nome: 'O Despertar do Guardião',
       descricao: 'Recuperou todos os habitantes de Aethel utilizando seus primeiros comandos SQL.',
-      imagem: '/assets/recompensas/conquistas/despertar_guardiao.png'
+      image: '/assets/recompensas/conquistas/despertar_guardiao.png'
     },
     {
       id: 2,
       nome: 'Restaurador do Registro',
       descricao: 'Recuperou as principais informações dos habitantes, reconstruindo parte do Grande Registro.',
-      imagem: '/assets/recompensas/conquistas/restaurador_registro.png'
+      image                                                                                                                                                                     : '/assets/recompensas/conquistas/restaurador_registro.png'
     }
   ];
 

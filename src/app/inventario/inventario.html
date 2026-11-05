@@ -71,10 +71,10 @@
       >
 
         <img
-          *ngIf="item.imagemUrl"
-          [src]="item.imagemUrl"
+          *ngIf="item.imageUrl"
+          [src]="item.imageUrl"
           [alt]="item.nome"
-          class="imagem-item"
+          class="image-item"
         />
 
         <span *ngIf="item.quantidade > 1">
@@ -100,10 +100,10 @@
       >
 
         <img
-          *ngIf="conquista.imagemUrl"
-          [src]="conquista.imagemUrl"
+          *ngIf="conquista.imageUrl"
+          [src]="conquista.imageUrl"
           [alt]="conquista.nome"
-          class="imagem-item"
+          class="image-item"
         />
 
       </button>
@@ -126,7 +126,7 @@
         <img
           src="assets/recompensas/itens/adaga-estrategia.png"
           [alt]="dica.texto"
-          class="imagem-item"
+          class="image-item"
         />
 
       </button>
@@ -153,8 +153,8 @@
       <ng-container *ngIf="itemSelecionado; else semSelecaoItem">
 
         <img
-          class="imagem-item"
-          [src]="itemSelecionado.imagemUrl"
+          class="image-item"
+          [src]="itemSelecionado.imageUrl"
           [alt]="itemSelecionado.nome"
         />
 
@@ -192,8 +192,8 @@
       <ng-container *ngIf="conquistaSelecionada; else semSelecaoConquista">
 
         <img
-          class="imagem-item"
-          [src]="conquistaSelecionada.imagemUrl"
+          class="image-item"
+          [src]="conquistaSelecionada.imageUrl"
           [alt]="conquistaSelecionada.nome"
         />
 
@@ -235,7 +235,7 @@
       <ng-container *ngIf="dicaSelecionada; else semSelecaoDica">
 
         <img
-          class="imagem-item"
+          class="image-item"
           src="assets/recompensas/itens/adaga-estrategia.png"
           [alt]="dicaSelecionada.texto"
         />

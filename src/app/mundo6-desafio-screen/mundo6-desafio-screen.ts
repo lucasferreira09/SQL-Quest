@@ -215,10 +215,8 @@ export class Mundo6DesafioScreen implements OnInit {
     }
 
     if (!this.sqlQuery.trim()) {
-
       this.resultColumns = [];
       this.resultRows = [];
-
       this.cdr.detectChanges();
       this.animarErroResultado();
 
@@ -251,8 +249,10 @@ export class Mundo6DesafioScreen implements OnInit {
           if (resposta.resultado) {
 
             this.resultColumns = resposta.resultado.colunas;
+            this.cdr.detectChanges();
 
             this.resultRows = resposta.resultado.linhas;
+            this.cdr.detectChanges();
 
             if (
               this.resultColumns.length === 0 ||
@@ -269,8 +269,21 @@ export class Mundo6DesafioScreen implements OnInit {
             this.animarErroResultado();
           }
 
+          if (
+            resposta.sucesso &&
+            resposta.desafioConcluido &&
+            (
+              resposta.xpGanho > 0 ||
+              resposta.ouroGanho > 0 ||
+              (resposta.itensRecebidos?.length ?? 0) > 0 ||
+              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
+            )
+          ) {
+            this.recompensaSound();
+            this.abrirModalRecompensas(resposta);
+          }
+          
           this.carregando = false;
-
           this.cdr.detectChanges();
 
         },

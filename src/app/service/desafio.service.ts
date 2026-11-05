@@ -90,23 +90,24 @@ export interface Capitulo {
 @Injectable({providedIn: 'root'})
 export class DesafioService {
 
-  private apiUrl = 'http://localhost:8080/api';
+  //private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'https://sql-quest-backend.onrender.com'
 
   constructor(private http: HttpClient) {}
 
   executarSql(desafioId: number, sql: string, jogadorId: number): Observable<ExecutarSqlResponse> {
 
-    return this.http.post<ExecutarSqlResponse>(`${this.apiUrl}/desafios/${desafioId}/executar`, { sql, jogadorId });
+    return this.http.post<ExecutarSqlResponse>(`${this.apiUrl}/api/desafios/${desafioId}/executar`, { sql, jogadorId });
   }
 
   listarCapitulos(): Observable<Capitulo[]> {
     
-    return this.http.get<Capitulo[]>(`${this.apiUrl}/capitulos`);
+    return this.http.get<Capitulo[]>(`${this.apiUrl}/api/capitulos`);
   }
 
   listarDesafiosPorCapitulo(capituloId: number): Observable<Desafio[]> {
 
-    return this.http.get<Desafio[]>(`${this.apiUrl}/desafios/capitulo/${capituloId}`);
+    return this.http.get<Desafio[]>(`${this.apiUrl}/api/desafios/capitulo/${capituloId}`);
   }
 
   buscarDesafiosConcluidos(
@@ -114,14 +115,14 @@ export class DesafioService {
   ): Observable<number[]> {
 
     return this.http.get<number[]>(
-      `${this.apiUrl}/progresso/jogador/${jogadorId}`
+      `${this.apiUrl}/api/progresso/jogador/${jogadorId}`
     );
   }
 
   buscarDesafio(id: number): Observable<Desafio> {
 
     return this.http.get<Desafio>(
-      `${this.apiUrl}/desafios/${id}`
+      `${this.apiUrl}/api/desafios/${id}`
     );
   }
 
@@ -130,7 +131,7 @@ export class DesafioService {
   ): Observable<BlocoDesafio[]> {
 
     return this.http.get<BlocoDesafio[]>(
-      `${this.apiUrl}/desafios/${desafioId}/blocos`
+      `${this.apiUrl}/api/desafios/${desafioId}/blocos`
     );
   }
 }

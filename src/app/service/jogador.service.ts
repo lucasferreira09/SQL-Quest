@@ -17,15 +17,16 @@ export interface Jogador {
 })
 export class JogadorService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/jogadores';
+  //private readonly apiUrl = 'http://localhost:8080/api/jogadores';
   private readonly storageKey = 'sqlquest_jogador';
+  private apiUrl = 'https://sql-quest-backend.onrender.com'
 
   constructor(private http: HttpClient) {}
 
   entrar(nome: string): Observable<Jogador> {
 
     return this.http.post<Jogador>(
-      `${this.apiUrl}/entrar`,
+      `${this.apiUrl}/api/jogadores/entrar`,
       { nome }
     ).pipe(
       tap(jogador => {

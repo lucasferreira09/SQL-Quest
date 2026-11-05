@@ -155,12 +155,19 @@ imagemFundo = this.imagensMundos[1];
       return;
     }
 
-    console.log(
-      'Iniciando desafio:',
-      this.desafioSelecionado
-    );
+    const desafioId = this.desafioSelecionado.id;
 
-    this.router.navigate([`/desafios/${this.desafioSelecionado.id}`]);
+    console.log('Iniciando desafio:', this.desafioSelecionado);
+    console.log('Mundo atual:', this.mundoId);
+
+    // Mundo 6: abre diretamente a tela específica
+    if (this.mundoId === 6) {
+      this.router.navigate(['/capitulo/6', desafioId]);
+      return;
+    }
+
+    // Demais mundos: mantém a navegação atual
+    this.router.navigate(['/desafios', desafioId]);
   }
 
   

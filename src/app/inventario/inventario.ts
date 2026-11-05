@@ -18,14 +18,14 @@ export interface ItemInventario {
   descricao: string;
   tipo: string;
   quantidade: number;
-  imagemUrl: string | null;
+  imageUrl: string | null;
 }
 
 export interface ConquistaInventario {
   id: number;
   nome: string;
   descricao: string;
-  imagemUrl: string | null;
+  imageUrl: string | null;
   desbloqueadaEm: string | null;
 }
 
