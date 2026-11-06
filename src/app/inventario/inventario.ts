@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { InventarioService } from '../service/inventario.service';
 import { Timestamp } from 'rxjs';
 import { AudioService } from '../services/audio';
@@ -48,7 +48,7 @@ export interface DicasCompradas { // ADDED BY ME
   templateUrl: './inventario.html',
   styleUrl: './inventario.scss'
 })
-export class InventarioComponent implements OnInit {
+export class InventarioComponent implements OnInit, OnDestroy {
 
   categorias: Categoria[] = [
     { id: 'itens', nome: 'Itens' },
@@ -78,10 +78,13 @@ export class InventarioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('InventarioComponent foi iniciado!');
-    console.log('Categoria inicial:', this.categoriaSelecionada);
+    this.audioService.entrarInventario();
 
     this.carregarCategoria(this.categoriaSelecionada);
+  }
+
+  ngOnDestroy(): void {
+    this.audioService.sairInventario();
   }
 
   selecionarCategoria(categoria: string): void {

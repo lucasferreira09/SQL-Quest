@@ -125,7 +125,6 @@ export class Mundo implements OnInit {
   }
     
   openInventario(): void {
-
     this.router.navigate([`/inventario`]);
   }
 

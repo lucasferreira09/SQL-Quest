@@ -131,16 +131,14 @@ export class HomeScreen implements OnInit {
   }
 
   options(): void {
-    console.log('Opções');
   }
 
   exit(): void {
-    console.log('Sair');
+    window.close();
   }
 
   abrirInfo(): void {
     this.mostrarInfo = true;
-    console.log('ABRIR INFO');
   }
 
   fecharInfo(): void {

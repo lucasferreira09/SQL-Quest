@@ -113,16 +113,16 @@ export class CompraDicas implements OnInit {
     switch (nivel) {
 
       case 1:
-        return 'assets/dicas/nivel1.png';
+        return 'assets/dicas/nivel1.webp';
 
       case 2:
-        return 'assets/dicas/nivel2.png';
+        return 'assets/dicas/nivel2.webp';
 
       case 3:
-        return 'assets/dicas/nivel3.png';
+        return 'assets/dicas/nivel3.webp';
 
       default:
-        return 'assets/dicas/nivel1.png';
+        return 'assets/dicas/nivel1.webp';
 
     }
 
@@ -176,7 +176,6 @@ export class CompraDicas implements OnInit {
           };
         }
 
-        console.log('DICA APÓS COMPRA:', this.dicas[index]);
         this.compraDicaSound();
         this.cdr.detectChanges();
 
@@ -209,7 +208,7 @@ export class CompraDicas implements OnInit {
 
   compraDicaSound(): void {
     this.audioService.playSfx(
-      'assets/audio/buy.mp3'
+      'assets/audio/buy2.mp3'
     );
   }
 

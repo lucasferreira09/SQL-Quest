@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,33 +7,37 @@ import { Injectable } from '@angular/core';
 export class AudioService {
 
   private audio: HTMLAudioElement;
+  private inventoryAudio: HTMLAudioElement;
 
   private volume = 0.5;
   private muted = false;
 
+  // Guarda se a música do mundo estava tocando antes de entrar no inventário.
+  private mundoEstavaTocando = false;
+
   constructor() {
     this.audio = new Audio('assets/audio/rolling_audio.mp3');
-
     this.audio.loop = true;
     this.audio.volume = this.volume;
+    this.audio.preload = 'none';
+
+    this.inventoryAudio = new Audio('assets/audio/inventario_audio1.mp3');
+    this.inventoryAudio.loop = true;
+    this.inventoryAudio.volume = this.volume;
+    this.inventoryAudio.preload = 'none';
   }
 
   // =========================
-  // MÚSICA
+  // MÚSICA DO MUNDO
   // =========================
 
   play(): void {
-
-    // Evita reiniciar a música se ela já estiver tocando
     if (!this.audio.paused) {
       return;
     }
 
     this.audio.play().catch(error => {
-      console.log(
-        'Não foi possível iniciar o áudio:',
-        error
-      );
+      console.log('Não foi possível iniciar a música do mundo:', error);
     });
   }
 
@@ -46,6 +51,53 @@ export class AudioService {
   }
 
   // =========================
+  // ENTRAR NO INVENTÁRIO
+  // =========================
+
+  entrarInventario(): void {
+
+    // Evita salvar novamente o estado caso o método seja chamado mais de uma vez.
+    if (this.inventoryAudio.paused === false) {
+      return;
+    }
+
+    // Guarda o estado anterior da música do mundo.
+    this.mundoEstavaTocando = !this.audio.paused;
+
+    // Pausa a música do mundo sem reiniciar.
+    this.audio.pause();
+
+    // Inicia a música do inventário.
+    if (!this.muted) {
+      this.inventoryAudio.volume = 0.3;
+
+      this.inventoryAudio.currentTime = 0;
+
+      this.inventoryAudio.play().catch(error => {
+        console.log('Não foi possível iniciar a música do inventário:', error);
+      });
+    }
+  }
+
+  // =========================
+  // SAIR DO INVENTÁRIO
+  // =========================
+
+  sairInventario(): void {
+
+    // Para a música do inventário.
+    this.inventoryAudio.pause();
+    this.inventoryAudio.currentTime = 0;
+
+    // Continua a música do mundo somente se ela estava tocando antes.
+    if (this.mundoEstavaTocando) {
+      this.play();
+    }
+
+    this.mundoEstavaTocando = false;
+  }
+
+  // =========================
   // VOLUME
   // =========================
 
@@ -55,6 +107,7 @@ export class AudioService {
 
     if (!this.muted) {
       this.audio.volume = this.volume;
+      this.inventoryAudio.volume = this.volume;
     }
   }
 
@@ -68,8 +121,10 @@ export class AudioService {
 
     if (this.muted) {
       this.audio.volume = 0;
+      this.inventoryAudio.volume = 0;
     } else {
       this.audio.volume = this.volume;
+      this.inventoryAudio.volume = this.volume;
     }
   }
 
@@ -96,14 +151,10 @@ export class AudioService {
     }
 
     const sound = new Audio(path);
-
     sound.volume = 0.8;
 
     sound.play().catch(error => {
-      console.log(
-        'Não foi possível reproduzir o efeito sonoro:',
-        error
-      );
+      console.log('Não foi possível reproduzir o efeito sonoro:', error);
     });
   }
 }
