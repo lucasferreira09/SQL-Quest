@@ -38,9 +38,9 @@ export class Mundo implements OnInit {
 
     console.log('ChallengesCopy iniciou');
 
-    this.mostrarIntroducao =
-      history.state?.abrirIntroducao === true;
+    this.mostrarIntroducao = history.state?.abrirIntroducao === true;
 
+    //this.mostrarIntroducao = false;
     this.carregarCapitulos();
   }
 

@@ -56,8 +56,7 @@ export class CompraDicas implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('COMPONENTE COMPRA-DICAS INICIADO');
-    console.log('ID DO DESAFIO:', this.desafioId);
+    this.audioService.playSfx('assets/audio/open_dica_sound.mp3')
     this.carregarDados();
   }
 

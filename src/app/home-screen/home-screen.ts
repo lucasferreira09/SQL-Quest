@@ -112,7 +112,7 @@ export class HomeScreen implements OnInit {
   }
 
   private iniciarJogo(): void {
-    this.testSound();
+    //this.testSound();
 
     this.router.navigate(['/mundos'], {
       state: {

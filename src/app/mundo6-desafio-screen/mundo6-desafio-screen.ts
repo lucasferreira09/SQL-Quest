@@ -100,6 +100,7 @@ export class Mundo6DesafioScreen implements OnInit {
   // =========================================
 
   ngOnInit(): void {  
+    
     this.mundoId = this.getMundoIdByDesafio();
 
     this.desafioId = Number(

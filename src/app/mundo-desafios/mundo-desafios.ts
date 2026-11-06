@@ -38,8 +38,8 @@ export class MundoDesafios implements OnInit {
 
   
   iconsSoundOnByMundo: Record<number, string> = {
-    1: '/assets/elementos/outros/mundo1-sound-on.png',
-    2: '/assets/elementos/outros/mundo1-sound-on.png',
+    1: '/assets/elementos/outros/mundo1-sound-on.webp',
+    2: '/assets/elementos/outros/mundo1-sound-on.webp',
     3: '/assets/elementos/outros/mundo3-sound-on.png',
     4: '/assets/elementos/outros/mundo4-sound-on.png',
     5: '/assets/elementos/outros/mundo5-sound-on.png',
