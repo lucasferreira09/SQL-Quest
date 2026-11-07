@@ -658,6 +658,30 @@
   );
 }
 
+.preview-button {
+  background: linear-gradient(
+    to bottom,
+    #fdec01,
+    #d17905
+  );
+
+  border: 2px solid #70451c;
+  border-radius: 8px;
+
+  color: #000000;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 15px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 0 #573514,
+    inset 0 1px 2px #ffe5a1;
+
+  transition: transform 0.15s, filter 0.15s;
+
+}
 
 // =====================================================
 // BOTÃO EXECUTAR

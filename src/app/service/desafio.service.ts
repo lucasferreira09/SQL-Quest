@@ -65,6 +65,11 @@ export interface ExecutarSqlResponse {
   resultado: ResultadoSql | null;
 }
 
+export interface PreviewSqlResponse {
+  mensagem: string;
+  resultado: ResultadoSql | null;
+}
+
 export interface Desafio {
   id: number;
   capituloId: number;
@@ -90,7 +95,6 @@ export interface Capitulo {
 @Injectable({providedIn: 'root'})
 export class DesafioService {
 
-  //private apiUrl = 'http://localhost:8080/api';
   private apiUrl = 'https://sql-quest-backend.onrender.com'
 
   constructor(private http: HttpClient) {}
@@ -98,6 +102,11 @@ export class DesafioService {
   executarSql(desafioId: number, sql: string, jogadorId: number): Observable<ExecutarSqlResponse> {
 
     return this.http.post<ExecutarSqlResponse>(`${this.apiUrl}/api/desafios/${desafioId}/executar`, { sql, jogadorId });
+  }
+
+  previewSql(desafioId: number, sql: string, jogadorId: number): Observable<PreviewSqlResponse> {
+
+    return this.http.post<PreviewSqlResponse>(`${this.apiUrl}/api/desafios/${desafioId}/preview`, { sql, jogadorId });
   }
 
   listarCapitulos(): Observable<Capitulo[]> {

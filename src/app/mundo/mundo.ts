@@ -38,10 +38,12 @@ export class Mundo implements OnInit {
 
     console.log('ChallengesCopy iniciou');
 
-    this.mostrarIntroducao = history.state?.abrirIntroducao === true;
+    this.mostrarIntroducao = false;
 
-    //this.mostrarIntroducao = false;
-    this.carregarCapitulos();
+    const abrirIntro =
+      history.state?.abrirIntroducao === true;
+
+    this.carregarCapitulos(abrirIntro);
   }
 
   carregarDesafioPorCapitulo() {
@@ -55,7 +57,7 @@ export class Mundo implements OnInit {
     });
   }
 
-  carregarCapitulos(): void {
+  carregarCapitulos(abrirIntro: boolean = false): void {
     console.log('Buscando capítulos...');
 
     this.desafioService.listarCapitulos().subscribe({
@@ -64,6 +66,7 @@ export class Mundo implements OnInit {
         console.log('Capítulos recebidos:', capitulos);
 
         this.capitulos = capitulos;
+        
 
         if (capitulos.length > 0) {
           this.capituloSelecionado = capitulos[0];
@@ -71,6 +74,8 @@ export class Mundo implements OnInit {
 
         // Força o Angular a atualizar a tela
         this.cdr.detectChanges();
+        // Exibe o pergaminho somente após carregar os capítulos.
+        this.mostrarIntroducao = abrirIntro;
       },
 
       error: (erro) => {

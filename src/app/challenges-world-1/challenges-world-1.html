@@ -10,6 +10,7 @@
   [conquistas]="conquistasGanhos"
   [ouroGanho]="ouroGanho"
   [xpGanho]="xpGanho"
+  [proximoDesafio]="proximoDesafio"
   (fechar)="mostrarModalRecompensas = false"
 >
 </app-recompensas>
@@ -137,13 +138,19 @@
             />
             Dica
           </button>
-
-
+          
           <button
             class="clear-button"
             (click)="clearQuery()"
           >
             Limpar
+          </button>
+
+          <button
+            class="preview-button"
+            (click)="previewResult()"
+          >
+            Preview
           </button>
 
           <button

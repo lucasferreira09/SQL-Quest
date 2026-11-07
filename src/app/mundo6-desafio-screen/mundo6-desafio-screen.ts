@@ -23,6 +23,7 @@ import { Recompensas } from '../recompensa-screen/recompensa-screen';
 import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
 import { JogadorService } from '../service/jogador.service';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 
 @Component({
@@ -41,6 +42,8 @@ import { JogadorService } from '../service/jogador.service';
 export class Mundo6DesafioScreen implements OnInit {
   
   mundoId!: number;
+  proximoDesafio!: number;
+
   iconsSoundOnByMundo: Record<number, string> = {
     6: '/assets/elementos/outros/mundo6-sound-on.png',
   };
@@ -73,12 +76,9 @@ export class Mundo6DesafioScreen implements OnInit {
 
   carregando = false;
 
-  // Modal de dicas
   mostrarCompraDicas = false;
 
   dicas: any[] = [];
-
-  //ouroAtual = 0;
 
   carregandoDicas = false;
 
@@ -95,60 +95,72 @@ export class Mundo6DesafioScreen implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  // =========================================
-  // INICIALIZAÇÃO
-  // =========================================
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
 
-  ngOnInit(): void {  
-    
-    this.mundoId = this.getMundoIdByDesafio();
+      if (!Number.isInteger(id) || id <= 0) {
+        console.error('ID do desafio inválido:', params.get('id'));
+        return;
+      }
 
-    this.desafioId = Number(
-      this.route.snapshot.paramMap.get('id')
-    );
+      this.desafioId = id;
 
-    if (!this.desafioId || isNaN(this.desafioId)) {
-      console.error('ID do desafio inválido.');
-      return;
-    }
+      // Limpa os dados do desafio anterior
+      this.desafio = null;
+      this.sqlQuery = '';
+      this.resultColumns = [];
+      this.resultRows = [];
 
-    this.carregarDesafio();
+      this.mostrarErroResultado = false;
+      this.mostrarErroConsulta = false;
+      this.mostrarModalRecompensas = false;
+
+      this.carregando = true;
+
+      this.carregarMundo();
+    });
   }
 
+  carregarMundo(): void {
+    this.getMundoIdByDesafio(this.desafioId).subscribe({
+      next: mundoId => {
 
-  // =========================================
-  // CARREGAR DESAFIO
-  // =========================================
+        this.mundoId = Number(mundoId);
 
-  carregarDesafio(): void {
-
-    this.desafioService
-      .buscarDesafio(this.desafioId)
-      .subscribe({
-
-        next: (desafio) => {
-
-          this.desafio = desafio;
-
-          console.log('Desafio carregado:', desafio);
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (erro) => {
-
-          console.error(
-            'Erro ao carregar desafio:',
-            erro
+        if (this.mundoId !== 6) {
+          this.router.navigate(
+            ['/desafios', this.desafioId],
+            { replaceUrl: true }
           );
-
+          return;
         }
 
-      });
-
+        this.carregarDesafio();
+      },
+      error: erro => {
+        console.error('Erro ao carregar mundo:', erro);
+        this.carregando = false;
+      }
+    });
   }
+    
+  carregarDesafio(): void {
+    this.desafioService.buscarDesafio(this.desafioId).subscribe({
+      next: desafio => {
+        this.desafio = desafio;
 
+        console.log('Desafio carregado:', desafio);
+
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: erro => {
+        console.error('Erro ao carregar desafio:', erro);
+        this.carregando = false;
+      }
+    });
+  }
 
   abrirDica(): void {
     this.mostrarCompraDicas = true;
@@ -181,6 +193,13 @@ export class Mundo6DesafioScreen implements OnInit {
     this.ouroGanho = resposta.ouroGanho ?? 0;
     this.xpGanho = resposta.xpGanho ?? 0;
 
+    // Usa o ID do desafio atual como referência
+    this.proximoDesafio = this.desafioId + 1;
+    
+    console.log('Desafio atual:', this.desafioId);
+    console.log('Próximo desafio:', this.proximoDesafio);
+    console.log('Resposta do backend:', resposta);
+
     this.mostrarModalRecompensas = true;
 
     this.cdr.detectChanges();
@@ -205,10 +224,73 @@ export class Mundo6DesafioScreen implements OnInit {
       'assets/audio/erro-consulta-sound.mp3'
     );
   }
-  // =========================================
-  // EXECUTAR CONSULTA SQL
-  // =========================================
 
+  previewResult(): void {
+    if (!this.desafio) {
+      return;
+    }
+
+    if (!this.sqlQuery.trim()) {
+      this.resultColumns = [];
+      this.resultRows = [];
+      this.cdr.detectChanges();
+      this.animarErroResultado();
+
+      return;
+    }
+
+    
+    const sql = this.sqlQuery.trim();
+
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
+    console.log('SQL enviada:', sql);
+
+    this.carregando = true;
+
+    this.desafioService
+      .previewSql(this.desafio.id, sql, jogadorId)
+      .subscribe({
+
+        next: (resposta) => {
+          console.log('Resposta do servidor:', resposta);
+
+          if (resposta.resultado) {
+
+            this.resultColumns = resposta.resultado.colunas;
+            this.cdr.detectChanges();
+
+            this.resultRows = resposta.resultado.linhas;
+            this.cdr.detectChanges();
+
+            if (
+              this.resultColumns.length === 0 || this.resultRows.length === 0
+            ) {
+              this.animarErroResultado();
+            }
+          }
+          
+          this.carregando = false;
+          this.cdr.detectChanges();
+        },
+
+        error: (erro) => {
+
+          console.error('Erro ao executar SQL:', erro);
+
+          this.carregando = false;
+          this.animarErroResultado();
+          this.cdr.detectChanges();
+        }
+      });
+  }
+  
   executeQuery(): void {
 
     if (!this.desafio) {
@@ -291,27 +373,16 @@ export class Mundo6DesafioScreen implements OnInit {
 
         error: (erro) => {
 
-          console.error(
-            'Erro ao executar SQL:',
-            erro
-          );
+          console.error('Erro ao executar SQL:', erro);
 
           this.carregando = false;
-
           this.animarErroResultado();
-
           this.cdr.detectChanges();
 
         }
-
       });
 
   }
-
-
-  // =========================================
-  // ANIMAÇÃO DE ERRO
-  // =========================================
 
   animarErroResultado(): void {
 
@@ -360,8 +431,15 @@ export class Mundo6DesafioScreen implements OnInit {
     }
   }
 
-  getMundoIdByDesafio(): number {
-      return 6;
+  getMundoIdByDesafio(desafioId: number): Observable<number> {
+    return this.desafioService.buscarDesafio(desafioId).pipe(
+      map((desafio) => desafio.capituloId),
+      
+      catchError((erro) => {
+        console.error('Erro ao carregar desafio:', erro);
+        return throwError(() => erro);
+      })
+    )
   }
     
 }

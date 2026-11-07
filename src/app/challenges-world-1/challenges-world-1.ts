@@ -40,6 +40,7 @@ export class ChallengesWorld1 implements OnInit {
   private router = inject(Router);
 
   desafioId!: number;
+  proximoDesafio!: number;
 
   desafio: Desafio | null = null;
 
@@ -111,39 +112,49 @@ export class ChallengesWorld1 implements OnInit {
   
   
   ngOnInit(): void {
-  this.desafioId = Number(this.route.snapshot.paramMap.get('id'));
+    this.route.paramMap.subscribe(params => {
+      this.desafioId = Number(params.get('id'));
 
-  this.getMundoIdByDesafio(this.desafioId).subscribe({
-    next: (mundoId) => {
+      this.resultColumns = [];
+      this.resultRows = [];
 
-      if (mundoId === 6) {
-        this.router.navigate(
-          ['/capitulo/6', this.desafioId],
-          { replaceUrl: true }
-        );
-        return;
+      this.carregandoMundo = true;
+      this.carregarMundo();
+    });
+  }
+
+  carregarMundo(): void {
+    this.getMundoIdByDesafio(this.desafioId).subscribe({
+      next: mundoId => {
+
+        if (mundoId === 6) {
+          this.router.navigate(
+            ['/capitulo/6', this.desafioId],
+            { replaceUrl: true }
+          );
+          return;
+        }
+
+        this.mundoId = mundoId;
+
+        this.imagemDesafioFundo =
+          this.imagensDesafioMundos[this.mundoId] ??
+          this.imagensDesafioMundos[1];
+
+        this.carregarDesafio();
+
+        this.carregandoMundo = false;
+        this.cdr.detectChanges();
+      },
+      error: erro => {
+        console.error('Erro ao carregar mundo:', erro);
+        this.carregandoMundo = false;
       }
-
-      this.mundoId = mundoId;
-
-      this.imagemDesafioFundo =
-        this.imagensDesafioMundos[this.mundoId] ??
-        this.imagensDesafioMundos[1];
-
-      this.carregarDesafio();
-
-      this.carregandoMundo = false;
-      this.cdr.detectChanges();
-    },
-
-    error: (erro) => {
-      console.error('Erro ao carregar mundoId:', erro);
-      this.carregandoMundo = false;
-    }
-  });
-}
-
+    });
+  }
+  
   carregarDesafio(): void {
+    this.desafio = null;
 
     this.desafioService
       .buscarDesafio(this.desafioId)
@@ -152,197 +163,252 @@ export class ChallengesWorld1 implements OnInit {
         next: (desafio) => {
 
           this.desafio = desafio;
-
           this.carregarBlocos();
+
           this.cdr.detectChanges();
-          console.log('Desafio carregado:', desafio);
-          console.log('Blocos disponíveis:', this.availableBlocks);
         },
 
         error: (erro) => {
-
           console.error('Erro ao carregar desafio:', erro);
         }
       });
   }
 
-  getMundoIdByDesafio(desafioId: number): Observable<number> {
-    return this.desafioService.buscarDesafio(desafioId).pipe(
-      map((desafio) => desafio.capituloId),
+    getMundoIdByDesafio(desafioId: number): Observable<number> {
+      return this.desafioService.buscarDesafio(desafioId).pipe(
+        map((desafio) => desafio.capituloId),
+        
+        catchError((erro) => {
+          console.error('Erro ao carregar desafio:', erro);
+          return throwError(() => erro);
+        })
+      )
+    }
+
+    addBlock(block: BlocoDesafio): void {
+
+      const index = this.availableBlocks.findIndex(
+        b => b.id === block.id
+      );
+
+      if (index === -1) {
+        return;
+      }
+
+      this.availableBlocks.splice(index, 1);
+
+      this.queryBlocks.push(block);
+    }
+
+
+    montarQuery(): string {
+
+      return this.queryBlocks
+        .map(block => block.texto)
+        .join(' ');
+    }
+
+
+    clearQuery(): void {
+
+      this.queryBlocks = [];
+
+      this.availableBlocks = [
+        ...this.blocosIniciais
+      ];
+    }
+
+    previewResult(): void {
+      if (!this.desafio) {
+        return;
+      }
+
+      if (this.queryBlocks.length === 0) {
+        this.resultColumns = [];
+        this.resultRows = [];
+        this.animarErroResultado();
+        return;
+      }
+
+      this.cdr.detectChanges();
+      const sql = this.montarQuery();
+
+      console.log('SQL enviada:', sql);
+      const jogadorId = this.jogadorService.obterId();
+
+      if (jogadorId === null) {
+        console.error('Nenhum jogador identificado.');
+        this.router.navigate(['/']);
+        return;
+      }
+
+      this.desafioService
+        .previewSql(this.desafio.id, sql, jogadorId)
+        .subscribe({
+
+          next: (resposta) => {
+
+            if (resposta.resultado) {
+              if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
+                this.animarErroResultado();
+              }
+              this.cdr.detectChanges();
+            }
+
+            if (resposta.resultado) {
+              this.resultColumns = resposta.resultado.colunas;
+              this.cdr.detectChanges();
+
+              this.resultRows = resposta.resultado.linhas;
+              this.cdr.detectChanges();
+            }
+
+            this.cdr.detectChanges();
+          },
+
+          error: (erro) => {
+            console.error(
+              'Erro ao executar SQL:',
+              erro
+            );
+          }
+
+        });
+
+    }
+
+    executeQuery(): void {
+
+      console.log('TESTE: executeQuery foi chamado!');
+
+
+      if (!this.desafio) {
+        return;
+      }
+
+      if (this.queryBlocks.length === 0) {
+        this.resultColumns = [];
+        this.resultRows = [];
+        this.animarErroResultado();
+        return;
+      }
       
-      catchError((erro) => {
-        console.error('Erro ao carregar desafio:', erro);
-        return throwError(() => erro);
-      })
-    )
-  }
 
-  addBlock(block: BlocoDesafio): void {
+      this.cdr.detectChanges();
+      const sql = this.montarQuery();
 
-    const index = this.availableBlocks.findIndex(
-      b => b.id === block.id
-    );
+      console.log('SQL enviada:', sql);
+      const jogadorId = this.jogadorService.obterId();
 
-    if (index === -1) {
-      return;
-    }
+      if (jogadorId === null) {
+        console.error('Nenhum jogador identificado.');
+        this.router.navigate(['/']);
+        return;
+      }
 
-    this.availableBlocks.splice(index, 1);
+      this.desafioService
+        .executarSql(this.desafio.id, sql, jogadorId)
+        .subscribe({
 
-    this.queryBlocks.push(block);
-  }
+          next: (resposta) => {
 
+            if (resposta.resultado) {
+              if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
+                this.animarErroResultado();
+              }
+              this.cdr.detectChanges();
+            }
 
-  montarQuery(): string {
+            if (resposta.resultado) {
+              this.resultColumns = resposta.resultado.colunas;
+              this.cdr.detectChanges();
 
-    return this.queryBlocks
-      .map(block => block.texto)
-      .join(' ');
-  }
+              this.resultRows = resposta.resultado.linhas;
+              this.cdr.detectChanges();
+            }
 
+            this.cdr.detectChanges();
 
-  clearQuery(): void {
+            if (!resposta.desafioConcluido) {
+              this.animarErroResultado();
+              this.erroConsultaSound();
+              this.abrirErroConsulta(sql);
+            }
 
-    this.queryBlocks = [];
+            if (
+              resposta.sucesso &&
+              resposta.desafioConcluido &&
+              (
+                resposta.xpGanho > 0 ||
+                resposta.ouroGanho > 0 ||
+                (resposta.itensRecebidos?.length ?? 0) > 0 ||
+                (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
+              )
+            ) {
+              this.recompensaSound();
+              this.abrirModalRecompensas(resposta);
+            }
+          },
 
-    this.availableBlocks = [
-      ...this.blocosIniciais
-    ];
-  }
+          error: (erro) => {
 
+            console.error(
+              'Erro ao executar SQL:',
+              erro
+            );
+          }
 
-  executeQuery(): void {
-
-     console.log('TESTE: executeQuery foi chamado!');
-
-
-    if (!this.desafio) {
-      return;
-    }
-
-    if (this.queryBlocks.length === 0) {
-      this.resultColumns = [];
-      this.resultRows = [];
-      this.animarErroResultado();
-      return;
+        });
     }
     
-
-    this.cdr.detectChanges();
-    const sql = this.montarQuery();
-
-    console.log('SQL enviada:', sql);
-    const jogadorId = this.jogadorService.obterId();
-
-    if (jogadorId === null) {
-      console.error('Nenhum jogador identificado.');
-      this.router.navigate(['/']);
-      return;
+    abrirDica(): void {
+      this.mostrarCompraDicas = true;
     }
 
-    this.desafioService
-      .executarSql(this.desafio.id, sql, jogadorId)
-      .subscribe({
-
-        next: (resposta) => {
-
-          if (resposta.resultado) {
-            if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
-              this.animarErroResultado();
-            }
-            this.cdr.detectChanges();
-          }
-
-          if (resposta.resultado) {
-            this.resultColumns = resposta.resultado.colunas;
-            this.cdr.detectChanges();
-
-            this.resultRows = resposta.resultado.linhas;
-            this.cdr.detectChanges();
-          }
-
-          this.cdr.detectChanges();
-
-          if (!resposta.desafioConcluido) {
-            this.animarErroResultado();
-            this.erroConsultaSound();
-            this.abrirErroConsulta(sql);
-          }
-
-          if (
-            resposta.sucesso &&
-            resposta.desafioConcluido &&
-            (
-              resposta.xpGanho > 0 ||
-              resposta.ouroGanho > 0 ||
-              (resposta.itensRecebidos?.length ?? 0) > 0 ||
-              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
-            )
-          ) {
-            this.recompensaSound();
-            this.abrirModalRecompensas(resposta);
-          }
-        },
-
-        error: (erro) => {
-
-          console.error(
-            'Erro ao executar SQL:',
-            erro
-          );
-        }
-
-      });
-  }
-  
-  abrirDica(): void {
-    this.mostrarCompraDicas = true;
-  }
-
-  fecharCompraDicas(): void {
-    this.mostrarCompraDicas = false;
-  }
-      
-  animarErroResultado(): void {
-    this.mostrarErroResultado = true;
-    this.cdr.detectChanges();
-
-    setTimeout(() => {
-      this.mostrarErroResultado = false;
+    fecharCompraDicas(): void {
+      this.mostrarCompraDicas = false;
+    }
+        
+    animarErroResultado(): void {
+      this.mostrarErroResultado = true;
       this.cdr.detectChanges();
-    }, 500);
-  }
 
-  carregarBlocos(): void {
-
-    if (!this.desafio) {
-      return;
+      setTimeout(() => {
+        this.mostrarErroResultado = false;
+        this.cdr.detectChanges();
+      }, 500);
     }
 
-    this.desafioService
-      .listarBlocosDesafio(this.desafio.id)
-      .subscribe({
-        next: (blocos) => {
+    carregarBlocos(): void {
 
-          this.blocosIniciais = [...blocos];
+      if (!this.desafio) {
+        return;
+      }
 
-          this.availableBlocks = [...blocos];
+      this.desafioService
+        .listarBlocosDesafio(this.desafio.id)
+        .subscribe({
+          next: (blocos) => {
 
-          this.queryBlocks = [];
+            this.blocosIniciais = [...blocos];
 
-          // Força a atualização visual
-          this.cdr.detectChanges();
-          console.log('Blocos recebidos:', blocos);
-        },
+            this.availableBlocks = [...blocos];
 
-        error: (erro) => {
-          console.error(
-            'Erro ao carregar blocos:',
-            erro
-          );
-        }
-      });
-  }
+            this.queryBlocks = [];
+
+            // Força a atualização visual
+            this.cdr.detectChanges();
+            console.log('Blocos recebidos:', blocos);
+          },
+
+          error: (erro) => {
+            console.error(
+              'Erro ao carregar blocos:',
+              erro
+            );
+          }
+        });
+    }
 
   drop(event: CdkDragDrop<BlocoDesafio[]>): void {
 
@@ -367,13 +433,8 @@ export class ChallengesWorld1 implements OnInit {
 
   abrirModalRecompensas(resposta: any): void {
 
-    console.log('TESTE: abrirModalRecompensas foi chamado!');
-    
     const itens = resposta.itensRecebidos ?? [];
     const conquistas = resposta.conquistasDesbloqueadas ?? [];
-
-    console.log('Itens recebidos do backend:', itens);
-    console.log('Conquistas recebidas do backend:', conquistas);
 
     this.recompensasGanhos = itens.map((item: any) => ({
       id: item.ITEM_ID ?? item.itemId,
@@ -392,6 +453,13 @@ export class ChallengesWorld1 implements OnInit {
 
     this.ouroGanho = resposta.ouroGanho ?? 0;
     this.xpGanho = resposta.xpGanho ?? 0;
+      
+    // Usa o ID do desafio atual como referência
+    this.proximoDesafio = this.desafioId + 1;
+
+    console.log('Desafio atual:', this.desafioId);
+    console.log('Próximo desafio:', this.proximoDesafio);
+    console.log('Resposta do backend:', resposta);
 
     this.mostrarModalRecompensas = true;
 

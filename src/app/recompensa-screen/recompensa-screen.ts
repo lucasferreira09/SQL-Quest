@@ -5,10 +5,12 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  inject
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface Recompensa {
   id: number;
@@ -34,6 +36,8 @@ export interface Conquista {
 })
 export class Recompensas implements OnChanges {
 
+  private router = inject(Router);
+  
   // Modo de demonstração
   modoTeste = false;
 
@@ -84,6 +88,9 @@ export class Recompensas implements OnChanges {
   ];
 
 
+  constructor(private route: ActivatedRoute) {
+
+  }
 
   // Dados recebidos do componente pai
   @Input() recompensas: Recompensa[] = [];
@@ -91,6 +98,8 @@ export class Recompensas implements OnChanges {
 
   @Input() ouroGanho = 0;
   @Input() xpGanho = 0;
+
+  @Input() proximoDesafio = 0;
 
   // Evento para fechar o modal
   @Output() fechar = new EventEmitter<void>();
@@ -138,6 +147,18 @@ export class Recompensas implements OnChanges {
 
   fecharModal(): void {
     this.fechar.emit();
+  }
+
+  avancarDesafio(): void {
+    this.fecharModal();
+
+    // Último desafio do capítulo 6
+    if (this.proximoDesafio > 23) {
+      this.router.navigate(['/mundos']);
+      return;
+    }
+
+    this.router.navigate(['/desafios', this.proximoDesafio]);
   }
 
   ativarModoTeste(): void {
