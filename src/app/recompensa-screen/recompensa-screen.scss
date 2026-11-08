@@ -311,12 +311,55 @@
   
 }
 
+
+.botoes {
+  position: absolute;
+
+  left: 13%;
+  right: 13%;
+  bottom: -3%;
+
+}
+
 /* Botão */
 .botao-fechar {
   position: absolute;
 
   bottom: -5%;
-  left: 50%;
+  left: 70%;
+
+  transform: translateX(-50%);
+
+  padding: 9px 20px;
+
+  border: 2px solid #70431e;
+  border-radius: 8px;
+
+  background: linear-gradient(
+    to bottom,
+    #a96c32,
+    #70401d
+  );
+
+  color: #fff0cc;
+
+  font-family: "Godofwar", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+
+  letter-spacing: 2px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+}
+
+.botao-voltar {
+  position: absolute;
+
+  bottom: -5%;
+  left: 30%;
 
   transform: translateX(-50%);
 
@@ -344,7 +387,6 @@
     filter: brightness(1.15);
   }
 }
-
 
 /* Responsividade */
 @media (max-width: 768px) {

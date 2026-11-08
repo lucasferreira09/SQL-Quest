@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface Recompensa {
   id: number;
@@ -34,8 +35,10 @@ export interface Conquista {
 })
 export class Recompensas implements OnChanges {
 
+  
   // Modo de demonstração
   modoTeste = false;
+
 
   recompensasTeste: Recompensa[] = [
     {
@@ -84,7 +87,15 @@ export class Recompensas implements OnChanges {
   ];
 
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
 
+  }
+
+  @Input() proximoDesafio = 0;
+  
   // Dados recebidos do componente pai
   @Input() recompensas: Recompensa[] = [];
   @Input() conquistas: Conquista[] = [];
@@ -152,5 +163,17 @@ export class Recompensas implements OnChanges {
     if (this.recompensas.length > 0) {
       this.selecionarRecompensa(this.recompensas[0]);
     }
+  }
+
+  avancarDesafio(): void {
+    this.fecharModal();
+
+    // Último desafio do capítulo 6
+    if (this.proximoDesafio > 23) {
+      this.router.navigate(['/mundos']);
+      return;
+    }
+
+    this.router.navigate(['/desafios', this.proximoDesafio]);
   }
 }

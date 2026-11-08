@@ -39,6 +39,7 @@ export class ChallengesWorld1 implements OnInit {
   private router = inject(Router);
 
   desafioId!: number;
+  proximoDesafio!: number;
 
   desafio: Desafio | null = null;
 
@@ -111,39 +112,49 @@ export class ChallengesWorld1 implements OnInit {
   
   
   ngOnInit(): void {
-  this.desafioId = Number(this.route.snapshot.paramMap.get('id'));
+    this.route.paramMap.subscribe(params => {
+      this.desafioId = Number(params.get('id'));
 
-  this.getMundoIdByDesafio(this.desafioId).subscribe({
-    next: (mundoId) => {
+      this.resultColumns = [];
+      this.resultRows = [];
 
-      if (mundoId === 6) {
-        this.router.navigate(
-          ['/capitulo/6', this.desafioId],
-          { replaceUrl: true }
-        );
-        return;
+      this.carregandoMundo = true;
+      this.carregarMundo();
+    });
+  }
+
+  carregarMundo(): void {
+    this.getMundoIdByDesafio(this.desafioId).subscribe({
+      next: mundoId => {
+
+        if (mundoId === 6) {
+          this.router.navigate(
+            ['/capitulo/6', this.desafioId],
+            { replaceUrl: true }
+          );
+          return;
+        }
+
+        this.mundoId = mundoId;
+
+        this.imagemDesafioFundo =
+          this.imagensDesafioMundos[this.mundoId] ??
+          this.imagensDesafioMundos[1];
+
+        this.carregarDesafio();
+
+        this.carregandoMundo = false;
+        this.cdr.detectChanges();
+      },
+      error: erro => {
+        console.error('Erro ao carregar mundo:', erro);
+        this.carregandoMundo = false;
       }
-
-      this.mundoId = mundoId;
-
-      this.imagemDesafioFundo =
-        this.imagensDesafioMundos[this.mundoId] ??
-        this.imagensDesafioMundos[1];
-
-      this.carregarDesafio();
-
-      this.carregandoMundo = false;
-      this.cdr.detectChanges();
-    },
-
-    error: (erro) => {
-      console.error('Erro ao carregar mundoId:', erro);
-      this.carregandoMundo = false;
-    }
-  });
-}
-
+    });
+  }
+  
   carregarDesafio(): void {
+    this.desafio = null;
 
     this.desafioService
       .buscarDesafio(this.desafioId)
@@ -152,28 +163,27 @@ export class ChallengesWorld1 implements OnInit {
         next: (desafio) => {
 
           this.desafio = desafio;
-
           this.carregarBlocos();
+
           this.cdr.detectChanges();
         },
 
         error: (erro) => {
-
           console.error('Erro ao carregar desafio:', erro);
         }
       });
   }
 
-  getMundoIdByDesafio(desafioId: number): Observable<number> {
-    return this.desafioService.buscarDesafio(desafioId).pipe(
-      map((desafio) => desafio.capituloId),
-      
-      catchError((erro) => {
-        console.error('Erro ao carregar desafio:', erro);
-        return throwError(() => erro);
-      })
-    )
-  }
+    getMundoIdByDesafio(desafioId: number): Observable<number> {
+      return this.desafioService.buscarDesafio(desafioId).pipe(
+        map((desafio) => desafio.capituloId),
+        
+        catchError((erro) => {
+          console.error('Erro ao carregar desafio:', erro);
+          return throwError(() => erro);
+        })
+      )
+    }
 
   addBlock(block: BlocoDesafio): void {
 
@@ -423,7 +433,6 @@ export class ChallengesWorld1 implements OnInit {
 
   abrirModalRecompensas(resposta: any): void {
 
-    
     const itens = resposta.itensRecebidos ?? [];
     const conquistas = resposta.conquistasDesbloqueadas ?? [];
 
@@ -444,6 +453,9 @@ export class ChallengesWorld1 implements OnInit {
 
     this.ouroGanho = resposta.ouroGanho ?? 0;
     this.xpGanho = resposta.xpGanho ?? 0;
+
+    // Usa o ID do desafio atual como referência
+    this.proximoDesafio = this.desafioId + 1;
 
     this.mostrarModalRecompensas = true;
 
