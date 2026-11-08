@@ -136,8 +136,6 @@ export class InventarioComponent implements OnInit, OnDestroy {
 
   carregarCategoria(categoria: string): void {
 
-    console.log('Carregando categoria:', categoria);
-
     this.carregando = true;
     this.erro = '';
 
@@ -174,8 +172,6 @@ export class InventarioComponent implements OnInit, OnDestroy {
       this.inventarioService.listar(jogadorId).subscribe({
 
         next: (dados) => {
-
-          console.log('Itens carregados:', dados);
 
           this.itens = dados;
 
@@ -214,8 +210,6 @@ export class InventarioComponent implements OnInit, OnDestroy {
 
         next: (dados) => {
 
-          console.log('Conquistas carregadas:', dados);
-
           this.conquistas = dados;
 
           // Seleciona a primeira conquista da página
@@ -252,8 +246,6 @@ export class InventarioComponent implements OnInit, OnDestroy {
       this.inventarioService.listarDicas(jogadorId).subscribe({
 
         next: (dados) => {
-
-          console.log('Dicas carregadas:', dados);
 
           this.dicas = dados;
 

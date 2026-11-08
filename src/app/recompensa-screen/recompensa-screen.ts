@@ -92,6 +92,8 @@ export class Recompensas implements OnChanges {
   @Input() ouroGanho = 0;
   @Input() xpGanho = 0;
 
+  @Input() mensagem = '';
+  
   // Evento para fechar o modal
   @Output() fechar = new EventEmitter<void>();
 

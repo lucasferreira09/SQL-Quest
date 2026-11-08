@@ -157,7 +157,6 @@ imagemFundo = this.imagensMundos[1];
 
     const desafioId = this.desafioSelecionado.id;
 
-    console.log('Iniciando desafio:', this.desafioSelecionado);
     console.log('Mundo atual:', this.mundoId);
 
     // Mundo 6: abre diretamente a tela específica
@@ -195,17 +194,6 @@ imagemFundo = this.imagensMundos[1];
         next: (desafiosConcluidos) => {
 
           this.desafiosConcluidos = desafiosConcluidos;
-
-          console.log(
-            'Jogador atual:',
-            jogadorId
-          );
-
-          console.log(
-            'Desafios concluídos:',
-            this.desafiosConcluidos
-          );
-
           this.cdr.detectChanges();
         },
 

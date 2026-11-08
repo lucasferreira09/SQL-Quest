@@ -63,8 +63,6 @@ export class HomeScreen implements OnInit {
   }
 
   play(): void {
-    console.log('Play');
-
     const jogador = this.jogadorService.obterJogador();
 
     if (jogador) {
@@ -91,8 +89,7 @@ export class HomeScreen implements OnInit {
     this.jogadorService.entrar(nome).subscribe({
 
       next: (jogador) => {
-        console.log('Jogador identificado:', jogador);
-
+        
         this.carregandoLogin = false;
         this.mostrarLogin = false;
 

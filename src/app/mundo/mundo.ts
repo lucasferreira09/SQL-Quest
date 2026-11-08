@@ -36,8 +36,6 @@ export class Mundo implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('ChallengesCopy iniciou');
-
     this.mostrarIntroducao = history.state?.abrirIntroducao === true;
 
     //this.mostrarIntroducao = false;
@@ -48,7 +46,6 @@ export class Mundo implements OnInit {
     this.desafioService.listarDesafiosPorCapitulo(1)
     .subscribe({
       next: (desafios) => {
-        console.log('Desafios recebidos:', desafios);
 
         this.desafios = desafios;
       }
@@ -56,12 +53,9 @@ export class Mundo implements OnInit {
   }
 
   carregarCapitulos(): void {
-    console.log('Buscando capítulos...');
 
     this.desafioService.listarCapitulos().subscribe({
       next: (capitulos) => {
-
-        console.log('Capítulos recebidos:', capitulos);
 
         this.capitulos = capitulos;
 
@@ -111,7 +105,6 @@ export class Mundo implements OnInit {
       return;
     }
 
-    console.log('Entrando no capítulo:', this.capituloSelecionado);
     this.router.navigate([
       `/desafios/capitulo/${this.capituloSelecionado.id}`
     ]);

@@ -134,9 +134,6 @@ export class CompraDicas implements OnInit {
 
   comprarDica(dica: Dica): void {
 
-    console.log('Dica selecionada:', dica);
-    console.log('ID enviado:', dica.id);
-
     if (!dica.id) {
       this.mensagemErro = 'Identificador da dica inválido.';
       return;
@@ -158,8 +155,6 @@ export class CompraDicas implements OnInit {
     this.dicaService.comprarDica(dica.id).subscribe({
 
       next: (resposta) => {
-
-        console.log('RESPOSTA DA COMPRA:', resposta);
 
         this.ouroJogador = resposta.ouroAtual;
 

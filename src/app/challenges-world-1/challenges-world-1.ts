@@ -36,7 +36,6 @@ import { JogadorService } from '../service/jogador.service';
 })
 export class ChallengesWorld1 implements OnInit {
 
-
   private router = inject(Router);
 
   desafioId!: number;
@@ -67,6 +66,7 @@ export class ChallengesWorld1 implements OnInit {
   comprandoDicaId: number | null = null;
 
   mensagemErroDica = '';
+  mensagemRecompensa = '';
 
   mundoId!: number;
   imagensDesafioMundos: Record<number, string> = {
@@ -155,8 +155,6 @@ export class ChallengesWorld1 implements OnInit {
 
           this.carregarBlocos();
           this.cdr.detectChanges();
-          console.log('Desafio carregado:', desafio);
-          console.log('Blocos disponíveis:', this.availableBlocks);
         },
 
         error: (erro) => {
@@ -227,7 +225,6 @@ export class ChallengesWorld1 implements OnInit {
     this.cdr.detectChanges();
     const sql = this.montarQuery();
 
-    console.log('SQL enviada:', sql);
     const jogadorId = this.jogadorService.obterId();
 
     if (jogadorId === null) {
@@ -273,9 +270,6 @@ export class ChallengesWorld1 implements OnInit {
 
   executeQuery(): void {
 
-    console.log('TESTE: executeQuery foi chamado!');
-
-
     if (!this.desafio) {
       return;
     }
@@ -291,7 +285,6 @@ export class ChallengesWorld1 implements OnInit {
     this.cdr.detectChanges();
     const sql = this.montarQuery();
 
-    console.log('SQL enviada:', sql);
     const jogadorId = this.jogadorService.obterId();
 
     if (jogadorId === null) {
@@ -305,9 +298,6 @@ export class ChallengesWorld1 implements OnInit {
       .subscribe({
 
         next: (resposta) => {
-          console.log('Resposta completa:', resposta);
-          console.log('desafioConcluido:', resposta.desafioConcluido);
-          console.log('Tipo:', typeof resposta.desafioConcluido);
 
           if (resposta.resultado) {
             if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
@@ -332,16 +322,21 @@ export class ChallengesWorld1 implements OnInit {
             this.abrirErroConsulta(sql);
           }
 
-          if (resposta.sucesso && resposta.desafioConcluido &&
-            (
+          if (resposta.sucesso && resposta.desafioConcluido) {
+
+            const recebeuRecompensa =
               resposta.xpGanho > 0 ||
               resposta.ouroGanho > 0 ||
               (resposta.itensRecebidos?.length ?? 0) > 0 ||
-              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
-            )
-          ) {
-            console.log("DESAFIO CONCLUIDO: REPOSTA --> ", resposta)
-            this.recompensaSound();
+              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0;
+
+            if (recebeuRecompensa) {
+              this.mensagemRecompensa = '';
+              this.recompensaSound();
+            } else {
+              this.mensagemRecompensa = 'Desafio já concluído';
+            }
+
             this.abrirModalRecompensas(resposta);
           }
         },
@@ -393,9 +388,7 @@ export class ChallengesWorld1 implements OnInit {
 
           this.queryBlocks = [];
 
-          // Força a atualização visual
           this.cdr.detectChanges();
-          console.log('Blocos recebidos:', blocos);
         },
 
         error: (erro) => {
@@ -430,13 +423,9 @@ export class ChallengesWorld1 implements OnInit {
 
   abrirModalRecompensas(resposta: any): void {
 
-    console.log('TESTE: abrirModalRecompensas foi chamado!');
     
     const itens = resposta.itensRecebidos ?? [];
     const conquistas = resposta.conquistasDesbloqueadas ?? [];
-
-    console.log('Itens recebidos do backend:', itens);
-    console.log('Conquistas recebidas do backend:', conquistas);
 
     this.recompensasGanhos = itens.map((item: any) => ({
       id: item.ITEM_ID ?? item.itemId,

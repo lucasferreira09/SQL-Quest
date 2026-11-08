@@ -85,6 +85,7 @@ export class Mundo6DesafioScreen implements OnInit {
   comprandoDicaId: number | null = null;
 
   mensagemErroDica = '';
+  mensagemRecompensa = '';
 
 
   constructor(
@@ -129,8 +130,6 @@ export class Mundo6DesafioScreen implements OnInit {
         next: (desafio) => {
 
           this.desafio = desafio;
-
-          console.log('Desafio carregado:', desafio);
 
           this.cdr.detectChanges();
 
@@ -232,8 +231,6 @@ export class Mundo6DesafioScreen implements OnInit {
       return;
     }
 
-    console.log('SQL enviada:', sql);
-
     this.carregando = true;
 
     this.desafioService
@@ -241,8 +238,6 @@ export class Mundo6DesafioScreen implements OnInit {
       .subscribe({
 
         next: (resposta) => {
-          console.log('Resposta do servidor:', resposta);
-
           if (resposta.resultado) {
 
             this.resultColumns = resposta.resultado.colunas;
@@ -298,9 +293,6 @@ export class Mundo6DesafioScreen implements OnInit {
       return;
     }
 
-
-    console.log('SQL enviada:', sql);
-
     this.carregando = true;
 
     this.desafioService
@@ -308,8 +300,6 @@ export class Mundo6DesafioScreen implements OnInit {
       .subscribe({
 
         next: (resposta) => {
-
-          console.log('Resposta do servidor:', resposta);
 
           if (resposta.resultado) {
 
@@ -334,22 +324,23 @@ export class Mundo6DesafioScreen implements OnInit {
             this.animarErroResultado();
           }
 
-          if (
-            resposta.sucesso &&
-            resposta.desafioConcluido &&
-            (
+          if (resposta.sucesso && resposta.desafioConcluido) {
+
+            const recebeuRecompensa =
               resposta.xpGanho > 0 ||
               resposta.ouroGanho > 0 ||
               (resposta.itensRecebidos?.length ?? 0) > 0 ||
-              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
-            )
-          ) {
-            this.recompensaSound();
+              (resposta.conquistasDesbloqueadas?.length ?? 0) > 0;
+
+            if (recebeuRecompensa) {
+              this.mensagemRecompensa = '';
+              this.recompensaSound();
+            } else {
+              this.mensagemRecompensa = 'Desafio já concluído';
+            }
+
             this.abrirModalRecompensas(resposta);
           }
-          
-          this.carregando = false;
-          this.cdr.detectChanges();
 
         },
 
