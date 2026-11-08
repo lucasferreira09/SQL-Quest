@@ -50,9 +50,34 @@ export class AudioService {
     this.audio.currentTime = 0;
   }
 
-  // =========================
-  // ENTRAR NO INVENTÁRIO
-  // =========================
+  pausarInventarioAudio(): void {
+    this.inventoryAudio.pause();
+  }
+
+  
+
+  continuarInventarioAudio(): void {
+    if (this.muted) {
+      return;
+    }
+
+    this.inventoryAudio.play().catch(error => {
+      console.log('Não foi possível continuar a música do inventário:', error);
+    });
+  }
+
+  inventaisPlaying(): boolean {
+    return !this.inventoryAudio.paused;
+  }
+
+  alternarInventarioAudio(): void {
+    if (this.inventoryAudio.paused) {
+      this.continuarInventarioAudio();
+    } else {
+      this.pausarInventarioAudio();
+    }
+  }
+
 
   entrarInventario(): void {
 

@@ -2,13 +2,38 @@
 <main class="inventario-screen">
 
   <div class="top-actions">
-    <div class="action">
-      <img
-        src="/assets/elementos/outros/back_button.webp"
-        class="action-icon info-icon"
-        alt="Back"
-      />
-    </div>
+
+        <!-- SOM -->
+        <div class="som">
+          <button
+            class="som-button"
+            type="button"
+            (click)="alternarInventarioAudio()"
+          >
+            <img
+              [src]="audioService.inventaisPlaying()
+                ? '/assets/elementos/outros/sound-on.png'
+                : '/assets/elementos/outros/sound-off.png'"
+              [alt]="audioService.inventaisPlaying()
+                ? 'Pausar música'
+                : 'Continuar música'"
+            >
+          </button>
+        </div>
+
+        <!-- INVENTÁRIO -->
+        <div class="volta-b">
+          <button
+            class="voltar-button"
+            type="button"
+            (click)="voltar()"
+          >
+            <img
+              src="/assets/elementos/outros/back_button.webp"
+              alt="Voltar"
+            >
+          </button>
+        </div>
   </div>
 
   <!-- Cabeçalho -->
@@ -63,7 +88,7 @@
     >
 
       <button
-        *ngFor="let item of itens"
+        *ngFor="let item of itensPagina"
         type="button"
         class="slot-item"
         [class.selecionado]="itemSelecionado?.id === item.id"
@@ -92,7 +117,7 @@
     >
 
       <button
-        *ngFor="let conquista of conquistas"
+        *ngFor="let conquista of conquistasPagina"
         type="button"
         class="slot-item"
         [class.selecionado]="conquistaSelecionada?.id === conquista.id"
@@ -135,13 +160,89 @@
 
   </section>
 
+  <!-- ========================= -->
+  <!-- PAGINAÇÃO DO INVENTÁRIO -->
+  <!-- ========================= -->
+
+  <div
+    class="paginador"
+    *ngIf="!carregando && !erro && categoriaSelecionada === 'itens' && totalPaginasItens > 1"
+  >
+    <button
+      type="button"
+      (click)="paginaAnteriorItens()"
+      [disabled]="paginaItens === 0"
+      aria-label="Página anterior"
+    >
+      ‹
+    </button>
+
+    <span>
+      {{ paginaItens + 1 }} / {{ totalPaginasItens }}
+    </span>
+
+    <button
+      type="button"
+      (click)="proximaPaginaItens()"
+      [disabled]="paginaItens === totalPaginasItens - 1"
+      aria-label="Próxima página"
+    >
+      ›
+    </button>
+  </div>
+
+  <div
+    class="paginador"
+    *ngIf="!carregando && !erro && categoriaSelecionada === 'conquistas' && totalPaginasConquistas > 1"
+  >
+    <button
+      type="button"
+      (click)="paginaAnteriorConquistas()"
+      [disabled]="paginaConquistas === 0"
+      aria-label="Página anterior"
+    >
+      ‹
+    </button>
+
+    <span>
+      {{ paginaConquistas + 1 }} / {{ totalPaginasConquistas }}
+    </span>
+
+    <button
+      type="button"
+      (click)="proximaPaginaConquistas()"
+      [disabled]="paginaConquistas === totalPaginasConquistas - 1"
+      aria-label="Próxima página"
+    >
+      ›
+    </button>
+  </div>
+
   <div
     class="paginador"
     *ngIf="!carregando && !erro && categoriaSelecionada === 'dicas' && totalPaginasDicas > 1"
+  >
+    <button
+      type="button"
+      (click)="paginaAnteriorDicas()"
+      [disabled]="paginaDicas === 0"
+      aria-label="Página anterior"
     >
-    <button type="button" (click)="paginaAnteriorDicas()" [disabled]="paginaDicas === 0" aria-label="Página anterior">‹</button>
-    <span>{{ paginaDicas + 1 }} / {{ totalPaginasDicas }}</span>
-    <button type="button" (click)="proximaPaginaDicas()" [disabled]="paginaDicas === totalPaginasDicas - 1" aria-label="Próxima página">›</button>
+      ‹
+    </button>
+
+    <span>
+      {{ paginaDicas + 1 }} / {{ totalPaginasDicas }}
+    </span>
+
+    <button
+      type="button"
+      (click)="proximaPaginaDicas()"
+      [disabled]="paginaDicas === totalPaginasDicas - 1"
+      aria-label="Próxima página"
+    >
+      ›
+    </button>
   </div>
   
   <!-- Pergaminho de informações -->
@@ -286,13 +387,7 @@
 
   </aside>
 
-  <!-- Botão de voltar -->
-  <button
-    class="botao-voltar"
-    type="button"
-    aria-label="Voltar"
-    (click)="voltar()"
-  >
-  </button>
+
+  
 
 </main>

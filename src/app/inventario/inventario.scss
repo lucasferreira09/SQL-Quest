@@ -8,46 +8,114 @@
 
 
 .top-actions {
-  position: absolute;
-
-  top: 1%;
-  right: 1%;
-
   display: flex;
-
-  align-items: flex-start;
-}
-
-.action {
-  display: flex;
-
-  flex-direction: column;
-
   align-items: center;
-
-  gap: 5px;
-
-  cursor: pointer;
-
-  color: #000000;
+  justify-content: flex-end;
+  gap: 3px;
+  margin-left: auto;
 }
 
-.action-icon {
-  width: 110px;
-  height: 110px;
-
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  transition: transform 0.2s ease;
+.som {
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
   
   filter:
-    drop-shadow(0 0 8px rgba(12, 0, 2, 0.85))
-    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
-    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.70))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+.voltar-b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
 
+.som-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 5px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    filter 0.2s ease;
+    
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.30))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.15))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.15));
+
+}
+.som-button img {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+.som-button:hover {
+  transform: translateY(8px);
+}
+
+
+.voltar-b {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+
+  color: #ffffff;
+  font-family: 'Godofwar', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.70))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.voltar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    filter 0.2s ease;
+    
+  filter:
+    drop-shadow(0 0 8px rgba(12, 0, 2, 0.30))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.15))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.15));
+
+}
+
+.voltar-button img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+
+.voltar-button:hover {
+  transform: translateY(8px);
+}
 
 .help-icon {
   transition: transform 0.2s ease;
@@ -394,18 +462,11 @@
   line-height: 1.6;
 }
 
-/* Área clicável sobre a seta que já existe na arte */
-.botao-voltar {
-  position: absolute;
-  top: 3.5%;
-  right: 1.3%;
-  width: 6%;
-  height: 12%;
 
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
+
+
+
+
 
 /* Ajustes para telas menores */
 @media (max-width: 700px) {
@@ -464,10 +525,11 @@
     font-size: 11px;
   }
 
-  .botao-voltar {
-    top: 2%;
+  .top-buttons {
+    top: 1%;
     right: 2%;
-    width: 9%;
-    height: 8%;
+    gap: 5px;
   }
+
+  
 }
