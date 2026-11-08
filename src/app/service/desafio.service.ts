@@ -65,6 +65,11 @@ export interface ExecutarSqlResponse {
   resultado: ResultadoSql | null;
 }
 
+export interface PreviewSqlResponse {
+  mensagem: string;
+  resultado: ResultadoSql | null;
+}
+
 export interface Desafio {
   id: number;
   capituloId: number;
@@ -94,6 +99,12 @@ export class DesafioService {
   private apiUrl = 'https://sql-quest-backend.onrender.com'
 
   constructor(private http: HttpClient) {}
+
+  previewSql(desafioId: number, sql: string, jogadorId: number): Observable<PreviewSqlResponse> {
+
+    return this.http.post<PreviewSqlResponse>(`${this.apiUrl}/api/desafios/${desafioId}/preview`, { sql, jogadorId });
+  }
+
 
   executarSql(desafioId: number, sql: string, jogadorId: number): Observable<ExecutarSqlResponse> {
 

@@ -211,9 +211,69 @@ export class ChallengesWorld1 implements OnInit {
   }
 
 
+  
+  previewResult(): void {
+    if (!this.desafio) {
+      return;
+    }
+
+    if (this.queryBlocks.length === 0) {
+      this.resultColumns = [];
+      this.resultRows = [];
+      this.animarErroResultado();
+      return;
+    }
+
+    this.cdr.detectChanges();
+    const sql = this.montarQuery();
+
+    console.log('SQL enviada:', sql);
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.desafioService
+      .previewSql(this.desafio.id, sql, jogadorId)
+      .subscribe({
+
+        next: (resposta) => {
+
+          if (resposta.resultado) {
+            if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
+              this.animarErroResultado();
+            }
+            this.cdr.detectChanges();
+          }
+
+          if (resposta.resultado) {
+            this.resultColumns = resposta.resultado.colunas;
+            this.cdr.detectChanges();
+
+            this.resultRows = resposta.resultado.linhas;
+            this.cdr.detectChanges();
+          }
+
+          this.cdr.detectChanges();
+        },
+
+        error: (erro) => {
+          console.error(
+            'Erro ao executar SQL:',
+            erro
+          );
+        }
+
+      });
+
+  }
+
   executeQuery(): void {
 
-     console.log('TESTE: executeQuery foi chamado!');
+    console.log('TESTE: executeQuery foi chamado!');
 
 
     if (!this.desafio) {
@@ -245,6 +305,9 @@ export class ChallengesWorld1 implements OnInit {
       .subscribe({
 
         next: (resposta) => {
+          console.log('Resposta completa:', resposta);
+          console.log('desafioConcluido:', resposta.desafioConcluido);
+          console.log('Tipo:', typeof resposta.desafioConcluido);
 
           if (resposta.resultado) {
             if (resposta.resultado.colunas.length == 0 || resposta.resultado.linhas.length == 0) {
@@ -269,9 +332,7 @@ export class ChallengesWorld1 implements OnInit {
             this.abrirErroConsulta(sql);
           }
 
-          if (
-            resposta.sucesso &&
-            resposta.desafioConcluido &&
+          if (resposta.sucesso && resposta.desafioConcluido &&
             (
               resposta.xpGanho > 0 ||
               resposta.ouroGanho > 0 ||
@@ -279,6 +340,7 @@ export class ChallengesWorld1 implements OnInit {
               (resposta.conquistasDesbloqueadas?.length ?? 0) > 0
             )
           ) {
+            console.log("DESAFIO CONCLUIDO: REPOSTA --> ", resposta)
             this.recompensaSound();
             this.abrirModalRecompensas(resposta);
           }
@@ -294,6 +356,7 @@ export class ChallengesWorld1 implements OnInit {
 
       });
   }
+  
   
   abrirDica(): void {
     this.mostrarCompraDicas = true;

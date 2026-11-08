@@ -205,10 +205,74 @@ export class Mundo6DesafioScreen implements OnInit {
       'assets/audio/erro-consulta-sound.mp3'
     );
   }
-  // =========================================
-  // EXECUTAR CONSULTA SQL
-  // =========================================
+  
+  
+  previewResult(): void {
+    if (!this.desafio) {
+      return;
+    }
 
+    if (!this.sqlQuery.trim()) {
+      this.resultColumns = [];
+      this.resultRows = [];
+      this.cdr.detectChanges();
+      this.animarErroResultado();
+
+      return;
+    }
+
+    
+    const sql = this.sqlQuery.trim();
+
+    const jogadorId = this.jogadorService.obterId();
+
+    if (jogadorId === null) {
+      console.error('Nenhum jogador identificado.');
+      this.router.navigate(['/']);
+      return;
+    }
+
+    console.log('SQL enviada:', sql);
+
+    this.carregando = true;
+
+    this.desafioService
+      .previewSql(this.desafio.id, sql, jogadorId)
+      .subscribe({
+
+        next: (resposta) => {
+          console.log('Resposta do servidor:', resposta);
+
+          if (resposta.resultado) {
+
+            this.resultColumns = resposta.resultado.colunas;
+            this.cdr.detectChanges();
+
+            this.resultRows = resposta.resultado.linhas;
+            this.cdr.detectChanges();
+
+            if (
+              this.resultColumns.length === 0 || this.resultRows.length === 0
+            ) {
+              this.animarErroResultado();
+            }
+          }
+          
+          this.carregando = false;
+          this.cdr.detectChanges();
+        },
+
+        error: (erro) => {
+
+          console.error('Erro ao executar SQL:', erro);
+
+          this.carregando = false;
+          this.animarErroResultado();
+          this.cdr.detectChanges();
+        }
+      });
+  }
+  
   executeQuery(): void {
 
     if (!this.desafio) {
@@ -291,24 +355,17 @@ export class Mundo6DesafioScreen implements OnInit {
 
         error: (erro) => {
 
-          console.error(
-            'Erro ao executar SQL:',
-            erro
-          );
+          console.error('Erro ao executar SQL:', erro);
 
           this.carregando = false;
-
           this.animarErroResultado();
-
           this.cdr.detectChanges();
 
         }
-
       });
 
   }
-
-
+  
   // =========================================
   // ANIMAÇÃO DE ERRO
   // =========================================
