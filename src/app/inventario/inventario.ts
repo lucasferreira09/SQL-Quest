@@ -431,4 +431,15 @@ export class InventarioComponent implements OnInit, OnDestroy {
   voltar(): void {
     window.history.back();
   }
+
+  imagemFallback(event: Event, tipo: string): void {
+    const img = event.target as HTMLImageElement;
+
+    img.onerror = null; // Impede novas tentativas de fallback
+    if (tipo == "item") {
+      img.src = '/assets/recompensas/itens/exemplo-item-image.webp';
+    } else if (tipo == "conquista") {
+      img.src = '/assets/recompensas/conquistas/exemplo-conquista-image.webp';
+    }
+  }
 }

@@ -96,8 +96,8 @@
       >
 
         <img
-          *ngIf="item.imageUrl"
-          [src]="item.imageUrl"
+          [src]="item.imageUrl || '/assets/recompensas/itens/exemplo-item-image.webp'"
+          (error)="imagemFallback($event, 'item')"
           [alt]="item.nome"
           class="image-item"
         />
@@ -125,8 +125,8 @@
       >
 
         <img
-          *ngIf="conquista.imageUrl"
-          [src]="conquista.imageUrl"
+          [src]="conquista.imageUrl || '/assets/recompensas/conquistas/exemplo-conquista-image.webp'"
+          (error)="imagemFallback($event, 'conquista')"
           [alt]="conquista.nome"
           class="image-item"
         />
@@ -149,7 +149,7 @@
         (click)="selecionarDica(dica)"
       >
         <img
-          src="assets/recompensas/itens/adaga-estrategia.png"
+          src="assets/recompensas/dicas/exemplo-image-dica.webp"
           [alt]="dica.texto"
           class="image-item"
         />
@@ -160,10 +160,7 @@
 
   </section>
 
-  <!-- ========================= -->
-  <!-- PAGINAÇÃO DO INVENTÁRIO -->
-  <!-- ========================= -->
-
+  
   <div
     class="paginador"
     *ngIf="!carregando && !erro && categoriaSelecionada === 'itens' && totalPaginasItens > 1"
@@ -255,7 +252,8 @@
 
         <img
           class="image-item"
-          [src]="itemSelecionado.imageUrl"
+          [src]="itemSelecionado.imageUrl  || '/assets/recompensas/itens/exemplo-conquista-image.webp'"
+          (error)="imagemFallback($event, 'item')"
           [alt]="itemSelecionado.nome"
         />
 
@@ -294,9 +292,11 @@
 
         <img
           class="image-item"
-          [src]="conquistaSelecionada.imageUrl"
+          [src]="conquistaSelecionada.imageUrl  || '/assets/recompensas/exemplo-conquista-image.webp'"
+          (error)="imagemFallback($event, 'conquista')"
           [alt]="conquistaSelecionada.nome"
         />
+
 
         <h2>{{ conquistaSelecionada.nome }}</h2>
 
@@ -337,7 +337,7 @@
 
         <img
           class="image-item"
-          src="assets/recompensas/itens/adaga-estrategia.png"
+          src= "assets/recompensas/dicas/exemplo-image-dica.webp"
           [alt]="dicaSelecionada.texto"
         />
 

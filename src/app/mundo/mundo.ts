@@ -122,9 +122,7 @@ export class Mundo implements OnInit {
   }
 
   back(): void {
-
-    window.history.back();
-
+    this.router.navigate(['/home']);
   } 
 
   toggleMusic(): void {
