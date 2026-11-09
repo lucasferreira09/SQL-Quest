@@ -12,6 +12,7 @@
   [ouroGanho]="ouroGanho"
   [xpGanho]="xpGanho"
   [mensagem]="mensagemRecompensa"
+  [proximoDesafio]="proximoDesafio"
   (fechar)="mostrarModalRecompensas = false"
 >
 </app-recompensas>
@@ -19,8 +20,7 @@
 <app-erro-consulta
   *ngIf="mostrarErroConsulta"
   [consulta]="consultaComErro"
-  (tentarNovamente)="tentarNovamente()"
-  (voltarMapa)="voltarAoMapa()">
+  (tentarNovamente)="tentarNovamente()">
 </app-erro-consulta>
 
 <div class="challenge-screen">
@@ -42,6 +42,19 @@
         <img
           [src]="iconSom"
           [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+        >
+      </button>
+    </div>
+    <div class="botao-desafios">
+      <button
+        type="button"
+        class="voltar-desafio"
+        (click)="voltarDesafios()"
+        aria-label="Voltar Tela Desafios"
+      >
+        <img
+          src="assets/elementos/outros/back_button.webp"
+          alt="Voltar Tela Desafios"
         >
       </button>
     </div>

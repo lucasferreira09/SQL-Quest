@@ -40,6 +40,7 @@ export class ChallengesWorld1 implements OnInit {
 
   desafioId!: number;
   proximoDesafio!: number;
+  desafioAnterior!: number;
 
   desafio: Desafio | null = null;
 
@@ -493,9 +494,9 @@ export class ChallengesWorld1 implements OnInit {
     this.mostrarErroConsulta = false;
   }
 
-  voltarAoMapa(): void {
-    this.mostrarErroConsulta = false;
-    this.router.navigate(['/mapa']);
+  voltarDesafios(): void {
+    this.router.navigate(['/desafios/capitulo', this.mundoId]);
+
   }
 
   get iconSom(): string {

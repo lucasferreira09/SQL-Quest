@@ -23,6 +23,7 @@ import { Recompensas } from '../recompensa-screen/recompensa-screen';
 import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
 import { JogadorService } from '../service/jogador.service';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 
 @Component({
@@ -41,6 +42,7 @@ import { JogadorService } from '../service/jogador.service';
 export class Mundo6DesafioScreen implements OnInit {
   
   mundoId!: number;
+  proximoDesafio!: number;
   iconsSoundOnByMundo: Record<number, string> = {
     6: '/assets/elementos/outros/mundo6-sound-on.png',
   };
@@ -55,6 +57,7 @@ export class Mundo6DesafioScreen implements OnInit {
   desafioId!: number;
 
   desafio: Desafio | null = null;
+
 
   sqlQuery: string = '';
 
@@ -100,53 +103,73 @@ export class Mundo6DesafioScreen implements OnInit {
   // INICIALIZAÇÃO
   // =========================================
 
-  ngOnInit(): void {  
-    
-    this.mundoId = this.getMundoIdByDesafio();
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
 
-    this.desafioId = Number(
-      this.route.snapshot.paramMap.get('id')
-    );
+      if (!Number.isInteger(id) || id <= 0) {
+        console.error('ID do desafio inválido:', params.get('id'));
+        return;
+      }
 
-    if (!this.desafioId || isNaN(this.desafioId)) {
-      console.error('ID do desafio inválido.');
-      return;
-    }
+      this.desafioId = id;
 
-    this.carregarDesafio();
+      // Limpa os dados do desafio anterior
+      this.desafio = null;
+      this.sqlQuery = '';
+      this.resultColumns = [];
+      this.resultRows = [];
+
+      this.mostrarErroResultado = false;
+      this.mostrarErroConsulta = false;
+      this.mostrarModalRecompensas = false;
+
+      this.carregando = true;
+
+      this.carregarMundo();
+    });
   }
 
+  carregarMundo(): void {
+    this.getMundoIdByDesafio(this.desafioId).subscribe({
+      next: mundoId => {
 
-  // =========================================
-  // CARREGAR DESAFIO
-  // =========================================
+        this.mundoId = Number(mundoId);
 
-  carregarDesafio(): void {
-
-    this.desafioService
-      .buscarDesafio(this.desafioId)
-      .subscribe({
-
-        next: (desafio) => {
-
-          this.desafio = desafio;
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (erro) => {
-
-          console.error(
-            'Erro ao carregar desafio:',
-            erro
+        if (this.mundoId !== 6) {
+          this.router.navigate(
+            ['/desafios', this.desafioId],
+            { replaceUrl: true }
           );
-
+          return;
         }
 
-      });
-
+        this.carregarDesafio();
+      },
+      error: erro => {
+        console.error('Erro ao carregar mundo:', erro);
+        this.carregando = false;
+      }
+    });
   }
+    
+  carregarDesafio(): void {
+    this.desafioService.buscarDesafio(this.desafioId).subscribe({
+      next: desafio => {
+        this.desafio = desafio;
+
+        console.log('Desafio carregado:', desafio);
+
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: erro => {
+        console.error('Erro ao carregar desafio:', erro);
+        this.carregando = false;
+      }
+    });
+  }
+
 
 
   abrirDica(): void {
@@ -179,6 +202,9 @@ export class Mundo6DesafioScreen implements OnInit {
 
     this.ouroGanho = resposta.ouroGanho ?? 0;
     this.xpGanho = resposta.xpGanho ?? 0;
+
+    // Usa o ID do desafio atual como referência
+    this.proximoDesafio = this.desafioId + 1;
 
     this.mostrarModalRecompensas = true;
 
@@ -387,9 +413,8 @@ export class Mundo6DesafioScreen implements OnInit {
     this.mostrarErroConsulta = false;
   }
 
-  voltarAoMapa(): void {
-    this.mostrarErroConsulta = false;
-    this.router.navigate(['/mapa']);
+  voltarDesafios(): void {
+    this.router.navigate(['/desafios/capitulo', this.mundoId]);
   }
 
   get iconSom(): string {
@@ -408,8 +433,16 @@ export class Mundo6DesafioScreen implements OnInit {
     }
   }
 
-  getMundoIdByDesafio(): number {
-      return 6;
+  getMundoIdByDesafio(desafioId: number): Observable<number> {
+    return this.desafioService.buscarDesafio(desafioId).pipe(
+      map((desafio) => desafio.capituloId),
+      
+      catchError((erro) => {
+        console.error('Erro ao carregar desafio:', erro);
+        return throwError(() => erro);
+      })
+    )
   }
-    
+
+  
 }

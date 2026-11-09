@@ -35,58 +35,6 @@ export interface Conquista {
 })
 export class Recompensas implements OnChanges {
 
-  
-  // Modo de demonstração
-  modoTeste = false;
-
-
-  recompensasTeste: Recompensa[] = [
-    {
-      id: 1,
-      nome: 'Lupa do Investigador',
-      descricao: 'Uma lupa encantada que permite encontrar exatamente os registros desejados.',
-      image: '/assets/recompensas/itens/lupa-investigador.png',
-      quantidade: 1
-    },
-    {
-      id: 2,
-      nome: 'Pergaminho Antigo',
-      descricao: 'Um pergaminho contendo conhecimentos esquecidos sobre o reino de Aethel.',
-      image: '/assets/recompensas/itens/armadura-dados.png',
-      quantidade: 2
-    },
-    {
-      id: 3,
-      nome: 'Chave Dourada',
-      descricao: 'Uma chave misteriosa capaz de abrir baús escondidos.',
-      image: '/assets/recompensas/itens/cajado-consultas.png',
-      quantidade: 1
-    },
-    {
-      id: 4,
-      nome: 'Cristal Mágico',
-      descricao: 'Um cristal que concentra uma poderosa energia mágica.',
-      image: '/assets/recompensas/itens/adaga-estrategia.png',
-      quantidade: 3
-    }
-  ];
-
-  conquistasTeste: Conquista[] = [
-    {
-      id: 1,
-      nome: 'O Despertar do Guardião',
-      descricao: 'Recuperou todos os habitantes de Aethel utilizando seus primeiros comandos SQL.',
-      image: '/assets/recompensas/conquistas/despertar_guardiao.png'
-    },
-    {
-      id: 2,
-      nome: 'Restaurador do Registro',
-      descricao: 'Recuperou as principais informações dos habitantes, reconstruindo parte do Grande Registro.',
-      image                                                                                                                                                                     : '/assets/recompensas/conquistas/restaurador_registro.png'
-    }
-  ];
-
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -116,10 +64,6 @@ export class Recompensas implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (this.modoTeste) {
-      return;
-    }
-      
     if (changes['recompensas'] || changes['conquistas']) {
 
       // Prioriza selecionar o primeiro item
@@ -151,18 +95,6 @@ export class Recompensas implements OnChanges {
 
   fecharModal(): void {
     this.fechar.emit();
-  }
-
-  ativarModoTeste(): void {
-    this.recompensas = this.recompensasTeste;
-    this.conquistas = this.conquistasTeste;
-
-    this.ouroGanho = 30;
-    this.xpGanho = 150;
-
-    if (this.recompensas.length > 0) {
-      this.selecionarRecompensa(this.recompensas[0]);
-    }
   }
 
   avancarDesafio(): void {

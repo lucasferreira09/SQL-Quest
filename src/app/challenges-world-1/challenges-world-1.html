@@ -19,8 +19,7 @@
 <app-erro-consulta
   *ngIf="mostrarErroConsulta"
   [consulta]="consultaComErro"
-  (tentarNovamente)="tentarNovamente()"
-  (voltarMapa)="voltarAoMapa()">
+  (tentarNovamente)="tentarNovamente()">
 </app-erro-consulta>
 
 <div
@@ -45,6 +44,19 @@
         <img
           [src]="iconSom"
           [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+        >
+      </button>
+    </div>
+    <div class="botao-desafios">
+      <button
+        type="button"
+        class="voltar-desafio"
+        (click)="voltarDesafios()"
+        aria-label="Voltar Tela Desafios"
+      >
+        <img
+          src="assets/elementos/outros/back_button.webp"
+          alt="Voltar Tela Desafios"
         >
       </button>
     </div>

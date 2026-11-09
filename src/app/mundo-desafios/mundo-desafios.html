@@ -26,6 +26,20 @@
       </button>
     </div>
 
+    <div class="botao-mundos" [ngClass]="'world-' + mundoId">
+      <button
+        class="mundos-button"
+        type="button"
+        (click)="voltarAoMapa()"
+        title="Voltar para os mundos"
+      >
+        <img
+          src="/assets/elementos/outros/voltar-mundos2.png"
+          alt="Voltar para os mundos"
+        >
+      </button>
+    </div>
+
     <!-- INTERFACE -->
     <div class="ui-layer">
 

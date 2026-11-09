@@ -206,6 +206,10 @@ imagemFundo = this.imagensMundos[1];
       });
   }
 
+  voltarAoMapa(): void {
+    this.router.navigate(['/mundos']);
+
+  }
 
   toggleMusic(): void {
     if (this.audioService.isPlaying()) {

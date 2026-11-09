@@ -764,3 +764,45 @@
   font-weight: bold;
   color: #392517;
 }
+
+
+
+.botao-mundos {
+  position: absolute;
+  right: 2%;
+  bottom: 5px;
+}
+
+.mundos-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+
+  filter:
+    drop-shadow(0 0 20px rgba(12, 0, 2, 0.85))
+    drop-shadow(0 0 20px rgba(15, 0, 3, 0.55))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+
+  &:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+  }
+
+  img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+  }
+}
