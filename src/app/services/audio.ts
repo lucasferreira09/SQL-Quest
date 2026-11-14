@@ -16,7 +16,7 @@ export class AudioService {
   private mundoEstavaTocando = false;
 
   constructor() {
-    this.audio = new Audio('assets/audio/rolling_audio.mp3');
+    this.audio = new Audio('assets/audio/guardian_audio.mp3');
     this.audio.loop = true;
     this.audio.volume = this.volume;
     this.audio.preload = 'none';

@@ -537,7 +537,6 @@
     filter 0.2s ease;
 }
 
-
 .info-close:hover {
 
   transform:
@@ -553,7 +552,9 @@
 
 }
 
-
+/* ================================================= */
+/* MODAL DE LOGIN - PERGAMINHO */
+/* ================================================= */
 
 .login-overlay {
   position: fixed;
@@ -561,79 +562,225 @@
   z-index: 1000;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  background: rgba(0, 0, 0, 0.75);
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(3px);
+
+  animation: login-overlay-appear 0.35s ease-out;
 }
 
+@keyframes login-overlay-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
 .login-modal {
-  width: 360px;
-  max-width: 90%;
-  padding: 35px 25px;
+  position: relative;
+
+  width: min(
+    88vw,
+    calc(88vh * (1197 / 1315))
+  );
+
+  aspect-ratio: 1197 / 1315;
+
+  flex-shrink: 0;
+
+  animation: login-parchment-appear 0.5s ease-out;
+}
+
+@keyframes login-parchment-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(2%);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.login-parchment {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+
+}
+
+
+.login-content {
+  position: absolute;
+
+
+  top: 17%;
+  left: 17%;
+  width: 66%;
+  height: 59%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: flex-start;
 
-  background: #ead5a7;
-  border: 5px solid #76502d;
-  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 1% 5%;
+
+  color: #4a2e19;
+  text-align: center;
+
+  font-family: "Godofwar", Georgia, serif;
+}
+
+
+.login-content h2 {
+  margin: 0 0 4%;
+
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(20px, 2.1vw, 34px);
+  font-weight: bold;
+  line-height: 1.15;
+
+  color: #4a250d;
+}
+
+
+.login-content > p:not(.login-error) {
+  margin: 0 0 5%;
+
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(14px, 1.35vw, 22px);
+  line-height: 1.35;
 
   color: #533719;
+}
+
+
+.login-content input {
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: 4% 4%;
+
+  border: 2px solid #80552c;
+  border-radius: 7px;
+
+  background: #3b3b3b79;
+  
+  text-align: center;
+
+  color: #000000;
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(14px, 1.3vw, 20px);
+
+  outline: none;
+}
+
+.login-content input:focus {
+  border-color: #bd7926;
+  box-shadow: 0 0 8px rgba(150, 85, 20, 0.35);
+  
   text-align: center;
 }
 
-.login-modal h2 {
-  margin: 0;
-  font-family: Georgia, serif;
+.login-content input::placeholder {
+  color: #efeeee;
+  text-align: center;
+}
+.login-content input:disabled {
+  opacity: 0.65;
 }
 
-.login-modal p {
-  margin: 0;
-}
 
-.login-modal input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
+.login-button {
+  display: block;
 
-  border: 2px solid #76502d;
-  border-radius: 5px;
+  width: 88%;
+  aspect-ratio: 2048 / 682;
 
-  background: #fff8e8;
-  color: #533719;
-  font-size: 16px;
-}
+  margin-top: 6%;
 
-.login-modal button {
-  width: 100%;
-  padding: 12px;
+  padding: 0;
+  border: none;
+  background: transparent;
 
-  border: 2px solid #533719;
-  border-radius: 5px;
-
-  background: #80552c;
-  color: white;
-
-  font-weight: bold;
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
-.login-modal button:disabled {
-  opacity: 0.6;
+.login-button img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: scale(1.04);
+
+  filter:
+    drop-shadow(0 0 7px rgba(255, 183, 45, 0.65));
+}
+
+.login-button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.login-button:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
-.login-modal .login-cancelar {
-  background: transparent;
-  color: #533719;
+.login-button-back {
+  margin-top: 1%;
 }
 
-.login-modal .login-error {
+
+.login-content .login-error {
+  width: 100%;
+
+  margin: 2% 0 0;
+
   color: #a32626;
-  font-size: 13px;
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(11px, 1vw, 15px);
+  font-weight: bold;
+}
+
+.login-loading {
+  margin-top: 2%;
+
+  color: #533719;
+  font-family: "Godofwar", sans-serif;
+  font-size: clamp(11px, 1vw, 15px);
+  font-weight: bold;
 }
 
 
@@ -690,5 +837,39 @@
     border-top-width: 5px;
     border-bottom-width: 5px;
     border-left-width: 9px;
+  }
+
+  .login-overlay {
+    padding: 1vh 2vw;
+  }
+
+  .login-modal {
+    width: min(
+      94vw,
+      calc(90vh * (1197 / 1315))
+    );
+  }
+
+  .login-content {
+    top: 21%;
+    left: 16%;
+    width: 68%;
+    height: 60%;
+  }
+
+  .login-content h2 {
+    font-size: clamp(17px, 4vw, 25px);
+  }
+
+  .login-content > p:not(.login-error) {
+    font-size: clamp(12px, 3vw, 17px);
+  }
+
+  .login-content input {
+    font-size: 14px;
+  }
+
+  .login-button {
+    width: 95%;
   }
 }

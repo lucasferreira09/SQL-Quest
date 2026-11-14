@@ -3,22 +3,35 @@
   (fechar)="fecharIntroducao()"
 ></app-intro-modal>
 
+<div class="loading-screen" *ngIf="carregandoCapitulos">
+
+  <div class="loading-background"></div>
+
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+
+    <p>Preparando os mundos...</p>
+  </div>
+
+</div>
+
+<div class="loading-screen" *ngIf="erroCarregamento">
+  <p>Não foi possível carregar os mundos.</p>
+
+  <button type="button" (click)="carregarCapitulos()">
+    Tentar novamente
+  </button>
+
+</div>
+
 <div class="challenges-container">
 
-  <!-- FUNDO -->
   <div class="background"></div>
 
-
-  <!-- CONTEÚDO -->
   <div class="challenges-content">
-
-    <!-- =====================================================
-         BARRA SUPERIOR
-         ===================================================== -->
 
     <div class="top-bar">
 
-      <!-- BOTÃO VOLTAR -->
       <button
         class="back-button"
         type="button"
@@ -59,14 +72,9 @@
             >
           </button>
         </div>
-  </div>
+      </div>
 
 </div>
-
-
-    <!-- =====================================================
-         MUNDOS
-         ===================================================== -->
 
     <div class="challenge-grid">
 
@@ -107,11 +115,6 @@
       </button>
 
     </div>
-
-
-    <!-- =====================================================
-         PAINEL
-         ===================================================== -->
 
     <div
       class="challenge-panel"

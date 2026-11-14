@@ -28,7 +28,8 @@ export class MundoDesafios implements OnInit {
 
   mundoId!: number;
   imagensMundos: Record<number, string> = {
-    1: 'assets/world11.png',
+    //1: 'assets/world11.png',
+    1: 'assets/mundos_background/mundo1_background.png',
     2: 'assets/world2_new.png',
     3: 'assets/world33.png',
     4: 'assets/mundos_background/mundo4_background6.png',

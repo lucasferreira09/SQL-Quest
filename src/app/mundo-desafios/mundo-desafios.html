@@ -12,33 +12,37 @@
       [alt]="'Mapa do Mundo ' + mundoId"
     />
 
-     <!-- SOM -->
-    <div class="som" [ngClass]="'world-' + mundoId">
-      <button
-        class="som-button"
-        type="button"
-        (click)="toggleMusic()"
-      >
-        <img
-          [src]="iconSom"
-          [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+    <div class="controles-inferiores">
+        <!-- SOM -->
+      <div class="som" [ngClass]="'world-' + mundoId">
+        <button
+          class="som-button"
+          type="button"
+          (click)="toggleMusic()"
         >
-      </button>
-    </div>
+          <img
+            [src]="iconSom"
+            [alt]="audioService.isPlaying() ? 'Som ligado' : 'Som desligado'"
+          >
+        </button>
+      </div>
 
-    <div class="botao-mundos" [ngClass]="'world-' + mundoId">
-      <button
-        class="mundos-button"
-        type="button"
-        (click)="voltarAoMapa()"
-        title="Voltar para os mundos"
-      >
-        <img
-          src="/assets/elementos/outros/voltar-mundos2.png"
-          alt="Voltar para os mundos"
+      <div class="botao-mundos" [ngClass]="'world-' + mundoId">
+        <button
+          class="mundos-button"
+          type="button"
+          (click)="voltarAoMapa()"
+          title="Voltar para os mundos"
         >
-      </button>
+          <img
+            src="/assets/elementos/outros/voltar-mundos2.png"
+            alt="Voltar para os mundos"
+          >
+        </button>
+      </div>
+
     </div>
+    
 
     <!-- INTERFACE -->
     <div class="ui-layer">

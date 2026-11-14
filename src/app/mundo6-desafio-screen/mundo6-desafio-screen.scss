@@ -697,9 +697,11 @@
 
 .botao-desafios {
   position: absolute;
-  right: 3%;
-  bottom: 0;
+  right: 1%;
+  bottom: auto;
+  z-index: 100;
 }
+
 
 .voltar-desafio {
   display: flex;

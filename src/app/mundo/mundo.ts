@@ -15,12 +15,13 @@ import { AudioService } from '../services/audio';
 })
 export class Mundo implements OnInit {
 
-
   capitulos: Capitulo[] = [];
   desafios: Desafio[] = [];
 
   capituloSelecionado: Capitulo | null = null;
   capituloHover: Capitulo | null = null;
+  carregandoCapitulos = true;
+  erroCarregamento = false;
 
   mostrarIntroducao = false;
 
@@ -36,9 +37,6 @@ export class Mundo implements OnInit {
 
   ngOnInit(): void {
 
-    this.mostrarIntroducao = history.state?.abrirIntroducao === true;
-
-    //this.mostrarIntroducao = false;
     this.carregarCapitulos();
   }
 
@@ -54,6 +52,9 @@ export class Mundo implements OnInit {
 
   carregarCapitulos(): void {
 
+    this.carregandoCapitulos = true;
+    this.erroCarregamento = false;
+
     this.desafioService.listarCapitulos().subscribe({
       next: (capitulos) => {
 
@@ -63,17 +64,32 @@ export class Mundo implements OnInit {
           this.capituloSelecionado = capitulos[0];
         }
 
-        // Força o Angular a atualizar a tela
-        this.cdr.detectChanges();
+        this.carregandoCapitulos = false;
+        this.checkIntroducao();
+        this.cdr.detectChanges();  
       },
 
       error: (erro) => {
-        console.error(
-          'Erro ao carregar capítulos:',
-          erro
-        );
+
+        console.error('Erro ao carregar capítulos:',erro);
+        this.carregandoCapitulos = false;
+        this.erroCarregamento = true;
       }
     });
+  }
+
+  checkIntroducao(): void {
+      
+    const deveMostrarIntroMundos = history.state?.abrirIntroducao === true;
+
+    const introMundosJaExibida = sessionStorage.getItem('introMundoExibida') === 'true';
+
+    this.mostrarIntroducao = deveMostrarIntroMundos && !introMundosJaExibida;
+
+    if (this.mostrarIntroducao) {
+      sessionStorage.setItem('introMundoExibida', 'true');
+      this.audioService.playSfx('/assets/audio/sword.mp3')
+    }
   }
 
   selecionarCapitulo(capitulo: Capitulo): void {
@@ -109,9 +125,6 @@ export class Mundo implements OnInit {
       `/desafios/capitulo/${this.capituloSelecionado.id}`
     ]);
   }
-  
-
-
   
   fecharIntroducao(): void {
     this.mostrarIntroducao = false;

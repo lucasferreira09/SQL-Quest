@@ -56,41 +56,68 @@
 
   <div class="login-modal">
 
-    <h2>Bem-vindo, aventureiro!</h2>
-
-    <p>Como devemos chamá-lo nesta jornada?</p>
-
-    <input
-      type="text"
-      placeholder="Nome do jogador"
-      maxlength="150"
-      [value]="nomeJogador"
-      (input)="nomeJogador = $any($event.target).value"
-      (keydown.enter)="entrarNoJogo()"
-      [disabled]="carregandoLogin"
-      autocomplete="off"
-    />
-
-    <p class="login-error" *ngIf="erroLogin">
-      {{ erroLogin }}
-    </p>
-
-    <button
-      type="button"
-      (click)="entrarNoJogo()"
-      [disabled]="carregandoLogin"
+    <!-- Imagem do pergaminho -->
+    <img
+      class="login-parchment"
+      src="/assets/elementos/outros/pergaminho-login.webp"
+      alt=""
     >
-      {{ carregandoLogin ? 'ENTRANDO...' : 'COMEÇAR AVENTURA' }}
-    </button>
 
-    <button
-      type="button"
-      class="login-cancelar"
-      (click)="fecharLogin()"
-      [disabled]="carregandoLogin"
-    >
-      VOLTAR
-    </button>
+    <!-- Conteúdo sobre o pergaminho -->
+    <div class="login-content">
+
+      <h2>Bem-vindo, aventureiro!</h2>
+
+      <p>Como devemos chamá-lo nesta jornada?</p>
+
+      <input
+        type="text"
+        placeholder="Nome do jogador"
+        maxlength="150"
+        [value]="nomeJogador"
+        (input)="nomeJogador = $any($event.target).value"
+        (keydown.enter)="entrarNoJogo()"
+        [disabled]="carregandoLogin"
+        autocomplete="off"
+      >
+
+      <p class="login-error" *ngIf="erroLogin">
+        {{ erroLogin }}
+      </p>
+
+      <!-- Botão começar -->
+      <button
+        type="button"
+        class="login-button"
+        (click)="entrarNoJogo()"
+        [disabled]="carregandoLogin"
+        [attr.aria-label]="carregandoLogin ? 'Entrando' : 'Começar aventura'"
+      >
+        <img
+          src="/assets/elementos/outros/login-comecar.webp"
+          alt=""
+        >
+      </button>
+
+      <!-- Botão voltar -->
+      <button
+        type="button"
+        class="login-button login-button-back"
+        (click)="fecharLogin()"
+        [disabled]="carregandoLogin"
+        aria-label="Voltar"
+      >
+        <img
+          src="/assets/elementos/outros/login-voltar.webp"
+          alt=""
+        >
+      </button>
+
+      <span class="login-loading" *ngIf="carregandoLogin">
+        Preparando sua aventura...
+      </span>
+
+    </div>
 
   </div>
 

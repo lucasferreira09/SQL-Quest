@@ -95,6 +95,8 @@ export class InventarioComponent implements OnInit, OnDestroy {
   // =========================
 
   carregando = false;
+  carregandoInventario= true;
+  erroCarregamento = false;
   erro = '';
 
   constructor(
@@ -178,9 +180,12 @@ export class InventarioComponent implements OnInit, OnDestroy {
           // Seleciona o primeiro item da página
           this.itemSelecionado = this.itensPagina[0] ?? null;
 
-          this.carregando = false;
+          setTimeout(() => {
+            this.carregandoInventario = false;
+            this.carregando = false;
+            this.cdr.detectChanges();
 
-          this.cdr.detectChanges();
+          }, 6000);
         },
 
         error: (erro) => {

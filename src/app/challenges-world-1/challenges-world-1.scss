@@ -216,7 +216,7 @@
 }
 
 .challenge-screen.world-1 .gold-reward {
-  left: 15.5%;
+  left: 19%;
   top: 42%;
 
   width: 38%;
@@ -238,6 +238,12 @@
   right: 3%;
   top: 42%;
 
+  width: 38%;
+}
+
+.challenge-screen.world-1 .xp-reward {
+  right: 1%;
+  top: 42%;
   width: 38%;
 }
 
@@ -279,12 +285,11 @@
   position: absolute;
 
   pointer-events: auto;
-  //background-color: #8d00c0a9;
   left: 3%;
   top: 25.5%;
 
   width: 55.5%;
-  height: 43%;
+  height: 41%;
 
 }
 .challenge-screen.world-2 .sql-panel {
@@ -292,7 +297,6 @@
   position: absolute;
 
   pointer-events: auto;
-  //background-color: #8d00c0a9;
   left: 3%;
   top: 25.5%;
 
@@ -370,11 +374,10 @@
 }
 .challenge-screen.world-1 .sql-title {
 
-  left: 41%;
-  top: 1%;
+  left: 34.5%;
 
   width: 32%;
-  height: 13%;
+  height: 11%;
 
   color: #ead9b3;
 }
@@ -549,9 +552,8 @@
 .sql-actions {
   position: absolute;
 
-  left: 6%;
-  right: 6%;
-
+  left: 15%;
+  right: 4%;
   bottom: 2%;
 
   display: flex;
@@ -709,12 +711,11 @@
   position: absolute;
   pointer-events: auto;
 
-  left: 71%;
+  left: 71.5%;
   top: 25%;
 
-  width: 25%;
+  width: 25.5%;
   height: 64%;
-
 }
 
 .challenge-screen.world-2 .result-panel {
@@ -979,7 +980,7 @@
 .challenge-screen.world-1 .query-chest {
   position: absolute;
 
-  left: 8.5%;
+  left: 8%;
   bottom: 0;
 
   width: 50%;
@@ -1057,10 +1058,26 @@
   overflow-y: auto;
   //background-color: #31ce01ae;
 }
-
-.challenge-screen.world-5 .available-blocks {
-  left: 9%;
+.available-blocks {
+  position: absolute;
+  left: 10%;
   right: 5%;
+  top: 5%;
+  bottom: 34%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  overflow-y: auto;
+  //background-color: #31ce01ae;
+}
+.challenge-screen.world-1 .available-blocks {
+  left: 7%;
+  right: 6%;
   top: 5%;
   bottom: 28%;
   //background-color: #31ce01ae;
@@ -1210,9 +1227,6 @@
   filter: brightness(1.03);
 }
 
-// =====================================================
-// SCROLLBAR DO BAÚ
-// =====================================================
 
 .available-blocks::-webkit-scrollbar {
   width: 6px;
@@ -1228,16 +1242,12 @@
   border-radius: 5px;
 }
 
-// =====================================================
-// BOTÃO VOLTAR PARA MUNDOS
-// Canto inferior direito da tela
-// =====================================================
-
 
 .botao-desafios {
   position: absolute;
-  right: 3%;
-  bottom: 0;
+  right: 1%;
+  bottom: auto;
+  z-index: 100;
 }
 
 .voltar-desafio {

@@ -20,9 +20,9 @@ export class HomeScreen implements OnInit {
     private jogadorService: JogadorService
   ) {}
 
-  playButton = 'Play';
-  optionsButton = 'Options';
-  exitButton = 'Exit';
+  playButton = 'Jogar';
+  optionsButton = 'Opções';
+  exitButton = 'Sair';
 
   musicMuted = false;
   musicVolume = 0.5;
@@ -34,7 +34,7 @@ export class HomeScreen implements OnInit {
   erroLogin = '';
 
   ngOnInit(): void {
-    this.abrirInfo();
+    this.checkIntroducao();
   }
 
   testSound(): void {
@@ -109,8 +109,7 @@ export class HomeScreen implements OnInit {
   }
 
   private iniciarJogo(): void {
-    //this.testSound();
-
+    
     this.router.navigate(['/mundos'], {
       state: {
         abrirIntroducao: true
@@ -132,6 +131,19 @@ export class HomeScreen implements OnInit {
 
   exit(): void {
     window.close();
+  }
+
+  checkIntroducao(): void {
+    const infoJaExibida = sessionStorage.getItem('infoHomeExibida') === 'true';
+
+    if (!infoJaExibida) {
+      sessionStorage.setItem('infoHomeExibida', 'true');
+      this.abrirIntroHome();
+    }
+  }
+
+  abrirIntroHome(): void {
+    this.abrirInfo();
   }
 
   abrirInfo(): void {

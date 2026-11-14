@@ -1,3 +1,84 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.loading-background {
+  position: absolute;
+  inset: 0;
+
+  background-image: url('/assets/elementos/fundos/mundo_background.webp');
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(5px);
+  transform: scale(1.04);
+}
+
+.loading-content {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #f5d58b;
+  font-family: 'Godofwar', Georgia, serif;
+  font-size: clamp(18px, 2vw, 26px);
+
+  text-shadow: 2px 2px 5px #000;
+}
+
+.loading-spinner {
+  width: 65px;
+  height: 65px;
+
+  border: 5px solid rgba(7, 7, 7, 0.25);
+  border-top-color: #ffc02d;
+
+  border-radius: 50%;
+
+  animation: girar 0.8s linear infinite;
+
+  filter: drop-shadow(0 0 8px rgba(255, 190, 70, 0.6));
+}
+
+.loading-content p {
+  margin-top: 22px;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-screen button {
+  margin-top: 15px;
+
+  padding: 10px 22px;
+
+  border: 2px solid #d9a64e;
+  border-radius: 8px;
+
+  background: #75451f;
+
+  color: #fff1c9;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -56,8 +137,6 @@
   display: flex;
   flex-direction: column;
 
-  z-index: 1;
-
   box-sizing: border-box;
 }
 
@@ -100,10 +179,12 @@
   justify-content: flex-end;
   gap: 12px;
   margin-left: auto;
+  z-index: 2001;
 }
 
 .top-bar {
   position: relative;
+  z-index: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,14 +193,6 @@
   height: 70px;
   flex-shrink: 0;
   box-sizing: border-box;
-}
-
-.top-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-left: auto;
 }
 
 .som {
