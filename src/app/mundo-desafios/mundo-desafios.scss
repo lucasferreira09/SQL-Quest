@@ -793,7 +793,11 @@
   right: auto;
   top: auto;
   bottom: auto;
+  &:hover {
+    filter: brightness(1.3);
+  } 
 }
+
 .botao-mundos {
   transition: transform 0.2s ease, filter 0.2s ease;
 

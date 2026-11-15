@@ -28,32 +28,31 @@ export class MundoDesafios implements OnInit {
 
   mundoId!: number;
   imagensMundos: Record<number, string> = {
-    //1: 'assets/world11.png',
-    1: 'assets/mundos_background/mundo1_background.png',
-    2: 'assets/world2_new.png',
-    3: 'assets/world33.png',
-    4: 'assets/mundos_background/mundo4_background6.png',
-    5: 'assets/mundos_background/mundo5_background3.png',
-    6: 'assets/mundos_background/mundo6_background2.png',
+    1: 'assets/mundos_background/mundo1_background.webp',
+    2: 'assets/mundos_background/mundo2_background.webp',
+    3: 'assets/mundos_background/mundo3_background.webp',
+    4: 'assets/mundos_background/mundo4_background.webp',
+    5: 'assets/mundos_background/mundo5_background.webp',
+    6: 'assets/mundos_background/mundo6_background.webp',
   };
 
   
   iconsSoundOnByMundo: Record<number, string> = {
     1: '/assets/elementos/outros/mundo1-sound-on.webp',
     2: '/assets/elementos/outros/mundo1-sound-on.webp',
-    3: '/assets/elementos/outros/mundo3-sound-on.png',
-    4: '/assets/elementos/outros/mundo4-sound-on.png',
-    5: '/assets/elementos/outros/mundo5-sound-on.png',
-    6: '/assets/elementos/outros/mundo6-sound-on.png',
+    3: '/assets/elementos/outros/mundo3-sound-on.webp',
+    4: '/assets/elementos/outros/mundo4-sound-on.webp',
+    5: '/assets/elementos/outros/mundo5-sound-on.webp',
+    6: '/assets/elementos/outros/mundo6-sound-on.webp',
   };
 
   iconsSoundOffByMundo: Record<number, string> = {
-    1: '/assets/elementos/outros/sound-off.png',
-    2: '/assets/elementos/outros/sound-off.png',
-    3: '/assets/elementos/outros/sound-off.png',
-    4: '/assets/elementos/outros/sound-off.png',
-    5: '/assets/elementos/outros/sound-off.png',
-    6: '/assets/elementos/outros/sound-off.png',
+    1: '/assets/elementos/outros/sound-off.webp',
+    2: '/assets/elementos/outros/sound-off.webp',
+    3: '/assets/elementos/outros/sound-off.webp',
+    4: '/assets/elementos/outros/sound-off.webp',
+    5: '/assets/elementos/outros/sound-off.webp',
+    6: '/assets/elementos/outros/sound-off.webp',
   };
 
 imagemFundo = this.imagensMundos[1];

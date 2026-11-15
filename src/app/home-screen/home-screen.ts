@@ -29,6 +29,7 @@ export class HomeScreen implements OnInit {
   musicVolume = 0.5;
   mostrarInfo = false;
   mostrarHelp = false;
+  fechando = false;
 
   mostrarLogin = false;
   nomeJogador = '';

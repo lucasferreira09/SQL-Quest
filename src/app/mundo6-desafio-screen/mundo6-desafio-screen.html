@@ -1,4 +1,8 @@
-<!-- TELA DE COMPRA DE DICAS -->
+<app-guia-aventureiro
+  *ngIf="mostrarHelp"
+  (fechar)="fecharHelpModal()">
+</app-guia-aventureiro>
+
 <app-compra-dicas
   *ngIf="mostrarCompraDicas"
   [desafioId]="desafioId"
@@ -29,7 +33,7 @@
 
     <img
       class="map-background"
-      src="assets/mundos_background/tela_desafio/mundo6_tela_desafio.png"
+      src="assets/mundos_background/tela_desafio/mundo6_tela_desafio.webp"
     >
 
      <!-- SOM -->
@@ -45,6 +49,21 @@
         >
       </button>
     </div>
+
+    <div class="botao-help" [ngClass]="'world-' + mundoId">
+      <button
+        type="button"
+        class="help-desafio"
+        (click)="mostrarHelpModal()"
+        aria-label="Ir para Tela Help"
+      >
+        <img
+          src="assets/elementos/outros/help.webp"
+          alt="Voltar Tela Desafios"
+        >
+      </button>
+    </div>
+    
     <div class="botao-desafios">
       <button
         type="button"
@@ -109,7 +128,7 @@
             class="dica-button"
             (click)="abrirDica()">
             <img
-              src="/assets/recompensas/outros/dica-simbol.png"
+              src="/assets/recompensas/outros/dica-simbol.webp"
               alt="Dica"
               class="dica-icon"
             />

@@ -27,9 +27,10 @@ import { DicaService } from '../service/dica.service';
 import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
 import { JogadorService } from '../service/jogador.service';
+import { GuiaAventureiro } from '../guia-aventureiro/guia-aventureiro';
 
 @Component({
-  imports: [CommonModule, DragDropModule, Recompensas, CompraDicas, ErroConsulta],
+  imports: [CommonModule, DragDropModule, Recompensas, CompraDicas, ErroConsulta, GuiaAventureiro],
   selector: 'app-challenges-world-1',
   styleUrl: './challenges-world-1.scss',
   templateUrl: './challenges-world-1.html',
@@ -57,6 +58,7 @@ export class ChallengesWorld1 implements OnInit {
   // Modal de dicas
   mostrarCompraDicas = false;
   mostrarErroConsulta = false;
+  mostrarHelp = false;
   consultaComErro = '';
 
   dicas: any[] = [];
@@ -72,28 +74,27 @@ export class ChallengesWorld1 implements OnInit {
 
   mundoId!: number;
   imagensDesafioMundos: Record<number, string> = {
-    //1: 'assets/telas/desafios/mundo1_tela_desafio.webp',
     1: 'assets/mundos_background/tela_desafio/mundo1_tela_desafio.png',
     2: 'assets/world_new.png',
-    3: 'assets/world3_new_v3.png',
-    4: 'assets/mundos_background/tela_desafio/mundo4_desafio_screen2.png',
-    5: 'assets/mundos_background/tela_desafio/mundo5_tela_desafio.png',
+    3: 'assets/mundos_background/tela_desafio/mundo3_tela_desafio.webp',
+    4: 'assets/mundos_background/tela_desafio/mundo4_tela_desafio2.webp',
+    5: 'assets/mundos_background/tela_desafio/mundo5_tela_desafio.webp',
   };
 
   iconsSoundOnByMundo: Record<number, string> = {
     1: '/assets/elementos/outros/mundo1-sound-on.webp',
     2: '/assets/elementos/outros/mundo1-sound-on.webp',
-    3: '/assets/elementos/outros/mundo3-sound-on.png',
-    4: '/assets/elementos/outros/mundo4-sound-on.png',
-    5: '/assets/elementos/outros/mundo5-sound-on.png',
+    3: '/assets/elementos/outros/mundo3-sound-on.webp',
+    4: '/assets/elementos/outros/mundo4-sound-on.webp',
+    5: '/assets/elementos/outros/mundo5-sound-on.webp',
   };
 
   iconsSoundOffByMundo: Record<number, string> = {
-    1: '/assets/elementos/outros/sound-off.png',
-    2: '/assets/elementos/outros/sound-off.png',
-    3: '/assets/elementos/outros/sound-off.png',
-    4: '/assets/elementos/outros/sound-off.png',
-    5: '/assets/elementos/outros/sound-off.png',
+    1: '/assets/elementos/outros/sound-off.webp',
+    2: '/assets/elementos/outros/sound-off.webp',
+    3: '/assets/elementos/outros/sound-off.webp',
+    4: '/assets/elementos/outros/sound-off.webp',
+    5: '/assets/elementos/outros/sound-off.webp',
   };
 
   imagemDesafioFundo = this.imagensDesafioMundos[1];
@@ -514,6 +515,15 @@ export class ChallengesWorld1 implements OnInit {
     } else {
       this.audioService.play();
     }
+  }
+
+  mostrarHelpModal(): void {
+    this.mostrarHelp = true;
+    this.audioService.playSfx("/assets/audio/body-impact.mp3");
+  }
+
+  fecharHelpModal(): void {
+    this.mostrarHelp = false;
   }
 
 }

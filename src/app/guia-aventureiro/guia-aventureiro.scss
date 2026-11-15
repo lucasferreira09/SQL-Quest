@@ -1,7 +1,6 @@
 .info-overlay {
 
-  position: relative;
-
+  position: fixed;
   /*
    * A imagem original possui proporção
    * aproximadamente 2048 / 1365.
@@ -16,6 +15,7 @@
     92vw,
     calc(88vh * (2048 / 1365))
   );
+
   inset: 0;
 
   z-index: 1000;
@@ -35,33 +35,6 @@
   padding: 2vh 2vw;
 
   box-sizing: border-box;
-  animation: overlay-appear 0.35s ease-out;
-}
-
-@keyframes overlay-appear {
-
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-
-.overlay-fechando {
-  animation: overlay-disappear 0.35s ease-in forwards;
-}
-
-@keyframes overlay-disappear {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
 }
 
 .guia-screen {
@@ -75,6 +48,7 @@
 
   background: rgba(0, 0, 0, 0.75);
   overflow: hidden;
+  animation: overlay-appear 0.55s ease-out;
 }
 
 .guia-container {
@@ -84,6 +58,62 @@
   aspect-ratio: 1536 / 1024;
 
   max-height: 95vh;
+  animation: guia-appear 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes overlay-appear {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
+
+@keyframes guia-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.80) translateY(3%);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.guia-screen.fechando {
+  animation: guia-overlay-disappear 0.5s ease-in both;
+}
+
+.guia-screen.fechando .guia-container {
+  animation: guia-disappear 0.5s ease-in both;
+}
+
+@keyframes guia-overlay-disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes guia-disappear {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.80) translateY(3%);
+  }
 }
 
 .pergaminho {
@@ -160,25 +190,10 @@
   position: absolute;
 
   left: 30%;
-  top: 17%;
+  top: 15%;
 
   width: 65%;
   height: 65%;
-  //background-color: #3b1b08;
-}
-
-.titulo-secao {
-  display: block;
-
-  width: 75%;
-  height: auto;
-
-  margin: 3% 12% 3%;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
-    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
-    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
   //background-color: #3b1b08;
 }
 
@@ -188,7 +203,7 @@
   width: 60%;
   height: auto;
 
-  margin: 3% 12% 3%;
+  margin: 3% 12% 5%;
   object-fit: contain;
   filter:
     drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
@@ -212,6 +227,35 @@
   //background-color: #3b1b08;
 }
 
+.titulo-como-resolver {
+  display: block;
+
+  width: 60%;
+  height: auto;
+
+  margin: 3% 12% 1%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #3b1b08;
+}
+
+.titulo-dicas {
+  display: block;
+
+  width: 60%;
+  height: auto;
+
+  margin: 3% 13% 3%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #3b1b08;
+}
 /* Área principal da Sua Jornada */
 .conteudo-jornada {
   position: relative;
@@ -294,18 +338,34 @@
 
   position: absolute;
   right: 0;
-  width: 50%;
-
+  width: 55%;
 
   object-fit: contain;
 
+  
+  -webkit-mask-image: radial-gradient(
+    ellipse 50% 50% at center,
+    black 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    transparent 100%
+  );
+
+  mask-image: radial-gradient(
+    ellipse 60% 60% at center,
+    black 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    transparent 100%
+  );
+
   filter:
-    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
-    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
-    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.5))
+    drop-shadow(0 0 18px rgba(253, 51, 0, 0.5));
+
 }
 
 .introducao {
+  position: relative;
+  z-index: 2;
   font-family: 'Godofwar', serif;
   font-size: clamp(10px, 1.25vw, 19px);
   font-weight: bold;
@@ -316,6 +376,22 @@
   text-align: center;
   margin: 0 0 1%;
 }
+
+.introducao-dicas {
+  position: relative;
+  z-index: 2;
+  font-family: 'Godofwar', serif;
+  font-size: clamp(10px, 1.25vw, 19px);
+  font-weight: bold;
+  word-spacing: 3px;
+
+  width: 75%;
+  left: 2%;
+  color: #3b1b08;
+  margin: 0 0 1%;
+  //background-color: #0e0d0d;
+}
+
 
 /* Passos */
 
@@ -347,7 +423,7 @@
   border-radius: 50%;
 
   background: linear-gradient(#ffd45a, #a75a00);
-  border: 2px solid #7b3900;
+  border: 2px solid #0e0d0d;
 
   color: #542500;
   font-weight: bold;
@@ -356,24 +432,21 @@
 
 .passo p {
   margin: 0;
-  z-index: 1;
   font-family: 'Godofwar', serif;
   font-size: clamp(10px, 1.1vw, 17px);
   font-weight: bold;
   word-spacing: 3px;
-
+  z-index: 1;
   color: #3b1b08;
 }
-
-/* Blocos SQL */
 
 .imagem-blocos {
   position: absolute;
 
   right: 0;
-  top: 25.5%;
+  top: 27.5%;
 
-  width: 38%;
+  width: 40%;
   height: 90%;
   
   filter:
@@ -381,6 +454,45 @@
     drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
     drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
   object-fit: contain;
+}
+
+.dicas-visual {
+  position: absolute;
+  right: 0;
+  top: 20%;
+
+  width: 38%;
+  height: 90%;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+.imagem-dicas {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 70% at center,
+    black 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    transparent 100%
+  );
+
+  mask-image: radial-gradient(
+    ellipse 70% 70% at center,
+    black 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    transparent 100%
+  );
+
+  filter:
+    drop-shadow(0 0 8px rgba(0, 150, 255, 0.5))
+    drop-shadow(0 0 18px rgba(0, 100, 255, 0.5));
 }
 
 

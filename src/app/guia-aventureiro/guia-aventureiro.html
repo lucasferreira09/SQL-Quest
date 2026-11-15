@@ -1,8 +1,7 @@
-<div class="intro-overlay"
-  [class.overlay-fechando]="fechando">
+<div class="intro-overlay">
 
  
-    <div class="guia-screen">
+    <div class="guia-screen" [class.fechando]="fechando">
 
       <div class="guia-container">
 
@@ -14,7 +13,7 @@
         >
 
         <!-- Menu lateral -->
-        <nav class="menu-guia">
+        <nav class="menu-guia" >
           <button
             *ngFor="let bloco of blocos"
             type="button"
@@ -63,7 +62,7 @@
               </div>
 
               <img
-                src="assets/guia/sua-jornada/jornada-mundos1.png"
+                src="assets/guia/sua-jornada/jornada-mundos.webp"
                 class="imagem-jornada"
                 alt="Mundos da jornada"
               >
@@ -74,8 +73,8 @@
           <ng-container *ngIf="secaoSelecionada === 'como-resolver'">
 
             <img
-              src="assets/guia/como-resolver/bloco-como-resolver.webp"
-              class="titulo-secao"
+              src="assets/guia/como-resolver/bloco-como-resolver3.webp"
+              class="titulo-como-resolver"
               alt="3. Como Resolver Desafios"
             >
 
@@ -112,9 +111,9 @@
             </div>
 
             <img
-              src="assets/guia/monge.webp"
+              src="assets/guia/como-resolver/monge.webp"
               class="imagem-blocos"
-              alt="Blocos SQL e botão de execução"
+              alt="Monge Ensina SQL"
             >
 
           </ng-container>
@@ -134,13 +133,13 @@
             <div class="area-recompensas">
 
               <img
-                src="assets/guia/recompensas/recompensas-icons2.png"
+                src="assets/guia/recompensas/recompensas-icons.webp"
                 class="icones-recompensas"
                 alt="Ouro, XP, itens e conquistas"
               >
 
               <img
-                src="assets/guia/recompensas/golds.png"
+                src="assets/guia/recompensas/golds.webp"
                 class="imagem-bau"
                 alt="Baú aberto cheio de moedas de ouro"
               >
@@ -154,6 +153,55 @@
 
           </ng-container>
 
+          <ng-container *ngIf="secaoSelecionada === 'dicas'">
+
+            <img
+              src="assets/guia/dicas/bloco-dicas.webp"
+              class="titulo-dicas"
+              alt="4. Dicas"
+            >
+
+            <p class="introducao-dicas">
+              Encontrou um desafio difícil? As dicas<br>
+              podem ajudar você a compreender<br>
+              o problema e descobrir como solucioná-lo.
+            </p>
+
+            <div class="passos">
+
+              <div class="passo">
+                <span class="numero">💡</span>
+                <p>
+                  Dúvida na consulta SQL?<br>
+                  Abra o menu de dicas.
+                </p>
+              </div>
+
+              <div class="passo">
+                <span class="numero">💡</span>
+                <p>
+                  Cada desafio tem dicas para ajudar você.
+                </p>
+              </div>
+
+              <div class="passo">
+                <span class="numero">💡</span>
+                <p>
+                  Obtenha a dica que precisa para conseguir avançar na sua missão.
+                </p>
+              </div>
+
+            </div>
+            <div class="dicas-visual">
+               <div class="aura-pocao"></div>
+              <img
+                src="assets/guia/dicas/dicas-icon2.webp"
+                class="imagem-dicas"
+                alt="Dicas image"
+              >
+            </div>
+           
+          </ng-container>
         </main>
 
         <!-- Botão fechar -->
@@ -164,7 +212,7 @@
           aria-label="Fechar guia"
         >
           <img
-            src="assets/dicas/fechar-dica-button.png"
+            src="assets/guia/close-button.webp"
             alt="Fechar"
           >
         </button>

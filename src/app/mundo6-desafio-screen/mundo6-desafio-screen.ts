@@ -24,6 +24,7 @@ import { CompraDicas } from '../compra-dicas/compra-dicas';
 import { ErroConsulta } from '../erro-consulta/erro-consulta';
 import { JogadorService } from '../service/jogador.service';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { GuiaAventureiro } from '../guia-aventureiro/guia-aventureiro';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
     FormsModule,
     Recompensas,
     CompraDicas,
-    ErroConsulta
+    ErroConsulta,
+    GuiaAventureiro
   ],
   selector: 'app-mundo6-desafio-screen',
   styleUrl: './mundo6-desafio-screen.scss',
@@ -44,11 +46,11 @@ export class Mundo6DesafioScreen implements OnInit {
   mundoId!: number;
   proximoDesafio!: number;
   iconsSoundOnByMundo: Record<number, string> = {
-    6: '/assets/elementos/outros/mundo6-sound-on.png',
+    6: '/assets/elementos/outros/mundo6-sound-on.webp',
   };
 
   iconsSoundOffByMundo: Record<number, string> = {
-    6: '/assets/elementos/outros/sound-off.png',
+    6: '/assets/elementos/outros/sound-off.webp',
   };
  
 
@@ -66,6 +68,7 @@ export class Mundo6DesafioScreen implements OnInit {
 
   mostrarErroResultado = false;
   mostrarErroConsulta = false;
+  mostrarHelp = false;
   consultaComErro = '';
 
   mostrarModalRecompensas = false;
@@ -443,6 +446,13 @@ export class Mundo6DesafioScreen implements OnInit {
       })
     )
   }
-
   
+  mostrarHelpModal(): void {
+    this.mostrarHelp = true;
+    this.audioService.playSfx("/assets/audio/body-impact.mp3");
+  }
+
+  fecharHelpModal(): void {
+    this.mostrarHelp = false;
+  }
 }

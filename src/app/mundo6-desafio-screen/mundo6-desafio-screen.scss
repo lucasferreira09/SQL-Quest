@@ -1,8 +1,3 @@
-
-/* =====================================================
-   TELA PRINCIPAL
-===================================================== */
-
 .challenge-screen {
   position: fixed;
   inset: 0;
@@ -18,10 +13,6 @@
   justify-content: center;
 }
 
-
-// =====================================================
-// ÁREA DO JOGO
-// =====================================================
 
 .game-area {
   position: relative;
@@ -40,11 +31,6 @@
   overflow: hidden;
 }
 
-
-// =====================================================
-// IMAGEM DE FUNDO
-// =====================================================
-
 .map-background {
   position: absolute;
   inset: 0;
@@ -59,12 +45,13 @@
 
 
 .som {
-  position: absolute;   // .challenge-screen já é position: relative e ocupa 100vw x 100vh
+  position: absolute;
   left: 16px;
   bottom: 16px;
-  z-index: 100;         // fica acima da imagem e da ui-layer
+  z-index: 100;
 }
 
+.help-desafio,
 .som-button {
   display: flex;
   align-items: center;
@@ -77,10 +64,21 @@
 
   transition: transform 0.2s ease, filter 0.2s ease;
 
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #0d0d0e
+  );
+  
   &:hover {
-    transform: scale(1.08);
-    filter: brightness(1.15);
+    transform: translateX(8px);
+    filter: brightness(1.30);
   }
+  
+  filter:
+    drop-shadow(0 0 2px #FD3906)
+    drop-shadow(0 0 6px #FD3906)
+    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
 
   img {
     display: block;
@@ -92,23 +90,15 @@
 }
 
 
-.som-button { 
-  
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 30%,
-    #0d0d0e
-  );
-  
-  filter:
-    drop-shadow(0 0 2px #FD3906)
-    drop-shadow(0 0 6px #FD3906)
-    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
+.botao-help {
+  position: absolute;
+  left: 1.2%;
+  bottom: 102px;
+  z-index: 100;    
+  &:hover {
+    filter: brightness(1.3);
+  }
 }
-
-// =====================================================
-// CAMADA DOS ELEMENTOS
-// =====================================================
 
 .ui-layer {
   position: absolute;

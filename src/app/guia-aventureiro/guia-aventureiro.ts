@@ -28,23 +28,23 @@ export class GuiaAventureiro {
     {
       id: 'sua-jornada',
       nome: 'Sua Jornada',
-      imagem: 'assets/guia/menu/sua-jornada.png'
+      imagem: 'assets/guia/sua-jornada/menu-sua-jornada.webp'
     },
     {
       id: 'recompensas',
       nome: 'Recompensas',
-      imagem: 'assets/guia/menu/recompensas.png'
+      imagem: 'assets/guia/recompensas/menu-recompensas.webp'
     },
     {
       id: 'como-resolver',
       nome: 'Como Resolver',
-      imagem: 'assets/guia/menu/como-resolver.png'
-    }/*,
+      imagem: 'assets/guia/como-resolver/menu-como-resolver.webp'
+    },
     {
       id: 'dicas',
       nome: 'Dicas',
-      imagem: 'assets/guia/menu/dicas.png'
-    },
+      imagem: 'assets/guia/dicas/menu-dicas.webp'
+    }/*,
     {
       id: 'inventario',
       nome: 'Inventário',
