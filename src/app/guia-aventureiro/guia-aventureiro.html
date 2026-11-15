@@ -1,0 +1,175 @@
+<div class="intro-overlay"
+  [class.overlay-fechando]="fechando">
+
+ 
+    <div class="guia-screen">
+
+      <div class="guia-container">
+
+        <!-- Pergaminho principal -->
+        <img
+          src="assets/guia/pergaminho-guia2.png"
+          class="pergaminho"
+          alt="Pergaminho do Guia do Aventureiro"
+        >
+
+        <!-- Menu lateral -->
+        <nav class="menu-guia">
+          <button
+            *ngFor="let bloco of blocos"
+            type="button"
+            class="bloco-menu"
+            [class.selecionado]="secaoSelecionada === bloco.id"
+            (click)="selecionarSecao(bloco.id)"
+          >
+            <img
+              [src]="bloco.imagem"
+              [alt]="bloco.nome"
+            >
+          </button>
+
+        </nav>
+
+        <!-- Conteúdo da seção selecionada -->
+        <main class="conteudo-guia">
+
+          <ng-container *ngIf="secaoSelecionada === 'sua-jornada'">
+
+            <img
+              src="assets/guia/sua-jornada/bloco-sua-jornada.webp"
+              class="titulo-jornada"
+              alt="1. Sua Jornada"
+            >
+
+            <div class="conteudo-jornada">
+
+              <div class="textos-jornada">
+
+                <p class="intro-jorn">
+                  Sua missão é explorar os mundos de Aethel,
+                  avançar pelos capítulos e completar desafios
+                  utilizando seus conhecimentos<br>
+                  em SQL.
+                </p>
+
+                <div class="separator"></div>
+
+                <p class="descricao-jornada">
+                  Cada desafio representa uma nova oportunidade
+                  de aprender<br>
+                  e evoluir na sua jornada!
+                </p>
+
+              </div>
+
+              <img
+                src="assets/guia/sua-jornada/jornada-mundos1.png"
+                class="imagem-jornada"
+                alt="Mundos da jornada"
+              >
+
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="secaoSelecionada === 'como-resolver'">
+
+            <img
+              src="assets/guia/como-resolver/bloco-como-resolver.webp"
+              class="titulo-secao"
+              alt="3. Como Resolver Desafios"
+            >
+
+            <p class="introducao">
+              Em cada desafio, você receberá uma missão<br>
+              e terá acesso às informações necessárias.
+            </p>
+
+            <div class="passos">
+
+              <div class="passo">
+                <span class="numero">1</span>
+                <p>
+                  Use os blocos disponíveis para construir
+                  sua consulta SQL.
+                </p>
+              </div>
+
+              <div class="passo">
+                <span class="numero">2</span>
+                <p>
+                  Execute o comando e veja o resultado.
+                </p>
+              </div>
+
+              <div class="passo">
+                <span class="numero">3</span>
+                <p>
+                  Se precisar, revise sua consulta e tente
+                  novamente!
+                </p>
+              </div>
+
+            </div>
+
+            <img
+              src="assets/guia/monge.webp"
+              class="imagem-blocos"
+              alt="Blocos SQL e botão de execução"
+            >
+
+          </ng-container>
+
+          <ng-container *ngIf="secaoSelecionada === 'recompensas'">
+
+            <img
+              src="assets/guia/recompensas/bloco-recompensas.webp"
+              class="titulo-recompensas"
+              alt="2. Recompensas e Evolução"
+            >
+
+            <p class="introducao introducao-recompensas">
+              Ao completar desafios, você poderá receber
+            </p>
+
+            <div class="area-recompensas">
+
+              <img
+                src="assets/guia/recompensas/recompensas-icons2.png"
+                class="icones-recompensas"
+                alt="Ouro, XP, itens e conquistas"
+              >
+
+              <img
+                src="assets/guia/recompensas/golds.png"
+                class="imagem-bau"
+                alt="Baú aberto cheio de moedas de ouro"
+              >
+
+            </div>
+
+            <p class="texto-recompensas">
+              Acumule experiência, evolua seus níveis e<br>
+              acompanhe seu progresso durante a jornada!
+            </p>
+
+          </ng-container>
+
+        </main>
+
+        <!-- Botão fechar -->
+        <button
+          type="button"
+          class="botao-fechar"
+          (click)="fecharGuia()"
+          aria-label="Fechar guia"
+        >
+          <img
+            src="assets/dicas/fechar-dica-button.png"
+            alt="Fechar"
+          >
+        </button>
+
+      </div>
+
+    </div>
+</div>

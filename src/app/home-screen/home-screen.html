@@ -1,3 +1,8 @@
+<app-guia-aventureiro
+  *ngIf="mostrarHelp"
+  (fechar)="fecharHelpModal()">
+</app-guia-aventureiro>
+
 <div class="home-container">
   <div class="background"></div>
 
@@ -11,6 +16,11 @@
           alt="About"/>
       </div>
 
+      <div class="action" (click)="mostrarHelpModal()">
+        <img src="/assets/help_button.png"
+          class="action-icon help-icon"
+          alt="Help"/>
+      </div>
     </div>
 
     <div class="menu-panel">

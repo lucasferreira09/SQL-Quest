@@ -1,0 +1,490 @@
+.info-overlay {
+
+  position: relative;
+
+  /*
+   * A imagem original possui proporção
+   * aproximadamente 2048 / 1365.
+   *
+   * O modal nunca ultrapassa:
+   *
+   * 92% da largura
+   * OU
+   * 88% da altura
+   */
+  width: min(
+    92vw,
+    calc(88vh * (2048 / 1365))
+  );
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  //Escurece a Home atrás do pergaminho.
+  background: rgba(0, 0, 0, 0.72);
+
+  //Leve desfoque no fundo.
+  backdrop-filter: blur(3px);
+
+  //Espaçamento mínimo nas bordas.
+  padding: 2vh 2vw;
+
+  box-sizing: border-box;
+  animation: overlay-appear 0.35s ease-out;
+}
+
+@keyframes overlay-appear {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.overlay-fechando {
+  animation: overlay-disappear 0.35s ease-in forwards;
+}
+
+@keyframes overlay-disappear {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.guia-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.guia-container {
+  position: relative;
+
+  width: min(95vw, calc(95vh * 1.5));
+  aspect-ratio: 1536 / 1024;
+
+  max-height: 95vh;
+}
+
+.pergaminho {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+}
+
+
+.menu-guia {
+  position: absolute;
+
+  left: 9%;
+  top: 27%;
+
+  width: 23%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 5px;
+  padding: 0;
+  
+  filter:
+    drop-shadow(0 0 20px rgba(253, 181, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #0527abca;
+}
+
+.bloco-menu {
+  width: 80%;
+
+  padding: 0;
+  margin: -3.5% 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+  
+}
+
+.bloco-menu img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+
+}
+
+.bloco-menu:hover {
+  transform: scale(1.10);
+  filter: brightness(1.15);
+  
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.bloco-menu.selecionado {
+  filter: brightness(1.20) drop-shadow(0 0 5px #ffb900);
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  transform: translateX(20px);
+  
+}
+
+
+.conteudo-guia {
+  position: absolute;
+
+  left: 30%;
+  top: 17%;
+
+  width: 65%;
+  height: 65%;
+  //background-color: #3b1b08;
+}
+
+.titulo-secao {
+  display: block;
+
+  width: 75%;
+  height: auto;
+
+  margin: 3% 12% 3%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #3b1b08;
+}
+
+.titulo-jornada {
+  display: block;
+
+  width: 60%;
+  height: auto;
+
+  margin: 3% 12% 3%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #3b1b08;
+}
+
+.titulo-recompensas {
+  display: block;
+
+  width: 60%;
+  height: auto;
+
+  margin: 3% 12% 3%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  //background-color: #3b1b08;
+}
+
+/* Área principal da Sua Jornada */
+.conteudo-jornada {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  word-spacing: 3px;
+
+  width: 100%;
+  height: 65%;
+
+  margin-top: 2%;
+}
+
+/* Área dos textos */
+.textos-jornada {
+  width: 65%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-left: 3%;
+  box-sizing: border-box;
+}
+
+/* Texto de introdução */
+.intro-jorn {
+  width: 90%;
+
+  margin: 0 0 5%;
+
+  font-family: 'Godofwar', serif;
+  font-size: clamp(20px, 1.25vw, 19px);
+  font-weight: bold;
+
+  line-height: 1.6;
+
+  color: #3b1b08;
+}
+
+/* Separador */
+.separator {
+  width: 85%;
+  height: 2px;
+
+  margin: 0 auto 5%;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    #9b5a13,
+    #e5a83e,
+    #9b5a13,
+    transparent
+  );
+
+  box-shadow: 0 1px 3px rgba(80, 35, 0, 0.3);
+}
+
+/* Texto de descrição */
+.descricao-jornada {
+  width: 90%;
+
+  margin: 0;
+
+  font-family: 'Godofwar', serif;
+  font-size: clamp(20px, 1.25vw, 19px);
+  font-weight: bold;
+  z-index: 1;
+  line-height: 1.6;
+
+  color: #3b1b08;
+}
+
+/* Imagem dos mundos */
+.imagem-jornada {
+
+  position: absolute;
+  right: 0;
+  width: 50%;
+
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.introducao {
+  font-family: 'Godofwar', serif;
+  font-size: clamp(10px, 1.25vw, 19px);
+  font-weight: bold;
+  word-spacing: 3px;
+
+  width: 85%;
+  color: #3b1b08;
+  text-align: center;
+  margin: 0 0 1%;
+}
+
+/* Passos */
+
+.passos {
+  width: 65%;
+  margin-left: 5%;
+  margin-top: 8%;
+  //background-color: #3b1b08;
+}
+
+.passo {
+  display: flex;
+  align-items: flex-start;
+  gap: 3%;
+
+  margin-bottom: 3%;
+}
+
+.numero {
+  flex-shrink: 0;
+
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(#ffd45a, #a75a00);
+  border: 2px solid #7b3900;
+
+  color: #542500;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.passo p {
+  margin: 0;
+  z-index: 1;
+  font-family: 'Godofwar', serif;
+  font-size: clamp(10px, 1.1vw, 17px);
+  font-weight: bold;
+  word-spacing: 3px;
+
+  color: #3b1b08;
+}
+
+/* Blocos SQL */
+
+.imagem-blocos {
+  position: absolute;
+
+  right: 0;
+  top: 25.5%;
+
+  width: 38%;
+  height: 90%;
+  
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+  object-fit: contain;
+}
+
+
+/* Área de recompensas */
+
+.introducao-recompensas {
+  width: 85%;
+  margin: 0 0 2%;
+  
+  font-family: 'Godofwar', serif;
+  font-size: clamp(18px, 1.1vw, 17px);
+  font-weight: bold;
+  word-spacing: 3px;
+}
+
+.area-recompensas {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 43%;
+  //background-color: #3b1b08;
+}
+
+.icones-recompensas {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 72%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.imagem-bau {
+  position: absolute;
+
+  right: 0;
+  top: -12%;
+
+  width: 36%;
+  height: 115%;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 184, 6, 0.7))
+    drop-shadow(0 0 20px rgba(253, 51, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+
+.texto-recompensas {
+  width: 78%;
+
+  margin: 0;
+  margin-top: 1%;
+  margin-left: 1%;
+
+  font-family: 'Godofwar', serif;
+  font-size: clamp(18px, 1.1vw, 17px);
+  font-weight: bold;
+  word-spacing: 3px;
+  letter-spacing: 2px;
+
+  color: #3b1b08;
+  text-align: center;
+}
+
+
+.botao-fechar {
+  position: absolute;
+
+  left: 55%;
+  bottom: 5%;
+
+  transform: translateX(-50%);
+
+  width: 19%;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  
+  filter:
+    drop-shadow(0 0 8px rgba(40, 40, 40, 0.7))
+    drop-shadow(0 0 20px rgba(253, 152, 0, 0.35))
+    drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.botao-fechar img {
+  display: block;
+  width: 35%;
+  height: auto;
+  object-fit: contain;
+}
+
+.botao-fechar:hover {
+  transform: translateX(-50%) scale(1.05);
+}

@@ -300,19 +300,13 @@
   align-items: center;
   justify-content: center;
 
-  /*
-   * Escurece a Home atrás do pergaminho.
-   */
+  //Escurece a Home atrás do pergaminho.
   background: rgba(0, 0, 0, 0.72);
 
-  /*
-   * Leve desfoque no fundo.
-   */
+  //Leve desfoque no fundo.
   backdrop-filter: blur(3px);
 
-  /*
-   * Espaçamento mínimo nas bordas.
-   */
+  //Espaçamento mínimo nas bordas.
   padding: 2vh 2vw;
 
   box-sizing: border-box;

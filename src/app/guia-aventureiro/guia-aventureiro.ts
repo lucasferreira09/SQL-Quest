@@ -1,0 +1,79 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { AudioService } from '../services/audio';
+
+interface BlocoMenu {
+  id: string;
+  nome: string;
+  imagem: string;
+}
+
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  selector: 'app-guia-aventureiro',
+  styleUrl: './guia-aventureiro.scss',
+  templateUrl: './guia-aventureiro.html',
+})
+export class GuiaAventureiro {
+
+  constructor(private audioService: AudioService) {}
+  
+  @Output() fechar = new EventEmitter<void>();
+
+  secaoSelecionada = 'sua-jornada';
+  fechando = false;
+
+  blocos: BlocoMenu[] = [
+    {
+      id: 'sua-jornada',
+      nome: 'Sua Jornada',
+      imagem: 'assets/guia/menu/sua-jornada.png'
+    },
+    {
+      id: 'recompensas',
+      nome: 'Recompensas',
+      imagem: 'assets/guia/menu/recompensas.png'
+    },
+    {
+      id: 'como-resolver',
+      nome: 'Como Resolver',
+      imagem: 'assets/guia/menu/como-resolver.png'
+    }/*,
+    {
+      id: 'dicas',
+      nome: 'Dicas',
+      imagem: 'assets/guia/menu/dicas.png'
+    },
+    {
+      id: 'inventario',
+      nome: 'Inventário',
+      imagem: 'assets/guia/menu/inventario.png'
+    },
+    {
+      id: 'controles',
+      nome: 'Controles',
+      imagem: 'assets/guia/menu/controles.png'
+    }*/
+  ];
+
+  selecionarSecao(id: string): void {
+    this.audioService.playSfx("/assets/audio/open_dica_sound.mp3");
+    this.secaoSelecionada = id;
+  }
+
+  
+  fecharGuia(): void {
+    if (this.fechando) return;
+
+    this.audioService.playSfx("/assets/audio/body-impact.mp3");
+    this.fechando = true;
+
+    if (!this.audioService.isPlaying()) {
+      this.audioService.play();
+    }
+    setTimeout(() => {
+      this.fechar.emit();
+    }, 400);
+  }
+}

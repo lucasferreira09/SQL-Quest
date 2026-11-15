@@ -6,6 +6,7 @@ import { MundoDesafios } from './mundo-desafios/mundo-desafios';
 import { InventarioComponent } from './inventario/inventario';
 import { Mundo6DesafioScreen } from './mundo6-desafio-screen/mundo6-desafio-screen';
 import { Recompensas } from './recompensa-screen/recompensa-screen';
+import { GuiaAventureiro } from './guia-aventureiro/guia-aventureiro';
 
 export const routes: Routes = [
 
@@ -17,6 +18,5 @@ export const routes: Routes = [
     { path: 'mundo/capitulo/:id', component: MundoDesafios},
     { path: 'desafios/:id', component: ChallengesWorld1},
     { path: 'capitulo/6/:id', component: Mundo6DesafioScreen },
-    { path: 'inventario', component: InventarioComponent },
-    { path: 'win', component: Recompensas}
+    { path: 'inventario', component: InventarioComponent }
 ];

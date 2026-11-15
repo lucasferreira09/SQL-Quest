@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { AudioService } from '../services/audio';
 import { CommonModule } from '@angular/common';
 import { JogadorService } from '../service/jogador.service';
+import { GuiaAventureiro } from '../guia-aventureiro/guia-aventureiro';
 
 @Component({
-  imports: [CommonModule],
+  imports: [CommonModule, GuiaAventureiro],
   standalone: true,
   selector: 'app-home-screen',
   styleUrl: './home-screen.scss',
@@ -27,6 +28,7 @@ export class HomeScreen implements OnInit {
   musicMuted = false;
   musicVolume = 0.5;
   mostrarInfo = false;
+  mostrarHelp = false;
 
   mostrarLogin = false;
   nomeJogador = '';
@@ -66,6 +68,7 @@ export class HomeScreen implements OnInit {
     const jogador = this.jogadorService.obterJogador();
 
     if (jogador) {
+      this.entrarTelaCheia();
       this.iniciarJogo();
       return;
     }
@@ -147,18 +150,44 @@ export class HomeScreen implements OnInit {
   }
 
   abrirInfo(): void {
+    this.audioService.playSfx("/assets/audio/body-impact.mp3");
     this.mostrarInfo = true;
   }
 
   fecharInfo(): void {
     this.mostrarInfo = false;
+    this.entrarTelaCheia();
 
     if (!this.audioService.isPlaying()) {
       this.audioService.play();
     }
   }
 
-  win(): void {
-    this.router.navigate(['/win']);
+  entrarTelaCheia(): void {
+    const elemento = document.documentElement;
+
+    if (elemento.requestFullscreen) {
+
+      elemento.requestFullscreen()
+        .then(() => { console.log('Tela cheia ativada!'); })
+        .catch((erro) => { console.error('Erro ao ativar tela cheia:', erro); });
+    }
   }
+
+  sairTelaCheia(): void {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+  }
+
+  mostrarHelpModal(): void {
+    this.mostrarHelp = true;
+    this.audioService.playSfx("/assets/audio/body-impact.mp3");
+  }
+
+  fecharHelpModal(): void {
+    this.entrarTelaCheia();
+    this.mostrarHelp = false;
+  }
+  
 }
