@@ -87,11 +87,6 @@ imagemFundo = this.imagensMundos[1];
 
         next: (desafios) => {
 
-          console.log(
-            'Desafios recebidos:',
-            desafios
-          );
-
           this.desafios = desafios;
 
           if (desafios.length > 0) {
@@ -156,8 +151,6 @@ imagemFundo = this.imagensMundos[1];
     }
 
     const desafioId = this.desafioSelecionado.id;
-
-    console.log('Mundo atual:', this.mundoId);
 
     // Mundo 6: abre diretamente a tela específica
     if (this.mundoId === 6) {

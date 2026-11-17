@@ -134,6 +134,7 @@ export class HomeScreen implements OnInit {
   }
 
   exit(): void {
+    this.sairTelaCheia();
     window.close();
   }
 

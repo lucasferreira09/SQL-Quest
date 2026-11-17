@@ -161,8 +161,6 @@ export class Mundo6DesafioScreen implements OnInit {
       next: desafio => {
         this.desafio = desafio;
 
-        console.log('Desafio carregado:', desafio);
-
         this.carregando = false;
         this.cdr.detectChanges();
       },
