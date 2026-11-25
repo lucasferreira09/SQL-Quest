@@ -54,8 +54,8 @@
                 <div class="separator"></div>
 
                 <p class="descricao-jornada">
-                  Cada desafio representa uma nova oportunidade
-                  de aprender<br>
+                  Cada desafio representa<br>
+                  uma nova oportunidade de aprender<br>
                   e evoluir na sua jornada!
                 </p>
 
@@ -96,15 +96,16 @@
               <div class="passo">
                 <span class="numero">2</span>
                 <p>
-                  Execute o comando e veja o resultado.
+                  Execute o comando<br>
+                  e veja o resultado.
                 </p>
               </div>
 
               <div class="passo">
                 <span class="numero">3</span>
                 <p>
-                  Se precisar, revise sua consulta e tente
-                  novamente!
+                  Se precisar, revise sua consulta<br>
+                  e tente novamente!
                 </p>
               </div>
 
@@ -162,9 +163,9 @@
             >
 
             <p class="introducao-dicas">
-              Encontrou um desafio difícil? As dicas<br>
-              podem ajudar você a compreender<br>
-              o problema e descobrir como solucioná-lo.
+              Encontrou um desafio difícil?As dicas<br>
+              podem ajudar você a compreender
+              o problema e descobrir como  solucioná-lo.
             </p>
 
             <div class="passos">
@@ -201,6 +202,42 @@
               >
             </div>
            
+          </ng-container>
+
+          <ng-container *ngIf="secaoSelecionada === 'inventario'">
+
+            <img
+              src="assets/guia/inventario/bloco-inventario2.webp"
+              class="titulo-inventario"
+              alt="5. Inventário"
+            >
+
+            <p class="introducao introducao-inventario">
+              Seu inventário é onde você encontra<br>
+              os itens que ganha durante sua jornadas
+            </p>
+
+            <div class="area-inventario">
+
+              <img
+                src="assets/guia/inventario/inventario-icons.webp"
+                class="icones-inventario"
+                alt="Itens Inventário"
+              >
+
+            </div>
+
+            <p class="texto-inventario">
+              Veja seus itens e recompensas;<br>
+            </p>
+            <div class="inventario-visual">
+               <div class="aura-pocao"></div>
+              <img
+                src="assets/elementos/outros/inventario_icon.webp"
+                class="inventario-dicas"
+                alt="Dicas image"
+              >
+            </div>
           </ng-container>
         </main>
 

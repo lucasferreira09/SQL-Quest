@@ -12,7 +12,6 @@
   overflow: hidden;
 }
 
-
 .loading-spinner {
   width: 60px;
   height: 60px;
@@ -33,14 +32,12 @@
   }
 }
 
-
 :host {
   display: block;
   width: 100%;
   height: 100dvh;
   overflow: hidden;
 }
-
 
 .top-actions {
   display: flex;
@@ -62,6 +59,7 @@
     drop-shadow(0 0 20px rgba(15, 0, 3, 0.35))
     drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
 }
+
 .voltar-b {
   display: flex;
   align-items: center;
@@ -99,7 +97,6 @@
 .som-button:hover {
   transform: translateY(8px);
 }
-
 
 .voltar-b {
   display: flex;
@@ -148,7 +145,6 @@
   object-fit: contain;
 }
 
-
 .voltar-button:hover {
   transform: translateY(8px);
 }
@@ -156,7 +152,6 @@
 .help-icon {
   transition: transform 0.2s ease;
 }
-
 
 .inventario-screen {
   position: relative;
@@ -175,8 +170,6 @@
   font-family: "Godofwar", sans-serif;
 }
 
-
-/* Cabeçalho no painel superior */
 .titulo-painel {
   position: absolute;
   left: 27.5%;
@@ -206,12 +199,11 @@
   font-size: clamp(15px, 0.85vw, 15px);
 }
 
-
 .paginador {
   position: absolute;
   left: 22.5%;
   width: 42.2%;
-  top: 87.5%;       // ajuste fino conforme a moldura inferior
+  top: 87.5%;    // ajuste fino conforme a moldura inferior
   display: flex;
   justify-content: center;
   align-items: center;
@@ -237,7 +229,6 @@
   }
 }
 
-
 .menu-categorias {
   position: absolute;
   left: 4%;
@@ -251,7 +242,7 @@
   align-items: stretch;
 
   //background-color: #39f3c7ac;
-  gap: 8px;
+  gap: 2.5%;
   box-sizing: border-box;
 }
 
@@ -501,9 +492,6 @@
 
 
 
-
-
-
 /* Ajustes para telas menores */
 @media (max-width: 700px) {
   .inventario-screen {
@@ -518,13 +506,6 @@
     top: 5%;
     width: 55%;
     height: 9%;
-  }
-
-  .menu-categorias {
-    left: 3%;
-    top: 18%;
-    width: 18%;
-    height: 58%;
   }
 
   .categoria {

@@ -44,16 +44,16 @@ export class GuiaAventureiro {
       id: 'dicas',
       nome: 'Dicas',
       imagem: 'assets/guia/dicas/menu-dicas.webp'
-    }/*,
+    },
     {
       id: 'inventario',
       nome: 'Inventário',
-      imagem: 'assets/guia/menu/inventario.png'
-    },
+      imagem: 'assets/guia/inventario/menu-inventario.webp'
+    }/*,
     {
       id: 'controles',
       nome: 'Controles',
-      imagem: 'assets/guia/menu/controles.png'
+      imagem: 'assets/guia/controles/menu-controles.webp'
     }*/
   ];
 
