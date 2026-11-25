@@ -74,8 +74,8 @@ export class ChallengesWorld1 implements OnInit {
 
   mundoId!: number;
   imagensDesafioMundos: Record<number, string> = {
-    1: 'assets/mundos_background/tela_desafio/mundo1_tela_desafio.png',
-    2: 'assets/world_new.png',
+    1: 'assets/mundos_background/tela_desafio/mundo1_tela_desafio.webp',
+    2: 'assets/mundos_background/tela_desafio/mundo2_tela_desafio.webp',
     3: 'assets/mundos_background/tela_desafio/mundo3_tela_desafio.webp',
     4: 'assets/mundos_background/tela_desafio/mundo4_tela_desafio2.webp',
     5: 'assets/mundos_background/tela_desafio/mundo5_tela_desafio.webp',
